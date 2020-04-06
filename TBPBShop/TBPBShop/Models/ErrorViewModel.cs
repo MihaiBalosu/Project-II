@@ -1,6 +1,6 @@
 using System;
 
-namespace OnlineShop.Models
+namespace TBPBShop.Models
 {
     public class ErrorViewModel
     {

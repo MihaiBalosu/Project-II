@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace OnlineShop.Data.Migrations
+namespace TBPBShop.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {
