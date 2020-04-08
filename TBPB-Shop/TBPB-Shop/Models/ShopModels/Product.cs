@@ -9,7 +9,7 @@ namespace TBPB_Shop.Models.ShopModels
 {
     public class Product
     {
-        [ScaffoldColumn(false)]
+        [ScaffoldColumn(false)] //de evitat
         public string ID { get; set; }
 
         [Required(ErrorMessage = "Name is required!")]
