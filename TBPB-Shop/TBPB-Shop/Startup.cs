@@ -12,6 +12,11 @@ using TBPB_Shop.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TBPB_Shop.EFDataAccess;
+using TBPB_Shop.EFDataAccess.Repositories;
+using TBPB_Shop.ApplicationLogic.Abstractions;
+using TBPB_Shop.ApplicationLogic;
+using TBPB_Shop.ApplicationLogic.Services;
 
 namespace TBPB_Shop
 {
@@ -30,10 +35,18 @@ namespace TBPB_Shop
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDbContext<ShopDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                    Configuration.GetConnectionString("DefaultConnection1")));
+
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICustomerRepository, EFCustomerRepository>();
+
+            services.AddScoped<CustomerService>();
+            services.AddScoped<ProductService>();
+
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
