@@ -42,7 +42,9 @@ namespace TBPB_Shop
 
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICustomerRepository, EFCustomerRepository>();
+            services.AddScoped<ICategoryRepository, EFCategoryRepository>();
 
+            services.AddScoped<CategoryService>();
             services.AddScoped<CustomerService>();
             services.AddScoped<ProductService>();
 

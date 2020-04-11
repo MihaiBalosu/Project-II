@@ -5,7 +5,7 @@ using TBPB_Shop.ApplicationLogic.Models;
 
 namespace TBPB_Shop.ApplicationLogic.Abstractions
 {
-    public interface IProductRepository : IRepository<Product>
+    public interface ICategoryRepository : IRepository<Category>
     {
         IEnumerable<Product> getProductsForCategory(string name);
     }

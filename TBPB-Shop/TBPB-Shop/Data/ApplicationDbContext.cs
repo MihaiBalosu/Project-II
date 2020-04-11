@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using TBPB_Shop.ApplicationLogic.Models;
 
 namespace TBPB_Shop.Data
 {
@@ -12,5 +13,7 @@ namespace TBPB_Shop.Data
             : base(options)
         {
         }
+        public DbSet<TBPB_Shop.ApplicationLogic.Models.Category> Category { get; set; }
+        public DbSet<TBPB_Shop.ApplicationLogic.Models.Producer> Producer { get; set; }
     }
 }
