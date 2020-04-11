@@ -24,6 +24,7 @@ namespace TBPB_Shop.ApplicationLogic.Models{
                 QuantityOnStoc = quantityOnStoc
             };
 
+
             return product;
         }
     }
