@@ -1,0 +1,25 @@
+﻿@model TBPB_Shop.ViewModel.CartViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2> 
+    <strong>My Cart: </strong>
+</h2>
+
+<p>Products: @Model.NoOfProducts</p>
+<p>Total price: @Model.TotalPrice</p>
+
+@if (!Model.Products.Any())
+{
+
+}
+else
+{
+<ul>
+    @foreach (var item in Model.Products)
+    {
+    <li>@item.Product.Name</li>
+    }
+</ul>
+}
