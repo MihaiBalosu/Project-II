@@ -17,7 +17,7 @@ namespace TBPB_Shop.EFDataAccess
         public DbSet<Category> Categories{ get; private set; }
         public DbSet<Producer> Producers { get; private set; }
         public DbSet<Product> Products{ get; private set; }
-        public DbSet<ProductsCart> ProductsCart { get; private set; }
+        public DbSet<ProductCart> ProductCart { get; private set; }
 
     }
 }

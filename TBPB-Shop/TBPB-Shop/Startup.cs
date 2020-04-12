@@ -42,9 +42,12 @@ namespace TBPB_Shop
 
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICustomerRepository, EFCustomerRepository>();
+            services.AddScoped<ICartRepository, EFCartRepository>();
+            services.AddScoped<IProductCartRepository, EFProductCartRepository>();
 
             services.AddScoped<CustomerService>();
             services.AddScoped<ProductService>();
+            services.AddScoped<CartService>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();

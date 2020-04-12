@@ -5,10 +5,34 @@ using System.Threading.Tasks;
 
 namespace TBPB_Shop.ApplicationLogic.Models
 {
-    public class Cart
+    public class Cart: DataEntity
     {
-        public Guid ID { get; private set; }
         public int NoOfItems { get; private set; }
         public decimal TotalPrice { get; private set; }
+
+        private Cart()
+        { }
+
+        public Cart Create()
+        {
+            return new Cart
+            {
+                Id = Guid.NewGuid(),
+                NoOfItems = 0,
+                TotalPrice = 0
+            };
+        }
+
+        public int UpdateNoOfItems()
+        {
+            this.NoOfItems++;
+            return this.NoOfItems;
+        }
+
+        public decimal UpdateTotalPrice(decimal productPrice, int productQuantity)
+        {
+            this.TotalPrice += (productPrice * productQuantity);
+            return this.TotalPrice;
+        }
     }
 }

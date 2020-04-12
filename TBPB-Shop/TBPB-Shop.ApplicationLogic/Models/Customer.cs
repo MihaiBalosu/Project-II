@@ -11,5 +11,6 @@ namespace TBPB_Shop.ApplicationLogic.Models
         public string FirstName { get; private set; }
         public string SecondName { get; private set; }
         public Cart Cart { get; set; }
+        public Guid CartId { get; set; }
     }
 }
