@@ -13,7 +13,7 @@ namespace TBPB_Shop.EFDataAccess.Repositories
         { }
         public Customer GetCustomerByUserId(Guid userId)
         {
-            var customer = dbContext.Customers.Where(c => c.Id == userId).SingleOrDefault();
+            var customer = dbContext.Customers.Where(c => c.UserId == userId).SingleOrDefault();
             return customer;
         }
     }
