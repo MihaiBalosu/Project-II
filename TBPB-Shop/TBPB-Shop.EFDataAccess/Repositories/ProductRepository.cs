@@ -21,5 +21,11 @@ namespace TBPB_Shop.EFDataAccess.Repositories
             return dbContext.Set<Product>()
                 .Where(entity => entity.Name.Equals(name));
         }
+
+        public Product Create(string name, decimal price, int quantityOnStoc)
+        {
+            Product prod = Product.Create(name, price, quantityOnStoc);
+            return Add(prod);
+        }
     }
 }

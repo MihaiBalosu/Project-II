@@ -40,13 +40,17 @@ namespace TBPB_Shop
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection1")));
 
+            services.AddScoped<IProducerRepository, ProducerRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICustomerRepository, EFCustomerRepository>();
             services.AddScoped<ICategoryRepository, EFCategoryRepository>();
 
+            services.AddScoped<ProducerService>();
             services.AddScoped<CategoryService>();
             services.AddScoped<CustomerService>();
             services.AddScoped<ProductService>();
+
+            
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();

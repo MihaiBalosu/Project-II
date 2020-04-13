@@ -13,37 +13,73 @@ namespace TBPB_Shop.Controllers
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly ProductService productService;
+        private readonly ProducerService producerService;
 
-        public ProductsController(UserManager<IdentityUser> userManager, ProductService productService)
+        public ProductsController(UserManager<IdentityUser> userManager, ProductService productService, ProducerService producerService)
         {
             this.userManager = userManager;
             this.productService = productService;
+            this.producerService = producerService;
+            
         }
 
         public IActionResult Index()
         {
-            var viewModel = new ProductsViewModel();
-            try
+            var productList = productService.GetAll();
+            var viewModel = new ProductsViewModel()
             {
-                viewModel.Products = productService.GetAll();
-            }
-            catch(Exception e)
-            {
-                return BadRequest(e);   
-            }
-
+                Products = productList
+            };
             return View(viewModel);
         }
 
-        public IActionResult Create()
+        public IActionResult New()
         {
-            return View();
+            var viewModel = new ProductsCreateUpdateViewModel()
+            {
+                Producers = producerService.GetAll(),
+            };
+            return View(viewModel);
         }
 
-        public IActionResult Save(string name, decimal price, int quantityOnStoc, string categoryId, string producerId)
+        public IActionResult Create(ProductsCreateUpdateViewModel pcuVM)
         {
-            productService.Add(name, price, quantityOnStoc, categoryId, producerId);
+            try
+            {
+                productService.Add(pcuVM.Name, pcuVM.Price, pcuVM.QuantityOnStoc);
+                return RedirectToAction("Index");
+            }
+            catch(Exception e)
+            {
+                return BadRequest("sda");
+            }
+        }
+
+        public IActionResult UpdateClicked(string Id)
+        {
+            var productItem = productService.GetById(Id);
+            var viewModel = new ProductsCreateUpdateViewModel()
+            {
+                Name = productItem.Name,
+                Price = productItem.Price,
+                QuantityOnStoc = productItem.QuantityOnStoc
+            };
+            return View(viewModel);
+        }
+
+        public IActionResult Update(Guid Id, ProductsCreateUpdateViewModel pcuVM)
+        {
+            productService.Update(Id, pcuVM.Name, pcuVM.Price, pcuVM.QuantityOnStoc);
             return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(string Id)
+        {
+            if (productService.Remove(Id) == true)
+            {
+                return RedirectToAction("Index");
+            }
+            return BadRequest("The deletion coult not be performed!");
         }
     }
 }
