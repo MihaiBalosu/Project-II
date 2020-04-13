@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace TBPB_Shop.ApplicationLogic.Models
 {
-    public class Category
+    public class Category : DataEntity
     {
-        public Guid ID { get; private set; }
         public string Name { get; private set; }
         public string Description { get; private set; }
         public List<Product> Products { get; private set; }

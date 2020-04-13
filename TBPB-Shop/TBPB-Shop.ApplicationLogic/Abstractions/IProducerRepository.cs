@@ -5,8 +5,9 @@ using TBPB_Shop.ApplicationLogic.Models;
 
 namespace TBPB_Shop.ApplicationLogic.Abstractions
 {
-    public interface IProductRepository : IRepository<Product>
+    public interface IProducerRepository : IRepository<Producer>
     {
-        Product Create(string name, decimal price, int quantityOnStoc);
+        Producer Create(string name);
+        void AddProductToProducer(Guid Id, Guid producerId);
     }
 }
