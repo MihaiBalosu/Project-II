@@ -58,13 +58,8 @@ namespace TBPB_Shop.Controllers
         public IActionResult UpdateClicked(string Id)
         {
             var productItem = productService.GetById(Id);
-            var viewModel = new ProductsCreateUpdateViewModel()
-            {
-                Name = productItem.Name,
-                Price = productItem.Price,
-                QuantityOnStoc = productItem.QuantityOnStoc
-            };
-            return View(viewModel);
+            
+            return View(productItem);
         }
 
         public IActionResult Update(Guid Id, ProductsCreateUpdateViewModel pcuVM)

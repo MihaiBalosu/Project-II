@@ -42,6 +42,7 @@ namespace TBPB_Shop.EFDataAccess.Repositories
             if (entityToRemove != null)
             {
                 dbContext.Remove<T>(entityToRemove);
+                dbContext.SaveChanges();
                 return true;
             }
             return false;
