@@ -20,7 +20,6 @@ namespace TBPB_Shop.Controllers
             this.userManager = userManager;
             this.productService = productService;
             this.producerService = producerService;
-            
         }
 
         public IActionResult Index()
