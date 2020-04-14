@@ -33,5 +33,11 @@ namespace TBPB_Shop.ApplicationLogic.Models
             this.Quantity = quantity;
             return this.Quantity;
         }
+
+        public ProductCart Update(Product product)
+        {
+            this.Product = product;
+            return this;
+        }
     }
 }

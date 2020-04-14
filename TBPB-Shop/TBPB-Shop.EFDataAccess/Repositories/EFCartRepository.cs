@@ -25,6 +25,13 @@ namespace TBPB_Shop.EFDataAccess.Repositories
         public IEnumerable<ProductCart> GetAllProducts(Guid cartId)
         {
             var productsCartList = dbContext.ProductCart.Where(productCart => productCart.CartId == cartId);
+
+            foreach (var productCart in productsCartList)
+            {
+                var product = dbContext.Products.Where(p => p.Id == productCart.ProductId).SingleOrDefault();
+                productCart.Update(product);
+            }
+
             return productsCartList;
         }
 
