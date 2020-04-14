@@ -61,6 +61,7 @@ namespace TBPB_Shop.ApplicationLogic.Services
             return producerRepository.GetById(producerId);
         }
 
+        //Not yet
         public IEnumerable<Product> GetAllProductsFromProducer(string Id)
         {
             var producer = GetById(Id);

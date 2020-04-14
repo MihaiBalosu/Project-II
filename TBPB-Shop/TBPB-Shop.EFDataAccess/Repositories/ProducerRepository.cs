@@ -20,6 +20,7 @@ namespace TBPB_Shop.EFDataAccess.Repositories
             return Add(prod);
         }
 
+        //Not yet
         public void AddProductToProducer(Guid Id, Guid ProducerId)
         {
             Product prodObj = prodRepository.GetById(Id);

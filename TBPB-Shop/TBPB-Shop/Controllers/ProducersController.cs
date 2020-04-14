@@ -27,7 +27,6 @@ namespace TBPB_Shop.Controllers
 
         public IActionResult New()
         {
-            
             return View();
         }
 
@@ -58,6 +57,7 @@ namespace TBPB_Shop.Controllers
             return BadRequest("The deletion could not be performed!");
         }
 
+        //Not yet
         public IActionResult GoToItems(string Id)
         {
             var list = producerService.GetAllProductsFromProducer(Id);
