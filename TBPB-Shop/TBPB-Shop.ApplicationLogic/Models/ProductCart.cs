@@ -16,14 +16,15 @@ namespace TBPB_Shop.ApplicationLogic.Models
         private ProductCart()
         { }
 
-        public static ProductCart Create(Guid cartId, Product product, int quantity)
+        public static ProductCart Create(Cart cart, Product product, int quantity)
         {
             return new ProductCart
             {
                 Id = Guid.NewGuid(),
-                CartId = cartId,
+                CartId = cart.Id,
                 ProductId = product.Id,
                 Product = product,
+                Cart = cart,
                 Quantity = quantity,
             };
         }

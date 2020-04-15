@@ -21,15 +21,18 @@ namespace TBPB_Shop.Controllers
         }
         public IActionResult Index()
         {
-             string userId = userManager.GetUserId(User);
+            string userId = userManager.GetUserId(User);
             try
             {
                 var cartId = cartService.GetCartIdByUserId(userId);
+                var myCart = cartService.GetById(cartId.ToString());
+
                 var viewModel = new CartViewModel
                 {
-                    Products = cartService.GetAllProducts(cartId),
-                    NoOfProducts = 0,
-                    TotalPrice = 0
+                    CartId = cartId,
+                    Products = cartService.GetAllProducts(cartId.ToString()),
+                    NoOfProducts = myCart.NoOfItems,
+                    TotalPrice = myCart.TotalPrice
                 };
 
                 return View(viewModel);
@@ -47,10 +50,23 @@ namespace TBPB_Shop.Controllers
             try
             {
                 var cartId = cartService.GetCartIdByUserId(userId);
-                cartService.AddProduct(cartId, id, 1);
-                return RedirectToAction("Index");
+                cartService.AddProduct(cartId.ToString(), id, 1);
+                return RedirectToAction("Index", "Products");
             }
             catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        public IActionResult Clear(string id)
+        {
+            try
+            {
+                cartService.Clear(id);
+                return RedirectToAction("Index");
+            }
+            catch(Exception e)
             {
                 return BadRequest(e.Message);
             }

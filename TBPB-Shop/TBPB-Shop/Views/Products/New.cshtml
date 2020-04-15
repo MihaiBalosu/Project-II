@@ -28,11 +28,6 @@
                 <span asp-validation-for="QuantityOnStoc" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="QuantityOnStoc" class="control-label"></label>
-                <input asp-for="QuantityOnStoc" class="form-control" />
-                <span asp-validation-for="QuantityOnStoc" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Producers" class="control-label"></label>
                 @Html.DropDownListFor(producer => producer.ProducerId, new SelectList(Model.Producers, "Id", "Name"), "", new { @class = "form-control" })
             </div>

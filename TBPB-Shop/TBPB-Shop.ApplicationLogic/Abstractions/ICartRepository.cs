@@ -8,9 +8,6 @@ namespace TBPB_Shop.ApplicationLogic.Abstractions
     public interface ICartRepository : IRepository<Cart>
     {
         Cart GetCartFromUserId(Guid userId);
-        IEnumerable<ProductCart> GetAllProducts(Guid cartId);
-        ProductCart AddProduct(Guid cartId, Product product, int quantity);
-        ProductCart DeleteProduct(Guid cartId, Guid productId);
-        ProductCart UpdateProductQuantity(Guid cartId, Guid productId, int quantity);
+        void Clear(Guid cartId);
     }
 }
