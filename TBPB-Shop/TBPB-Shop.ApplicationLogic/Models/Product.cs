@@ -43,7 +43,7 @@ namespace TBPB_Shop.ApplicationLogic.Models{
             return product;
         }
 
-        public int UpdateQuantityAddedProduct()
+        public int UpdateQuantityOnStoc()
         {
             this.QuantityOnStoc--;
             return this.QuantityOnStoc;

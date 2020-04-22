@@ -31,7 +31,7 @@ namespace TBPB_Shop.ApplicationLogic.Models
 
         public int UpdateQuantity(int quantity)
         {
-            this.Quantity = quantity;
+            this.Quantity += quantity;
             return this.Quantity;
         }
 

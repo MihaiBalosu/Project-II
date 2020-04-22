@@ -17,14 +17,12 @@ namespace TBPB_Shop.EFDataAccess.Repositories
             if (IsProductAddedToCart(cart.Id, product.Id) == false)
             {
                 var productCart = ProductCart.Create(cart, product, quantity);
-                product.UpdateQuantityAddedProduct();
                 return Add(productCart);
             }
 
             var foundProductCart = GetByProductIdCartId(cart.Id, product.Id);
             foundProductCart.UpdateQuantity(1);
-            product.UpdateQuantityAddedProduct();
-
+            Update(foundProductCart);
             return foundProductCart;
         }
 
@@ -81,11 +79,5 @@ namespace TBPB_Shop.EFDataAccess.Repositories
             return false;
         }
 
-        /*public ProductCart UpdateProductQuantity(Guid productCartId, int quantity)
-        {
-            var foundProductCart = GetById(productCartId);
-            foundProductCart.UpdateQuantity(quantity);
-            return Update(foundProductCart);
-        }*/
     }
 }

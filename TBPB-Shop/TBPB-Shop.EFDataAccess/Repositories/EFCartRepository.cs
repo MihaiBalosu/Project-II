@@ -9,11 +9,9 @@ namespace TBPB_Shop.EFDataAccess.Repositories
 {
     public class EFCartRepository : BaseRepository<Cart>, ICartRepository
     {
-        private readonly IProductCartRepository productCartRepository;
 
-        public EFCartRepository(ShopDbContext dbContext, IProductCartRepository productCartRepository) : base(dbContext)
+        public EFCartRepository(ShopDbContext dbContext) : base(dbContext)
         {
-            this.productCartRepository = productCartRepository;
         }
 
         public void Clear(Guid cartId)

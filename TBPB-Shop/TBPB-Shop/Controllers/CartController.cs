@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TBPB_Shop.ApplicationLogic.Services;
@@ -32,7 +33,9 @@ namespace TBPB_Shop.Controllers
                     CartId = cartId,
                     Products = cartService.GetAllProducts(cartId.ToString()),
                     NoOfProducts = myCart.NoOfItems,
-                    TotalPrice = myCart.TotalPrice
+                    TotalPriceProducts = myCart.TotalPrice,
+                    PriceDelivery = 23,
+                    TotalPrice = myCart.TotalPrice + 23,
                 };
 
                 return View(viewModel);
@@ -66,9 +69,20 @@ namespace TBPB_Shop.Controllers
                 cartService.Clear(id);
                 return RedirectToAction("Index");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return BadRequest(e.Message);
+            }
+        }
+
+        public void Delete(string cartId, string productId)
+        {
+            try
+            {
+                cartService.DeleteProduct(cartId, productId);
+            }
+            catch(Exception e)
+            {
             }
         }
     }

@@ -78,6 +78,10 @@ namespace TBPB_Shop.ApplicationLogic.Services
 
             cart.UpdateTotalPrice(product.Price, quantity);
             cart.UpdateNoOfItems();
+            cartRepository.Update(cart);
+
+            product.UpdateQuantityOnStoc();
+            productRepository.Update(product);
 
             return productCartRepository?.AddProductToCart(cart, product, quantity);
         }
@@ -87,13 +91,27 @@ namespace TBPB_Shop.ApplicationLogic.Services
             Guid guidCartId = CheckId(cartId);
             Guid guidProductId = CheckId(productId);
 
+            var myCart = cartRepository?.GetById(guidCartId);
+            if (myCart == null)
+            {
+                throw new CartNotFoundException(cartId);
+            }
+
+            var productCart = productCartRepository?.GetByProductIdCartId(guidCartId, guidProductId);
+            if (productCart == null)
+            {
+                throw new Exception();
+            }
+
+            var product = productRepository?.GetById(guidProductId);
+            if (product == null)
+            {
+                throw new Exception();
+            }
+
+            myCart.UpdateTotalPrice(product.Price, -productCart.Quantity);
             productCartRepository?.DeleteProductFromCart(guidCartId, guidProductId);
         }
-
-        /*public ProductCart UpdateProductQuantity(string cartId, int quantity, Product product)
-        {
-            return productCartRepository?.UpdateProductQuantity(quantity);
-        }*/
 
         public void Clear(string cartId)
         {

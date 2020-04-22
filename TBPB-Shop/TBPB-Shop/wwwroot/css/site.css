@@ -69,3 +69,189 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.main-container {
+    padding: 10px 10px 10px 10px;
+    background-color: #e4f1f9;
+    width: 780px;
+    float: left;
+}
+
+.main-paragraph {
+    padding-left: 5px;
+    font-size: 20px;
+}
+
+.container-product {
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px #BBC6CC;
+    height: 100px;
+    margin: 10px 5px;
+    background-color: white;
+    min-height: 150px;
+}
+.cost-details-label {
+    text-align: right;
+}
+
+.cost-details-value {
+    width: 140px;
+    font-weight: normal;
+    text-align: right;
+    margin-right: 20px;
+}
+
+.total-cost-details-label{
+    float: right;
+    font-weight: bold;
+}
+
+.individual-product{
+    padding-left: 10px !important;
+    padding-bottom: 6px !important;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.cost-product-value {
+    width: 140px;
+    font-weight: bold;
+    text-align: right;
+    font-size: 20px;
+    padding-right: 10px !important;
+}
+
+.move-to-favorites{
+    font-size: 10px;
+    padding-left: 50px !important;
+}
+
+.delete-product-from-cart{
+    font-size: 10px;
+    padding-left: 50px !important;
+}
+
+.product-availability{
+    font-size: 12px;
+    padding-left: 10px !important;
+}
+
+.product-availability-value {
+    font-size: 12px;
+    padding-left: 10px !important;
+}
+
+.warranty-included{
+    font-size: 12px;
+    padding-left: 10px !important;
+}
+
+.warranty-included-value{
+    font-size: 12px;
+    padding-left: 10px !important;
+}
+
+.money-currency-warranty-1-year{
+    padding-right: 15px;
+}
+
+.guarantee-plus{
+    font-size: 16px;
+    padding-left: 10px;
+}
+
+.radio-warranties{
+    padding-left: 14px;
+}
+
+.warranty-1-year{
+    padding-left: 10px;
+}
+
+.warranty-2-years{
+    padding-left: 10px;
+}
+
+.money-decimal{
+    font-size: 0.6em;
+    padding-left: -1px;
+}
+
+.select-list-buc {
+    padding-top: 12px;
+    height: 44px;
+}
+
+.container-total {
+    margin-left: 20px;
+    width: 280px;
+    height: 330px;
+    border: 5px solid white;
+    border-radius: 8px;
+    box-shadow: 1px 1px 2px #e3e3e3;
+}
+
+.add-order{
+    margin: 0;
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px 10px 10px 20px;
+}
+
+.final-cost-label{
+    padding-left: 20px !important;
+    padding-bottom: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.final-cost-value {
+    padding-left: 20px !important;
+    padding-bottom: 0px !important;
+    text-align: right;
+}
+
+.delivery-process-label {
+    padding-left: 20px !important;
+    padding-top: 5px !important;
+    margin-top: 0px !important;
+}
+
+.delivery-process-value {
+    padding-left: 20px !important;
+    text-align: right;
+}
+
+.line-separator{
+    margin: 0 0 20px 0;
+    border-bottom: 1px solid #ccc;
+    height: 1px;
+}
+
+.total-price-label{
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    padding-left: 20px;
+}
+
+.total-price-value{
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    padding-left: 20px;
+}
+
+.continue-button{
+    width: 85%;
+    margin: 10px 20px;
+}
+
+.on-stoc-lower{
+    margin: 0 !important;
+    color: red;
+}
+
+.on-stoc-higher{
+    margin: 0 !important;
+}
