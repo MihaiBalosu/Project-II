@@ -10,12 +10,10 @@ namespace TBPB_Shop.ApplicationLogic.Services
     public class ProductService
     {
         private readonly IProductRepository productRepository;
-        private readonly IProducerRepository producerRepository;
 
-        public ProductService(IProductRepository productRepository, IProducerRepository producerRepository)
+        public ProductService(IProductRepository productRepository)
         {
             this.productRepository = productRepository;
-            this.producerRepository = producerRepository;
         }
 
         public IEnumerable<Product> GetAll()
@@ -25,8 +23,7 @@ namespace TBPB_Shop.ApplicationLogic.Services
 
         public Product Add(string name, decimal price, int quantityOnStoc, Guid producerId)
         {
-            var producer = producerRepository.GetById(producerId);
-            return productRepository.Create(name, price, quantityOnStoc, producer);
+            return productRepository.Create(name, price, quantityOnStoc, producerId);
         }
 
         public Product Update(Guid Id, string name, decimal price, int quantityOnStoc)

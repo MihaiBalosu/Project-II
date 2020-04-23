@@ -8,7 +8,7 @@ namespace TBPB_Shop.ApplicationLogic.Models
     public class Producer : DataEntity
     {
         public string Name { get; private set; }
-        public List<Product> Products { get; private set; }
+        public virtual ICollection<Product> Products { get; private set; }
 
         private Producer()
         { }

@@ -66,33 +66,38 @@
             </div>
 
             <p>Producers</p>
-            <div class="list-group">
-                <a href="#" class="list-group-item">Producer 1</a>
-                <a href="#" class="list-group-item">Producer 2</a>
-                <a href="#" class="list-group-item">Producer 3</a>
-            </div>
+            @foreach (var producer in Model.Producers)
+            {
+
+                <div class="list-group">
+                    @Html.DisplayFor(modelItem => producer.Name)
+                </div>
+            }
 
         </div>*@
+        <div>
+            <a asp-action="New">Create New</a>
+        </div>
 
         @foreach (var item in Model.Products)
         {
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    @Html.DisplayFor(modelItem => item.Name)
-                                </h4>
-                                <h5>@Html.DisplayFor(modelItem => item.Price)$</h5>
-                                <p class="card-text">@Html.DisplayFor(modelItem => item.QuantityOnStoc)</p>
-                            </div>
-                            <div class="card-footer">
-                                <a asp-action="UpdateClicked" asp-route-id="@item.Id">Edit</a>
-                                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                            </div>
-                        </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </h4>
+                        <h5>@Html.DisplayFor(modelItem => item.Price)Lei</h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.QuantityOnStoc)</p>
                     </div>
+                    <div class="card-footer">
+                        <a asp-action="UpdateClicked" asp-route-id="@item.Id">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </div>
+                </div>
+            </div>
         }
     </div>
 </div>
