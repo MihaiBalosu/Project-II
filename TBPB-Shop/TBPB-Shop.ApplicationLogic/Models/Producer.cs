@@ -21,7 +21,6 @@ namespace TBPB_Shop.ApplicationLogic.Models
                 Name = name,
                 Products = new List<Product>()
             };
-
             return producer;
         }
         public static Producer CreateUpdate(Guid id, string name)
@@ -30,15 +29,14 @@ namespace TBPB_Shop.ApplicationLogic.Models
             {
                 Id = id,
                 Name = name
-                
             };
-
             return producer;
         }
 
         public void AddProductToList(Product prodObj)
         {
-            Products.Add(prodObj);
+            Console.WriteLine(this);
+            this.Products.Add(prodObj);
         }
     }
 }

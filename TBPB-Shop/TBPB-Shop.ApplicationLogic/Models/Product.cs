@@ -10,8 +10,6 @@ namespace TBPB_Shop.ApplicationLogic.Models{
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int QuantityOnStoc { get; private set; }
-        
-
 
         private Product()
         { }
@@ -23,9 +21,8 @@ namespace TBPB_Shop.ApplicationLogic.Models{
                 Id = Guid.NewGuid(),
                 Name = name,
                 Price = price,
-                QuantityOnStoc = quantityOnStoc
+                QuantityOnStoc = quantityOnStoc,
             };
-
             return product;
         }
 
@@ -38,7 +35,6 @@ namespace TBPB_Shop.ApplicationLogic.Models{
                 Price = price,
                 QuantityOnStoc = quantityOnStoc
             };
-
             return product;
         }
     }

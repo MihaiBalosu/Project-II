@@ -45,7 +45,7 @@ namespace TBPB_Shop.Controllers
         {
             try
             {
-                productService.Add(pcuVM.Name, pcuVM.Price, pcuVM.QuantityOnStoc);
+                productService.Add(pcuVM.Name, pcuVM.Price, pcuVM.QuantityOnStoc, pcuVM.ProducerId);
                 return RedirectToAction("Index");
             }
             catch(Exception e)
@@ -58,6 +58,13 @@ namespace TBPB_Shop.Controllers
         {
             var productItem = productService.GetById(Id);
             
+            return View(productItem);
+        }
+
+        public IActionResult Details(string Id)
+        {
+            var productItem = productService.GetById(Id);
+
             return View(productItem);
         }
 

@@ -13,9 +13,10 @@ namespace TBPB_Shop.EFDataAccess.Repositories
         {
         }
 
-        public Product Create(string name, decimal price, int quantityOnStoc)
+        public Product Create(string name, decimal price, int quantityOnStoc, Producer producer)
         {
             Product prod = Product.Create(name, price, quantityOnStoc);
+            producer.AddProductToList(prod);
             return Add(prod);
         }
     }
