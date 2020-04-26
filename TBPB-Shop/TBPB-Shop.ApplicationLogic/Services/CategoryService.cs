@@ -30,9 +30,9 @@ namespace TBPB_Shop.ApplicationLogic.Services
             return categoryRepository.GetAll();
         }
 
-        public IEnumerable<Product> getProductsForCategory(string name)
+        public IEnumerable<Product> getProductsForCategory(Guid id)
         {
-            return categoryRepository.getProductsForCategory(name);
+            return categoryRepository.getProductsForCategory(id);
         }
 
         public void Remove(Guid id)

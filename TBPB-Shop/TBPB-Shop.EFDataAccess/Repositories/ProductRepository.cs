@@ -22,9 +22,9 @@ namespace TBPB_Shop.EFDataAccess.Repositories
                 .Where(entity => entity.Name.Equals(name));
         }
 
-        public Product Create(string name, decimal price, int quantityOnStoc)
+        public Product Create(string name, decimal price, int quantityOnStoc, Guid categoryId)
         {
-            Product prod = Product.Create(name, price, quantityOnStoc);
+            Product prod = Product.Create(name, price, quantityOnStoc, categoryId);
             return Add(prod);
         }
     }

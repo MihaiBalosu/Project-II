@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TBPB_Shop.ApplicationLogic.Abstractions;
 using TBPB_Shop.ApplicationLogic.Models;
@@ -14,10 +15,9 @@ namespace TBPB_Shop.EFDataAccess.Repositories
 
         }
 
-        public IEnumerable<Product> getProductsForCategory(string name)
+        public IEnumerable<Product> getProductsForCategory(Guid id)
         {
-            IProductRepository productRepository = new ProductRepository(dbContext);
-            return productRepository.getProductsForCategory(name);
+            return dbContext.Products.Where(entity => entity.CategoryId.Equals(id));
 
         }
     }
