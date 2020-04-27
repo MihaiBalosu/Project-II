@@ -39,5 +39,11 @@ namespace TBPB_Shop.ApplicationLogic.Models{
             };
             return product;
         }
+
+        public int UpdateQuantityOnStoc()
+        {
+            this.QuantityOnStoc--;
+            return this.QuantityOnStoc;
+        }
     }
 }

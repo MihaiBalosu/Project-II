@@ -52,7 +52,6 @@ namespace TBPB_Shop
             services.AddScoped<CustomerService>();
             services.AddScoped<ProductService>();
             services.AddScoped<CartService>();
-
             
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)

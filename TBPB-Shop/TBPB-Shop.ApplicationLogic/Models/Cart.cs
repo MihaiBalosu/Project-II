@@ -34,5 +34,11 @@ namespace TBPB_Shop.ApplicationLogic.Models
             this.TotalPrice += (productPrice * productQuantity);
             return this.TotalPrice;
         }
+
+        public void Reset()
+        {
+            this.NoOfItems = 0;
+            this.TotalPrice = 0;
+        }
     }
 }

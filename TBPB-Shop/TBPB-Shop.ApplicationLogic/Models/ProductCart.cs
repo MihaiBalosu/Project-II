@@ -16,22 +16,35 @@ namespace TBPB_Shop.ApplicationLogic.Models
         private ProductCart()
         { }
 
-        public static ProductCart Create(Guid cartId, Product product, int quantity)
+        public static ProductCart Create(Cart cart, Product product, int quantity)
         {
             return new ProductCart
             {
                 Id = Guid.NewGuid(),
-                CartId = cartId,
+                CartId = cart.Id,
                 ProductId = product.Id,
                 Product = product,
+                Cart = cart,
                 Quantity = quantity,
             };
+        }
+
+        public int IncrementQuantity()
+        {
+            this.Quantity++;
+            return this.Quantity;
         }
 
         public int UpdateQuantity(int quantity)
         {
             this.Quantity = quantity;
             return this.Quantity;
+        }
+
+        public ProductCart Update(Product product)
+        {
+            this.Product = product;
+            return this;
         }
     }
 }
