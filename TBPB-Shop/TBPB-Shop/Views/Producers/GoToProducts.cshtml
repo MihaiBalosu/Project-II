@@ -1,41 +1,4 @@
-﻿@model TBPB_Shop.ViewModel.ProductsViewModel
-
-@*@{
-        ViewData["Title"] = "Index"
-}*@
-
-    @*<h1>Index</h1>
-
-    <p>
-        <a asp-action="New">Create New</a>
-    </p>
-    <table class="table">
-        <thead>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Products)
-            {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.QuantityOnStoc)
-                </td>
-
-
-                <td>
-                    <a asp-action="UpdateClicked" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>*@
+﻿@model IEnumerable<TBPB_Shop.ApplicationLogic.Models.Product>
 
 <head>
 
@@ -79,7 +42,7 @@
             </div>
 
 
-            @foreach (var item in Model.Products)
+            @foreach (var item in Model)
             {
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
@@ -106,4 +69,3 @@
     <script src="~/ShopPage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
-

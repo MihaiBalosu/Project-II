@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TBPB_Shop.EFDataAccess;
 
 namespace TBPB_Shop.EFDataAccess.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    partial class ShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200426104334_addIdsProduc")]
+    partial class addIdsProduc
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,9 +100,6 @@ namespace TBPB_Shop.EFDataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CategoryId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -110,12 +109,15 @@ namespace TBPB_Shop.EFDataAccess.Migrations
                     b.Property<int>("QuantityOnStoc")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("categoryId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("producerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("categoryId");
 
                     b.ToTable("Products");
                 });
@@ -155,7 +157,9 @@ namespace TBPB_Shop.EFDataAccess.Migrations
                 {
                     b.HasOne("TBPB_Shop.ApplicationLogic.Models.Category", null)
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("categoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TBPB_Shop.ApplicationLogic.Models.ProductsCart", b =>

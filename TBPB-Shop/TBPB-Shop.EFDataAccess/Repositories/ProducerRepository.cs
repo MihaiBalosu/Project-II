@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TBPB_Shop.ApplicationLogic.Abstractions;
 using TBPB_Shop.ApplicationLogic.Models;
@@ -20,13 +21,9 @@ namespace TBPB_Shop.EFDataAccess.Repositories
             return Add(prod);
         }
 
-        //Not yet
-        public void AddProductToProducer(Guid Id, Guid ProducerId)
+        public IEnumerable<Product> getAllProductsFromProducer(Guid id)
         {
-            Product prodObj = prodRepository.GetById(Id);
-            Producer producerObj = GetById(ProducerId);
-            producerObj.AddProductToList(prodObj);
+            return dbContext.Products.Where(product => product.producerId == id).AsEnumerable();
         }
-
     }
 }

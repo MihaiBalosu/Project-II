@@ -10,11 +10,12 @@ namespace TBPB_Shop.ApplicationLogic.Models{
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int QuantityOnStoc { get; private set; }
+        public Guid producerId { get; set; }
 
         private Product()
         { }
 
-        public static Product Create(string name, decimal price, int quantityOnStoc)
+        public static Product Create(string name, decimal price, int quantityOnStoc, Guid producerID)
         {
             Product product = new Product
             {
@@ -22,6 +23,7 @@ namespace TBPB_Shop.ApplicationLogic.Models{
                 Name = name,
                 Price = price,
                 QuantityOnStoc = quantityOnStoc,
+                producerId = producerID
             };
             return product;
         }
