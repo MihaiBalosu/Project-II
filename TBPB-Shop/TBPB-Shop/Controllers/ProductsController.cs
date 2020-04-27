@@ -24,10 +24,12 @@ namespace TBPB_Shop.Controllers
 
         public IActionResult Index()
         {
+            var producerList = producerService.GetAll();
             var productList = productService.GetAll();
             var viewModel = new ProductsViewModel()
             {
-                Products = productList
+                Products = productList,
+                Producers = producerList
             };
             return View(viewModel);
         }

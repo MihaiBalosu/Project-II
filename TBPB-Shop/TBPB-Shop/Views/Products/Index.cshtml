@@ -67,15 +67,13 @@
                     <a href="#" class="list-group-item ">Category 3</a>
                 </div>
 
-                @*<p>Producers</p>
+               <p>Producers</p>
                     @foreach (var producer in Model.Producers)
                     {
-
-                        <div class="list-group">
-                            @Html.DisplayFor(modelItem => producer.Name)
+                        <div class="list-group-item">
+                            <a asp-controller="Producers" asp-action="GoToProducts" asp-route-id="@producer.Id">@Html.DisplayFor(modelItem => producer.Name)</a>
                         </div>
-                    }*@
-
+                    }
             </div>
 
 

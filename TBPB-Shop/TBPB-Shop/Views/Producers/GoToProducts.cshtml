@@ -23,21 +23,13 @@
 
                 <h1 class="my-4">TBPB Shop</h1>
 
-                <p>Categories</p>
-                <div class="list-group active">
-                    <a href="#" class="list-group-item ">Category 1</a>
-                    <a href="#" class="list-group-item ">Category 2</a>
-                    <a href="#" class="list-group-item ">Category 3</a>
-                </div>
-
-                @*<p>Producers</p>
-                    @foreach (var producer in Model.Producers)
-                    {
-
-                        <div class="list-group">
-                            @Html.DisplayFor(modelItem => producer.Name)
-                        </div>
-                    }*@
+                <p>Products</p>
+                @foreach (var producer in Model)
+                {
+                    <div class="list-group-item">
+                        <a asp-controller="Products" asp-action="Details" asp-route-id="@producer.Id">@Html.DisplayFor(modelItem => producer.Name)</a>
+                    </div>
+                }
 
             </div>
 
