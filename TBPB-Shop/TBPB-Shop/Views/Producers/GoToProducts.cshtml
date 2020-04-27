@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TBPB_Shop.ApplicationLogic.Models.Product>
+﻿@model TBPB_Shop.ViewModel.ProductsViewModel
 
 <head>
 
@@ -14,7 +14,7 @@
 
 <body>
     <div>
-        <a asp-action="New">Create New</a>
+        <a asp-controller="Products" asp-action="New">Create New</a>
     </div>
     <div class="container">
         <div class="row">
@@ -23,18 +23,18 @@
 
                 <h1 class="my-4">TBPB Shop</h1>
 
-                <p>Products</p>
-                @foreach (var producer in Model)
+                <p>Producers</p>
+                @foreach (var producer in Model.Producers)
                 {
-                    <div class="list-group-item">
-                        <a asp-controller="Products" asp-action="Details" asp-route-id="@producer.Id">@Html.DisplayFor(modelItem => producer.Name)</a>
+                    <div id="producer-@producer.Id" class="list-group-item">
+                        <a asp-controller="Producers" asp-action="GoToProducts" asp-route-id="@producer.Id">@Html.DisplayFor(modelItem => producer.Name)</a>
                     </div>
                 }
 
             </div>
 
 
-            @foreach (var item in Model)
+            @foreach (var item in Model.Products)
             {
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
@@ -47,9 +47,9 @@
                             <p class="card-text">@Html.DisplayFor(modelItem => item.QuantityOnStoc)</p>
                         </div>
                         <div class="card-footer">
-                            <a asp-action="UpdateClicked" asp-route-id="@item.Id">Edit</a>
-                            <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            <a asp-controller="Products" asp-action="UpdateClicked" asp-route-id="@item.Id">Edit</a>
+                            <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                            <a asp-controller="Products" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                         </div>
                     </div>
                 </div>
@@ -59,5 +59,14 @@
 
     <script src="~/ShopPage/vendor/jquery/jquery.min.js"></script>
     <script src="~/ShopPage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    @section scripts{ 
+    <script>
+        $(document).ready(function () {
+            document.getElementById("producer-" + "@Model.ProducerId").style.backgroundColor = "yellow";
+            console.log("@Model.ProducerId");
+        });
+    </script>
+    }
 
 </body>
