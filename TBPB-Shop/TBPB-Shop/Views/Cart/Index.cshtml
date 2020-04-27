@@ -11,7 +11,7 @@
 {
     <h3>
         No items added to cart.
-        <a href=""> Go to products </a>
+        <a asp-controller="Products" asp-action="Index"> Go to products </a>
     </h3>
 }
 else
@@ -21,8 +21,6 @@ else
     </p>
 
     <div class="d-flex">
-
-
         <div class="main-container" id="products">
 
             <p class="main-paragraph">
@@ -31,7 +29,7 @@ else
 
             @foreach (var item in Model.Products)
             {
-                <div class="container-product element-to-remove">
+                <div class="container-product" id="element-to-remove">
                     <div class="d-flex bd-highlight mb-3">
                         <div class="mr-auto p-2 bd-highlight">
                             <div class="individual-product">
@@ -73,7 +71,7 @@ else
                                 </div>
 
                                 <div class="d-flex radio-warranties">
-                                    <input type="radio" />
+                                    <input type="radio" name="warranty-@item.Id" />
 
                                     <label class="warranty-1-year">
                                         Warranty Plus 1 YEAR:
@@ -87,7 +85,7 @@ else
                                         <span class="money-currency-warranty-1-year"> Lei </span>
                                     </a>
 
-                                    <input type="radio" />
+                                    <input type="radio" name="warranty-@item.Id"/>
 
                                     <label class="warranty-2-years">
                                         Warranty Plus 2 YEARS:
@@ -105,24 +103,19 @@ else
                         </div>
 
                         <span class="d-flex justify-content-center select-list-buc">
-                            <select id="drop-down-list" class="custom-select" onchange="getSelectedValue()">
-                                <option value="1" selected="selected"> 1 </option>
-                                <option value="2"> 2 </option>
-                                <option value="3"> 3 </option>
-                                <option value="4"> 4 </option>
-                                <option value="5"> 5 </option>
-                                <option value="6"> 6 </option>
-                                <option value="7"> 7 </option>
-                                <option value="8"> 8 </option>
-                                <option value="9"> 9 </option>
+                            <select class="custom-select" id="drop-down-list-@item.Id" data-product-id="@item.Product.Id">
+                                @for (int i = 1; i <= item.Product.QuantityOnStoc & i <= 50; i++)
+                                {
+                                    <option value="@i"> @i </option>
+
+                                }
                             </select>
-                            @*@Html.DropDownListFor(payment => payment.BankAccountId, new SelectList(Model.BanksAccount, "Id", "IBAN"), "", new { @class = "form-control" })*@
                         </span>
-                           
+
                         <div class="p-2 bd-highlight">
-                            <div class="cost-product-value">
-                                <span class="money-int"> @Model.GetNaturalPart(@item.Product.Price * @item.Quantity) </span>
-                                <sup class="money-decimal"> @Model.GetCommaPart(@item.Product.Price * @item.Quantity) </sup>
+                            <div id="priceContainer" class="cost-product-value">
+                                <span id="int-price-product-@item.Id" class="money-int"></span>
+                                <sup id="decimal-price-product-@item.Id" class="money-decimal"></sup>
                                 <span class="money-currency"> Lei </span>
                             </div>
 
@@ -131,47 +124,14 @@ else
                             </div>
 
                             <div class="delete-product-from-cart">
-                                <a href="" data-product-id="@item.Product.Id" data-cart-id="@Model.CartId" class="js-delete"> Delete </a>
+                                <a asp-action="Delete" asp-route-productId ="@item.Product.Id"> Delete </a>
                             </div>
                         </div>
                     </div>
                 </div>
             }
-
-            <div class="d-flex justify-content-end">
-                <div class="cost-details-label">
-                    Products cost:
-                </div>
-
-                <div class="cost-details-value">
-                    <span class="money-int"> @Model.GetNaturalPart(@Model.TotalPriceProducts) </span>
-                    <sup class="money-decimal"> @Model.GetCommaPart(@Model.TotalPriceProducts) </sup>
-                    <span class="money-currency"> Lei </span>
-                </div>
-            </div>
-
-            <div class="d-flex justify-content-end">
-                <div class="cost-details-label">
-                    Delivery and processing cost:
-                </div>
-
-                <div class="cost-details-value">
-                    <span class="money-int"> @Model.GetNaturalPart(@Model.PriceDelivery) </span>
-                    <sup class="money-decimal"> @Model.GetCommaPart(@Model.PriceDelivery) </sup>
-                    <span class="money-currency"> Lei </span>
-                </div>
-            </div>
-
-            <div class="d-flex justify-content-end">
-                <div class="total-cost-details-label">
-                    Total cost:
-                </div>
-
-                <div class="cost-details-value">
-                    <span class="money-int"> @Model.GetNaturalPart(@Model.TotalPrice) </span>
-                    <sup class="money-decimal"> @Model.GetCommaPart(@Model.TotalPrice) </sup>
-                    <span class="money-currency"> Lei </span>
-                </div>
+            <div id="subTotalPriceContainer">
+                <partial name="_SubGetTotalPrice" />
             </div>
         </div>
 
@@ -180,71 +140,74 @@ else
                 Add Order
             </p>
 
-            <div class="d-flex">
-                <div class="p-2 final-cost-label">
-                    Products cost:
-                </div>
-
-                <div class="p-2 ml-auto final-cost-value">
-                    <span class="money-int"> @Model.GetNaturalPart(@Model.TotalPriceProducts)</span>
-                    <sup class="money-decimal"> @Model.GetCommaPart(@Model.TotalPriceProducts) </sup>
-                    <span class="money-currency"> Lei </span>
-                </div>
+            <div id="totalPriceContainer">
+                <partial name="_GetTotalPrice" />
             </div>
 
-            <div class="d-flex">
-                <div class="mr-auto p-2 delivery-process-label">
-                    Delivery and
-                    <p>
-                        processing cost:
-                    </p>
-                </div>
-
-                <div class="p-2 delivery-process-value">
-                    <span class="money-int"> @Model.GetNaturalPart(@Model.PriceDelivery) </span>
-                    <sup class="money-decimal"> @Model.GetCommaPart(@Model.PriceDelivery) </sup>
-                    <span class="money-currency"> Lei </span>
-                </div>
-            </div>
-
-            <div class="line-separator"></div>
-
-            <div class="total-price-label">
-                Total:
-            </div>
-
-            <div class="total-price-value">
-                <span class="money-int"> @Model.GetNaturalPart(@Model.TotalPrice) </span>
-                <sup class="money-decimal"> @Model.GetCommaPart(@Model.TotalPrice) </sup>
-                <span class="money-currency"> Lei </span>
-            </div>
-
-            <a class="btn btn-primary continue-button" href=""> Continue </a>
+            <a class="btn btn-primary continue-button" asp-controller="Order" asp-action="Create"> Continue </a>
         </div>
-
     </div>
 }
 
 
-@section scripts{
+@section scripts
+{
     <script>
         $(document).ready(function () {
-            $("#products .js-delete").on("click", function () {
-                var button = $(this);
-                $.ajax({
-                    url: "/Cart/Delete?cartId=" + button.attr("data-cart-id") + "&productId=" + button.attr("data-product-id"),
-                    success: function () {
-                        $("element-to-remove").remove();
-                    }
-                })
-            });
+            loadServerPartialView("#totalPriceContainer", "/Cart/GetTotalPrice");
+            loadServerPartialView("#subTotalPriceContainer", "/Cart/SubGetTotalPrice");
+            @foreach (var product in Model.Products)        
+            {
+                @: setQuantity("@product.Id", @product.Quantity);
+                @: setPriceProduct("@product.Id", @Math.Truncate(product.Product.Price), @product.Quantity);
+                @: changeQuantityPrice("@product.Id", @product.Product.Price);
+            }
         });
-    </script>
 
-    <script>
-        function getSelectedValue() {
-            var selectedValue = document.getElementById("drop-down-list").value;
-            console.log(selectedValue);
+
+        function setQuantity(productId, quantity) {
+            var dropDownListId = "drop-down-list-" + productId;
+            var dropDownList = document.getElementById(dropDownListId);
+            dropDownList.value = quantity;
+        }
+
+
+        function setPriceProduct(productId, priceValue, quantity) {
+            var intPriceProductId = "int-price-product-" + productId;
+            var intPriceProduct = document.getElementById(intPriceProductId);
+            intPriceProduct.innerHTML = getNaturalPart(quantity * priceValue);
+
+            var decimalPriceProductId = "decimal-price-product-" + productId;
+            var decimalPriceProduct = document.getElementById(decimalPriceProductId);
+            decimalPriceProduct.innerHTML = getCommaPart(priceValue * quantity);
+        }
+
+
+        function changeQuantityPrice(productId, priceValue) {
+            var dropDownListId = "drop-down-list-" + productId;
+            $("#" + dropDownListId).on("change", function () {
+                var dropDownList = document.getElementById(dropDownListId);
+                var quantity = dropDownList.value;
+                $.ajax({
+                    url: "/Cart/UpdateQuantity?productId=" + dropDownList.getAttribute("data-product-id") + "&quantity=" + quantity,
+                    success: function () {
+                        loadServerPartialView("#totalPriceContainer", "/Cart/GetTotalPrice");
+                        loadServerPartialView("#subTotalPriceContainer", "/Cart/SubGetTotalPrice");
+                        setPriceProduct(productId, priceValue, quantity);
+                    }
+                });
+
+            });
+        }
+
+
+        function getNaturalPart(price) {
+            return Math.trunc(price);
+        }
+
+
+        function getCommaPart(price) {
+            return (price - Math.trunc(price)) * 100;
         }
     </script>
 }       

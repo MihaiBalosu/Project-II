@@ -1,0 +1,52 @@
+﻿@model TBPB_Shop.ViewModel.CartViewModel
+
+<div class="d-flex">
+    <div class="p-2 final-cost-label">
+        Products cost:
+    </div>
+
+    <div class="p-2 ml-auto final-cost-value">
+        <span id="products-total-price-int" class="money-int">
+            @Model.GetNaturalPart(Model.TotalPriceProducts)
+        </span>
+        <sup id="products-total-price-decimal" class="money-decimal">
+            @Model.GetCommaPart(Model.TotalPriceProducts)
+        </sup>
+        <span class="money-currency"> Lei </span>
+    </div>
+</div>
+
+<div class="d-flex">
+    <div class="mr-auto p-2 delivery-process-label">
+        Delivery and
+        <p>
+            processing cost:
+        </p>
+    </div>
+
+    <div class="p-2 delivery-process-value">
+        <span class="money-int">@Model.GetNaturalPart(@Model.PriceDelivery) </span>
+        <sup class="money-decimal"> @Model.GetCommaPart(@Model.PriceDelivery) </sup>
+        <span class="money-currency"> Lei </span>
+    </div>
+</div>
+
+<div class="line-separator"></div>
+
+<div class="total-price-label">
+    Total:
+</div>
+
+<div class="total-price-value">
+    <span id="total-price-int" class="money-int"> 
+        @Model.GetNaturalPart(Model.TotalPrice)    
+    </span>
+    <sup id="total-price-decimal" class="money-decimal">
+        @Model.GetCommaPart(Model.TotalPrice)
+    </sup>
+    <span class="money-currency"> Lei </span>
+</div>
+
+
+    
+

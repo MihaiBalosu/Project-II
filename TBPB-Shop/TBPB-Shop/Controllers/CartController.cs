@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using TBPB_Shop.ApplicationLogic.Services;
 using TBPB_Shop.ViewModel;
 
@@ -75,15 +75,77 @@ namespace TBPB_Shop.Controllers
             }
         }
 
-        public void Delete(string cartId, string productId)
+        [Route("Cart/Delete/{productId}")]
+        public IActionResult Delete(string productId)
         {
+            string userId = userManager.GetUserId(User);
             try
             {
-                cartService.DeleteProduct(cartId, productId);
+                var cartId = cartService.GetCartIdByUserId(userId);
+                cartService.DeleteProduct(cartId.ToString(), productId);
+                return RedirectToAction("Index");
             }
             catch(Exception e)
             {
+                return BadRequest(e.Message);
             }
         }
+
+        public IActionResult UpdateQuantity(string productId, string quantity)
+        {
+            string userId = userManager.GetUserId(User);
+            try
+            {
+                var cartId = cartService.GetCartIdByUserId(userId);
+                cartService.UpdateQuantityOnProduct(cartId.ToString(), productId, quantity);
+                return RedirectToAction("Index");
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult GetTotalPrice()
+        {
+            var priceDelivery = new Decimal(22.11);
+
+            var userId = userManager.GetUserId(User);
+            var myCartId = cartService.GetCartIdByUserId(userId);
+            var myCart = cartService.GetById(myCartId.ToString());
+
+            var viewModel = new CartViewModel
+            {
+                TotalPriceProducts = myCart.TotalPrice,
+                PriceDelivery = priceDelivery,
+                TotalPrice = myCart.TotalPrice + priceDelivery 
+            };
+            return PartialView("_GetTotalPrice", viewModel);
+        }
+
+        [HttpGet]
+        public IActionResult SubGetTotalPrice()
+        {
+            var priceDelivery = new Decimal(22.11);
+
+            var userId = userManager.GetUserId(User);
+            var myCartId = cartService.GetCartIdByUserId(userId);
+            var myCart = cartService.GetById(myCartId.ToString());
+
+            var viewModel = new CartViewModel
+            {
+                TotalPriceProducts = myCart.TotalPrice,
+                PriceDelivery = priceDelivery,
+                TotalPrice = myCart.TotalPrice + priceDelivery
+            };
+            return PartialView("_SubGetTotalPrice", viewModel);
+        }
+
+        public IActionResult ContactForm()
+        {
+            return PartialView("_ContactForm");
+        }
+
     }
 }

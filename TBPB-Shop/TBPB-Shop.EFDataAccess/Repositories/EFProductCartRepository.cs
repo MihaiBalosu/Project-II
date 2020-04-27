@@ -21,7 +21,7 @@ namespace TBPB_Shop.EFDataAccess.Repositories
             }
 
             var foundProductCart = GetByProductIdCartId(cart.Id, product.Id);
-            foundProductCart.UpdateQuantity(1);
+            foundProductCart.IncrementQuantity();
             Update(foundProductCart);
             return foundProductCart;
         }

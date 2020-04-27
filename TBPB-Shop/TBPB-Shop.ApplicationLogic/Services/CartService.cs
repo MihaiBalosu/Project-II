@@ -100,13 +100,13 @@ namespace TBPB_Shop.ApplicationLogic.Services
             var productCart = productCartRepository?.GetByProductIdCartId(guidCartId, guidProductId);
             if (productCart == null)
             {
-                throw new Exception();
+                throw new Exception("one");
             }
 
             var product = productRepository?.GetById(guidProductId);
             if (product == null)
             {
-                throw new Exception();
+                throw new Exception("two");
             }
 
             myCart.UpdateTotalPrice(product.Price, -productCart.Quantity);
@@ -120,6 +120,40 @@ namespace TBPB_Shop.ApplicationLogic.Services
 
             cartRepository?.Clear(idToSearch);
             productCartRepository?.ClearCart(idToSearch);
+        }
+
+        public ProductCart UpdateQuantityOnProduct(string cartId, string productId, string quantity)
+        {
+            Guid guidCartId = CheckId(cartId);
+            Guid guidProductId = CheckId(productId);
+
+            int selectedQuantity;
+            int.TryParse(quantity, out selectedQuantity);
+
+            var myCart = cartRepository?.GetById(guidCartId);
+            if (myCart == null)
+            {
+                throw new CartNotFoundException(cartId);
+            }
+
+            var productCart = productCartRepository?.GetByProductIdCartId(guidCartId, guidProductId);
+            if (productCart == null)
+            {
+                throw new Exception();
+            }
+
+            var product = productRepository?.GetById(guidProductId);
+            if (product == null)
+            {
+                throw new Exception();
+            }
+
+            // ciresele pretul 22 si cantitate 2
+            myCart.UpdateTotalPrice(product.Price, -productCart.Quantity);
+            productCart.UpdateQuantity(selectedQuantity);
+            myCart.UpdateTotalPrice(product.Price, productCart.Quantity);
+
+            return productCartRepository?.Update(productCart);
         }
     }
 }
