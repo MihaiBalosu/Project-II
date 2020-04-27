@@ -9,8 +9,17 @@ namespace TBPB_Shop.EFDataAccess.Repositories
 {
     public class ProductRepository : BaseRepository<Product>, IProductRepository
     {
+        protected new readonly ShopDbContext dbContext;
+
         public ProductRepository(ShopDbContext dbContext) : base(dbContext)
         {
+            this.dbContext = dbContext;
+        }
+
+        public IEnumerable<Product> getProductsForCategory(string name)
+        {
+            return dbContext.Set<Product>()
+                .Where(entity => entity.Name.Equals(name));
         }
 
         public Product Create(string name, decimal price, int quantityOnStoc, Guid producerId)
