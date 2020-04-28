@@ -5,6 +5,8 @@
 
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
+    attachEvents();
+    
 });
 
 function showDescription(description) {
@@ -12,4 +14,21 @@ function showDescription(description) {
     $('.modal').modal({
         show: true
     });
+}
+
+function attachEvents() {
+    console.log("events")
+    attachHover();
+}
+
+function attachHover() {
+    $("#category").hover(
+        function () {
+            console.log("hover")
+            $("#elementsHover").addClass("show")
+        }, function () {
+            console.log("hover--")
+            $("#elementsHover").removeClass("show")
+        }  
+    )
 }
