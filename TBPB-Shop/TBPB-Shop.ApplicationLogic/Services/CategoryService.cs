@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using TBPB_Shop.ApplicationLogic.Abstractions;
-using TBPB_Shop.ApplicationLogic.Exceptions;
 using TBPB_Shop.ApplicationLogic.Models;
 
 
@@ -37,11 +36,6 @@ namespace TBPB_Shop.ApplicationLogic.Services
 
         public void Remove(Guid id)
         {
-            if (id == Guid.Empty)
-            {
-                throw new CategoryException(id);
-            }
-
             categoryRepository.Remove(id);
         }
 
@@ -51,14 +45,8 @@ namespace TBPB_Shop.ApplicationLogic.Services
             categoryRepository.Update(category);
         }
 
-        public Category GetById(Guid id)
+        public Category getById(Guid id)
         {
-        
-            if (id == Guid.Empty)
-            {
-                throw new CategoryException(id);
-            }
-
             return categoryRepository.GetById(id);
         }
     }
