@@ -71,7 +71,7 @@ else
                                 </div>
 
                                 <div class="d-flex radio-warranties">
-                                    <input type="radio" name="warranty-@item.Id" />
+                                    <input type="radio" name="warranty-@item.Id" id="warranty-one-year-@item.Id" />
 
                                     <label class="warranty-1-year">
                                         Warranty Plus 1 YEAR:
@@ -80,12 +80,12 @@ else
                                     &nbsp;
 
                                     <a href="" class="service-price">
-                                        <span class="money-int"> 49 </span>
-                                        <sup class="money-decimal"> 20 </sup>
+                                        <span class="money-int"> @Model.GetNaturalPart(item.Product.WarrantyOneYear) </span>
+                                        <sup class="money-decimal"> @Model.GetCommaPart(item.Product.WarrantyOneYear) </sup>
                                         <span class="money-currency-warranty-1-year"> Lei </span>
                                     </a>
 
-                                    <input type="radio" name="warranty-@item.Id"/>
+                                    <input type="radio" name="warranty-@item.Id" id="warranty-one-year-@item.Id" />
 
                                     <label class="warranty-2-years">
                                         Warranty Plus 2 YEARS:
@@ -94,8 +94,8 @@ else
                                     &nbsp;
 
                                     <a href=" " class="service-price">
-                                        <span class="money-int"> 89 </span>
-                                        <sup class="money-decimal"> 99 </sup>
+                                        <span class="money-int"> @Model.GetNaturalPart(item.Product.WarrantyTwoYears) </span>
+                                        <sup class="money-decimal"> @Model.GetCommaPart(item.Product.WarrantyTwoYears) </sup>
                                         <span class="money-currency"> Lei </span>
                                     </a>
                                 </div>
@@ -164,13 +164,13 @@ else
             }
         });
 
+        
 
         function setQuantity(productId, quantity) {
             var dropDownListId = "drop-down-list-" + productId;
             var dropDownList = document.getElementById(dropDownListId);
             dropDownList.value = quantity;
         }
-
 
         function setPriceProduct(productId, priceValue, quantity) {
             var intPriceProductId = "int-price-product-" + productId;
@@ -196,7 +196,6 @@ else
                         setPriceProduct(productId, priceValue, quantity);
                     }
                 });
-
             });
         }
 

@@ -10,6 +10,8 @@ namespace TBPB_Shop.ApplicationLogic.Models{
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int QuantityOnStoc { get; private set; }
+        public decimal WarrantyOneYear { get; private set; }
+        public decimal WarrantyTwoYears { get; private set; }
         
 
 
@@ -23,7 +25,9 @@ namespace TBPB_Shop.ApplicationLogic.Models{
                 Id = Guid.NewGuid(),
                 Name = name,
                 Price = price,
-                QuantityOnStoc = quantityOnStoc
+                QuantityOnStoc = quantityOnStoc,
+                WarrantyOneYear = price / 10,
+                WarrantyTwoYears = (price * 17) / 100
             };
 
 
@@ -37,7 +41,9 @@ namespace TBPB_Shop.ApplicationLogic.Models{
                 Id = Id,
                 Name = name,
                 Price = price,
-                QuantityOnStoc = quantityOnStoc
+                QuantityOnStoc = quantityOnStoc,
+                WarrantyOneYear = price / 10,
+                WarrantyTwoYears = (price * 17) / 100
             };
 
             return product;

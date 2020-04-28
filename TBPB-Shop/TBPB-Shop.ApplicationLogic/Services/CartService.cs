@@ -35,6 +35,12 @@ namespace TBPB_Shop.ApplicationLogic.Services
             return guidCartId;
         }
 
+        public Cart RegisterNewCart()
+        {
+            Cart newCart = Cart.Create();
+            return cartRepository?.Add(newCart);
+        }
+
         public Guid GetCartIdByUserId(string userId)
         {
             Guid idToSearch = CheckId(userId);
@@ -148,7 +154,6 @@ namespace TBPB_Shop.ApplicationLogic.Services
                 throw new Exception();
             }
 
-            // ciresele pretul 22 si cantitate 2
             myCart.UpdateTotalPrice(product.Price, -productCart.Quantity);
             productCart.UpdateQuantity(selectedQuantity);
             myCart.UpdateTotalPrice(product.Price, productCart.Quantity);

@@ -12,5 +12,17 @@ namespace TBPB_Shop.ApplicationLogic.Models
         public string SecondName { get; private set; }
         public Cart Cart { get; set; }
         public Guid CartId { get; set; }
+
+        public static Customer Create(Guid userId, string firstName, string lastName, Guid cartId)
+        {
+            return new Customer
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                FirstName = firstName,
+                SecondName = lastName,
+                CartId = cartId
+            };
+        }
     }
 }

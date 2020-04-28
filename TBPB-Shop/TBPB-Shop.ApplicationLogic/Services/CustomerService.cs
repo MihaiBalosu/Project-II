@@ -33,7 +33,15 @@ namespace TBPB_Shop.ApplicationLogic
             }
 
             return customer;
+        }
 
+        public Customer RegisterNewCustomer(string userId, string firstName, string lastName, Guid cartId)
+        {
+            Guid guidUserId = Guid.Empty;
+            Guid.TryParse(userId, out guidUserId);
+
+            Customer newCustomer = Customer.Create(guidUserId, firstName, lastName, cartId);
+            return customerRepository?.Add(newCustomer);
         }
     }
 }

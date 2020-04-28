@@ -13,7 +13,7 @@ namespace TBPB_Shop.ApplicationLogic.Models
         private Cart()
         { }
 
-        public Cart Create()
+        public static Cart Create()
         {
             return new Cart
             {
