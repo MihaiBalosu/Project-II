@@ -1,0 +1,9 @@
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.ApplicationLogic\bin\Debug\netstandard2.0\TBPB-Shop.ApplicationLogic.deps.json
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.ApplicationLogic\bin\Debug\netstandard2.0\TBPB-Shop.ApplicationLogic.dll
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.ApplicationLogic\bin\Debug\netstandard2.0\TBPB-Shop.ApplicationLogic.pdb
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.ApplicationLogic\obj\Debug\netstandard2.0\TBPB-Shop.ApplicationLogic.csprojAssemblyReference.cache
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.ApplicationLogic\obj\Debug\netstandard2.0\TBPB-Shop.ApplicationLogic.csproj.CoreCompileInputs.cache
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.ApplicationLogic\obj\Debug\netstandard2.0\TBPB-Shop.ApplicationLogic.AssemblyInfoInputs.cache
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.ApplicationLogic\obj\Debug\netstandard2.0\TBPB-Shop.ApplicationLogic.AssemblyInfo.cs
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.ApplicationLogic\obj\Debug\netstandard2.0\TBPB-Shop.ApplicationLogic.dll
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.ApplicationLogic\obj\Debug\netstandard2.0\TBPB-Shop.ApplicationLogic.pdb

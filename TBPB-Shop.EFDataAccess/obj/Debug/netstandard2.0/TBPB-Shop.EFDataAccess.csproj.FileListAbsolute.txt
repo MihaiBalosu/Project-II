@@ -1,0 +1,12 @@
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.EFDataAccess\bin\Debug\netstandard2.0\TBPB-Shop.EFDataAccess.deps.json
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.EFDataAccess\bin\Debug\netstandard2.0\TBPB-Shop.EFDataAccess.dll
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.EFDataAccess\bin\Debug\netstandard2.0\TBPB-Shop.EFDataAccess.pdb
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.EFDataAccess\bin\Debug\netstandard2.0\TBPB-Shop.ApplicationLogic.dll
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.EFDataAccess\bin\Debug\netstandard2.0\TBPB-Shop.ApplicationLogic.pdb
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.EFDataAccess\obj\Debug\netstandard2.0\TBPB-Shop.EFDataAccess.csprojAssemblyReference.cache
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.EFDataAccess\obj\Debug\netstandard2.0\TBPB-Shop.EFDataAccess.csproj.CoreCompileInputs.cache
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.EFDataAccess\obj\Debug\netstandard2.0\TBPB-Shop.EFDataAccess.AssemblyInfoInputs.cache
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.EFDataAccess\obj\Debug\netstandard2.0\TBPB-Shop.EFDataAccess.AssemblyInfo.cs
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.EFDataAccess\obj\Debug\netstandard2.0\TBPB-Shop.EFDataAccess.csproj.CopyComplete
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.EFDataAccess\obj\Debug\netstandard2.0\TBPB-Shop.EFDataAccess.dll
+H:\FacultateAn3S2\Project II\Project2\TBPB-Shop\TBPB-Shop.EFDataAccess\obj\Debug\netstandard2.0\TBPB-Shop.EFDataAccess.pdb

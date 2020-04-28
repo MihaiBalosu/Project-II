@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "LJb7Ub5uxfSYxZsyFqtuALlYsPdlvW7BOd+qyy6MYg76CuwftfGBncvLut8D1+PzwRyVZzMwJ5NgcuuS/MsCzA==",
+  "success": true,
+  "projectFilePath": "H:\\FacultateAn3S2\\Project II\\Project2\\TBPB-Shop\\TBPB-Shop.ApplicationLogic\\TBPB-Shop.ApplicationLogic.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Administrator\\.nuget\\packages\\jquery\\3.5.0.1\\jquery.3.5.0.1.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

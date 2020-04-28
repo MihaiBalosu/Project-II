@@ -1,0 +1,35 @@
+﻿@model TBPB_Shop.ViewModel.CardViewModel
+
+<div style="background-color: #e4f1f9; width: 80%; border-radius: 5px; margin-left: 75px;">
+    <div class="billing-data">
+
+        <div class="d-flex">
+            <div class="form-group dimension-div-bill">
+                <label asp-for="TitularName" class="control-label color-label"></label>
+                <input asp-for="TitularName" class="form-control dimension-label" />
+            </div>
+
+            <div class="form-group dimension-div-bill form-group-separate">
+                <label asp-for="Amount" class="control-label color-label"></label>
+                <input asp-for="Amount" class="form-control dimension-label" />
+            </div>
+        </div>
+
+        <div class="d-flex">
+            <div class="form-group dimension-div-bill">
+                <label asp-for="CVV" class="control-label color-label"></label>
+                <input asp-for="CVV" class="form-control dimension-label" />
+            </div>
+
+            <div class="form-group dimension-div-bill form-group-separate">
+                <label asp-for="ExpireDate" class="control-label color-label"></label>
+                <input asp-for="ExpireDate" class="form-control dimension-label" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CardNumber" class="control-label color-label"></label>
+            <input asp-for="CardNumber" class="form-control dimension-label" />
+        </div>
+    </div>
+</div>

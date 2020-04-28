@@ -1,0 +1,230 @@
+﻿@model TBPB_Shop.ViewModel.OrderViewModel
+
+<h2 class="header-order-details">Order details</h2>
+
+<div class="d-flex flex-column">
+    <div class="main-container container-allign ">
+        <span class="numberCircle"> <span> 1 </span> </span>
+        <span class="delivery-method"> Delivery method </span>
+
+        <div class="d-flex">
+            <div class="delivery-courier">
+                <input type="radio" value="courier" id="courier" onclick="selectDeliveryOption(this.id)" name="radioDelivery" checked />
+                <span> Delivery courier </span>
+            </div>
+
+            <div class="delivery-courier">
+                <input type="radio" value="personalLift" id="personalLift" onclick="selectDeliveryOption(this.id)" name="radioDelivery" />
+                <span> Personal lift </span>
+            </div>
+        </div>
+        <div class="container-bill">
+            <div id="courierData">
+                <partial name="_ContactForm" />
+            </div>
+
+            <div id="personalLiftData">
+                <partial name="_PersonalLiftForm" />
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="main-container container-allign">
+        <div>
+            <span class="numberCircle"> <span> 2 </span> </span>
+            <span class="delivery-method"> Billing data </span>
+        </div>
+
+        <div class="container-bill">
+            <div class="d-flex container-bill-types">
+                <a id="physicsPerson" onclick="selectBillOption(this.id)" class="billing-data-types"> Physics person </a>
+                <a id="legalPerson" class="billing-data-types" onclick="selectBillOption(this.id)"> Legal person </a>
+                <a id="NGO"  class="billing-data-types" onclick="selectBillOption(this.id)"> NGO </a>
+            </div>
+
+            <div id="physicsPersonData">
+                <partial name="_ContactForm" />
+            </div>
+
+            <div id="legalPersonData">
+                <partial name="_LegalForm" />
+            </div>
+
+            <div id="NGOData">
+                <partial name="_LegalForm" />
+            </div>
+        </div>
+    </div>
+
+
+    <div class="main-container container-allign">
+        <div>
+            <span class="numberCircle"> <span> 3 </span> </span>
+            <span class="delivery-method"> Payment method </span>
+        </div>
+
+
+        <div class="container-bill">
+            <div class="payment-method">
+                <input id="card" type="radio" name="radioPaymentMethod" onclick="selectPaymentOption(this.id)" />
+
+                <span> Card online </span>
+            </div>
+
+            <div id="cardData">
+                <partial name="_CardForm" />
+            </div>
+
+            <div class="line-separator-payments"></div>
+
+            <div class="payment-method">
+                <input id="courierRefund" type="radio" name="radioPaymentMethod" onclick="selectPaymentOption(this.id)" />
+
+                <span> Courier refund </span>
+            </div>
+
+            <div class="courier-refund-payment">
+                <div id="courierRefundData">
+
+                    <p> You will pay when the order is delivered </p>
+
+                    <p class="courier-refund-message">
+                        Cost for processing payment upon delivery: 5
+                        <sup> 00 </sup>
+                        Lei. Online payment by card is free.
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container-total-order container-allign">
+        <div class="d-flex flex-row">
+            <div class="p-2 dimension-total-order">
+
+                <p class="add-sumar-order">
+                    Add Order
+                </p>
+
+                <div class="d-flex">
+                    <div class="p-2 final-cost-label">
+                        Products cost:
+                    </div>
+
+                    <div class="p-2 ml-auto final-cost-value">
+                        <span id="products-total-price-int" class="money-int"> 12 </span>
+
+                        <sup id="products-total-price-decimal" class="money-decimal"> 13 </sup>
+
+                        <span class="money-currency"> Lei </span>
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <div class="mr-auto p-2 delivery-process-label">
+                        Delivery and
+                        <p> processing cost: </p>
+                    </div>
+
+                    <div class="p-2 delivery-process-value">
+                        <span class="money-int"> 20 </span>
+
+                        <sup class="money-decimal"> 2 </sup>
+
+                        <span class="money-currency"> Lei </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-2 vertical-line-separator"></div>
+
+            <div class="p-2 total-price-order">
+                <div class="total-price-label"> Total: </div>
+
+                <div class="total-price-value">
+                    <span id="total-price-int" class="money-int"> 12 </span>
+
+                    <sup id="total-price-decimal" class="money-decimal"> 11 </sup>
+                    
+                    <span class="money-currency"> Lei </span>
+                </div>
+
+                <button class="btn-primary complete-order"> Complete order</button>
+            </div>
+        </div>
+        
+
+    </div>
+
+</div>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            document.getElementById("personalLiftData").style.display = "none";
+
+            document.getElementById("physicsPerson").style.border = "2px solid #1763AA";
+            document.getElementById("legalPersonData").style.display = "none";
+            document.getElementById("NGOData").style.display = "none";
+
+            document.getElementById("cardData").style.display = "none";
+            document.getElementById("courierRefundData").style.display = "none";
+        });
+
+        var arrayBillTypesId = ["physicsPerson", "legalPerson", "NGO"];
+        var arrayDeliveryMethodsId = ["courier", "personalLift"];
+        var arrayPaymentsId = ["card", "courierRefund"];
+
+        function selectBillOption(id) {
+            for (var i = 0; i < arrayBillTypesId.length; i++) {
+                var formId = arrayBillTypesId[i] + "Data";
+
+                var option = document.getElementById(arrayBillTypesId[i]);
+                var form = document.getElementById(formId);
+
+                if (id == arrayBillTypesId[i]) {
+                    option.style.border = "2px solid #1763AA";
+                    form.style.display = "inline";
+                }
+                else {
+                    option.style.border = "none";
+                    form.style.display = "none";
+                }
+            }
+        }
+
+        function selectDeliveryOption(id) {
+            for (var i = 0; i < arrayDeliveryMethodsId.length; i++) {
+                var formId = arrayDeliveryMethodsId[i] + "Data";
+                var form = document.getElementById(formId);
+
+                if (id == arrayDeliveryMethodsId[i]) {
+                    form.style.display = "inline";
+                }
+                else {
+                    form.style.display = "none";
+                }
+            }
+        }
+
+        function selectPaymentOption(id) {
+            for (var i = 0; i < arrayPaymentsId.length; i++) {
+                var formId = arrayPaymentsId[i] + "Data";
+                var form = document.getElementById(formId);
+
+                if (id == arrayPaymentsId[i]) {
+                    form.style.display = "inline";
+                }
+                else {
+                    form.style.display = "none";
+                }
+            }
+        }
+    </script>
+}

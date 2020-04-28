@@ -1,0 +1,428 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}
+
+.main-container {
+    padding: 10px 10px 10px 10px;
+    background-color: #e4f1f9;
+    width: 780px;
+    float: left;
+}
+
+.main-paragraph {
+    padding-left: 5px;
+    font-size: 20px;
+}
+
+.container-product {
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px #BBC6CC;
+    height: 100px;
+    margin: 10px 5px;
+    background-color: white;
+    min-height: 150px;
+}
+
+.cost-details-label {
+    text-align: right;
+}
+
+.cost-details-value {
+    width: 140px;
+    font-weight: normal;
+    text-align: right;
+    margin-right: 20px;
+}
+
+.total-cost-details-label{
+    float: right;
+    font-weight: bold;
+}
+
+.individual-product{
+    padding-left: 10px !important;
+    padding-bottom: 6px !important;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.cost-product-value {
+    width: 140px;
+    font-weight: bold;
+    text-align: right;
+    font-size: 20px;
+    padding-right: 10px !important;
+}
+
+.move-to-favorites{
+    font-size: 10px;
+    padding-left: 50px !important;
+}
+
+.delete-product-from-cart{
+    font-size: 10px;
+    padding-left: 50px !important;
+}
+
+.product-availability{
+    font-size: 12px;
+    padding-left: 10px !important;
+}
+
+.product-availability-value {
+    font-size: 12px;
+    padding-left: 10px !important;
+}
+
+.warranty-included{
+    font-size: 12px;
+    padding-left: 10px !important;
+}
+
+.warranty-included-value{
+    font-size: 12px;
+    padding-left: 10px !important;
+}
+
+.money-currency-warranty-1-year{
+    padding-right: 15px;
+}
+
+.guarantee-plus{
+    font-size: 16px;
+    padding-left: 10px;
+}
+
+.radio-warranties{
+    padding-left: 14px;
+}
+
+.warranty-1-year{
+    padding-left: 10px;
+}
+
+.warranty-2-years{
+    padding-left: 10px;
+}
+
+.money-decimal{
+    font-size: 0.6em;
+    padding-left: -1px;
+}
+
+.select-list-buc {
+    padding-top: 12px;
+    height: 44px;
+}
+
+.container-total {
+    margin-left: 20px;
+    width: 280px;
+    height: 330px;
+    border: 5px solid white;
+    border-radius: 8px;
+    box-shadow: 1px 1px 2px #e3e3e3;
+}
+
+.add-order{
+    margin: 0;
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px 10px 10px 20px;
+}
+
+.final-cost-label{
+    padding-left: 20px !important;
+    padding-bottom: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.final-cost-value {
+    padding-left: 20px !important;
+    padding-bottom: 0px !important;
+    text-align: right;
+}
+
+.delivery-process-label {
+    padding-left: 20px !important;
+    padding-top: 5px !important;
+    margin-top: 0px !important;
+}
+
+.delivery-process-value {
+    padding-left: 20px !important;
+    text-align: right;
+}
+
+.line-separator{
+    margin: 0 0 20px 0;
+    border-bottom: 1px solid #ccc;
+    height: 1px;
+}
+
+.total-price-label{
+    font-size: 24px !important;
+    font-weight: bold;
+    margin: 0;
+    padding-left: 20px;
+}
+
+.total-price-value{
+    font-size: 24px !important;
+    font-weight: bold;
+    margin: 0;
+    padding-left: 20px;
+}
+
+.continue-button{
+    width: 85%;
+    margin: 10px 20px;
+}
+
+.on-stoc-lower{
+    margin: 0 !important;
+    color: red;
+}
+
+.on-stoc-higher{
+    margin: 0 !important;
+}
+
+.container-allign{
+    position: relative;
+    left: 15%;
+    margin-top: 20px;
+}
+
+.header-order-details{
+    position: relative;
+    left: 16%;
+    padding: 25px 0px 0px 0px;
+}
+
+.numberCircle {
+    display: inline-block;
+    line-height: 0px;
+    border-radius: 50%;
+    border: 2px solid;
+    font-size: 20px;
+    background-color: #404040;
+    margin: 20px 25px 20px 25px;
+}
+
+.numberCircle span {
+    display: inline-block;
+    padding-top: 50%;
+    padding-bottom: 50%;
+    margin-left: 8px;
+    margin-right: 8px;
+    color: white;
+}
+
+.delivery-method{
+    font-size: 24px;
+}
+
+.delivery-courier {
+    height: 55px;
+    width: 47%;
+    margin: 0px 10px 20px 10px;
+    background-color: white;
+    border: 1px solid #1763AA;
+    border-radius: 8px;
+    padding: 15px 15px;
+    text-align: center;
+}
+
+.delivery-courier input{
+    float: left !important;
+    margin: 5px 0px !important;
+}
+
+.dimension-label{
+    width: 100%;
+    font-size: 10px !important;
+}
+
+.color-label {
+    color: #999;
+}
+
+.billing-data {
+    padding: 8px 32px !important;
+}
+
+.form-group-separate{
+    padding-left: 15px;
+}
+
+.dimension-div-bill{
+    width: 50%;
+}
+
+.billing-data-contact{
+    padding-bottom: 10px;
+    font-size: 16px;
+}
+
+.billing-data-types {
+    height: 55px;
+    width: 28%;
+    background-color: white;
+    padding-top: 10px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #0366d6 !important;
+}
+
+.container-bill {
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px #BBC6CC;
+    margin: 10px 5px;
+    background-color: white;
+    min-height: 150px;
+    padding: 30px 0px;
+}
+
+.container-bill-types{
+    margin-left: 80px !important;
+}
+
+.padding-separator{
+    margin-bottom: 30px !important;
+}
+
+.payment-method {
+    padding-left: 30px;
+}
+
+.payment-method span{
+    margin-left: 30px;
+}
+
+.line-separator-payments {
+    margin: 20px 75px 20px 75px;
+    height: 1px;
+    border-bottom: 1px solid #1763AA;
+}
+
+.courier-refund-payment {
+    width: 80%;
+    margin-left: 78px;
+}
+
+.courier-refund-payment p{
+    font-size: 12px;
+    margin: 0px !important;
+}
+
+.courier-refund-message {
+    color: #f90;
+}
+
+.container-total-order {
+    width: 780px;
+    height: 150px;
+    border: 5px solid white;
+    border-radius: 8px;
+    box-shadow: 1px 1px 2px #e3e3e3;
+    padding-left: 20px;
+}
+
+.add-sumar-order {
+    font-size: 20px;
+    padding-left: 20px;
+    padding-bottom: 5px;
+    margin: 0px !important;
+}
+
+.container-total-order div{
+    font-size: 14px;
+}
+
+.dimension-total-order{
+    width: 60%;
+}
+
+.vertical-line-separator {
+    height: 110px;
+    border-left: 1px solid #ccc;
+    margin: 20px 5px;
+}
+
+.complete-order{
+    margin: 10px 20px;
+    width: 200px;
+    height: 30px;
+    border-radius: 5px;
+}

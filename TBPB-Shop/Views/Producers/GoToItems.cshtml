@@ -1,0 +1,15 @@
+﻿@model IEnumerable<TBPB_Shop.ApplicationLogic.Models.Product>
+
+@{
+    ViewData["Title"] = "GoToItems";
+}
+
+<h1>GoToItems</h1>
+
+
+    @foreach (var item in Model)
+    {
+        <p>@item.Name</p>
+    }
+
+
