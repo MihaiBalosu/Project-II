@@ -20,15 +20,16 @@ namespace TBPB_Shop.Controllers
             this.userManager = userManager;
             this.productService = productService;
             this.producerService = producerService;
-            
         }
 
         public IActionResult Index()
         {
+            var producerList = producerService.GetAll();
             var productList = productService.GetAll();
             var viewModel = new ProductsViewModel()
             {
-                Products = productList
+                Products = productList,
+                Producers = producerList
             };
             return View(viewModel);
         }
@@ -46,7 +47,7 @@ namespace TBPB_Shop.Controllers
         {
             try
             {
-                productService.Add(pcuVM.Name, pcuVM.Price, pcuVM.QuantityOnStoc);
+                productService.Add(pcuVM.Name, pcuVM.Price, pcuVM.QuantityOnStoc, pcuVM.ProducerId);
                 return RedirectToAction("Index");
             }
             catch(Exception e)
@@ -58,13 +59,15 @@ namespace TBPB_Shop.Controllers
         public IActionResult UpdateClicked(string Id)
         {
             var productItem = productService.GetById(Id);
-            var viewModel = new ProductsCreateUpdateViewModel()
-            {
-                Name = productItem.Name,
-                Price = productItem.Price,
-                QuantityOnStoc = productItem.QuantityOnStoc
-            };
-            return View(viewModel);
+            
+            return View(productItem);
+        }
+
+        public IActionResult Details(string Id)
+        {
+            var productItem = productService.GetById(Id);
+
+            return View(productItem);
         }
 
         public IActionResult Update(Guid Id, ProductsCreateUpdateViewModel pcuVM)

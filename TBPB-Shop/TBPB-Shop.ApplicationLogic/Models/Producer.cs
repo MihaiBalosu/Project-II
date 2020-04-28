@@ -8,7 +8,7 @@ namespace TBPB_Shop.ApplicationLogic.Models
     public class Producer : DataEntity
     {
         public string Name { get; private set; }
-        public List<Product> Products { get; private set; }
+        //public virtual ICollection<Product> Products { get; private set; }
 
         private Producer()
         { }
@@ -19,9 +19,7 @@ namespace TBPB_Shop.ApplicationLogic.Models
             {
                 Id = Guid.NewGuid(),
                 Name = name,
-                Products = new List<Product>()
             };
-
             return producer;
         }
         public static Producer CreateUpdate(Guid id, string name)
@@ -30,15 +28,10 @@ namespace TBPB_Shop.ApplicationLogic.Models
             {
                 Id = id,
                 Name = name
-                
             };
-
             return producer;
         }
 
-        public void AddProductToList(Product prodObj)
-        {
-            Products.Add(prodObj);
-        }
+        
     }
 }

@@ -1,42 +1,107 @@
 ﻿@model TBPB_Shop.ViewModel.ProductsViewModel
 
-@{
-    ViewData["Title"] = "Index";
-}
+@*@{
+        ViewData["Title"] = "Index"
+}*@
 
-<h1>Index</h1>
+    @*<h1>Index</h1>
 
-<p>
-    <a asp-action="New">Create New</a>
-</p>
-<table class="table">
-    <thead>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Products)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.QuantityOnStoc)
-            </td>
-            
-
-            <td>
-                <a asp-action="UpdateClicked" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                <a asp-controller="Cart" asp-action="AddProduct" asp-route-id="@item.Id">Add to Cart</a>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+    <p>
+        <a asp-action="New">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Products)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuantityOnStoc)
+                </td>
 
 
-<a asp-controller="Cart" asp-action="Index" class="btn btn-primary"> See my cart </a>
+                <td>
+                    <a asp-action="UpdateClicked" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>*@
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+
+    <link href="~/ShopPage/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/ShopPage/css/shop-homepage.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div>
+        <a asp-action="New">Create New</a>
+    </div>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-3">
+
+                <h1 class="my-4">TBPB Shop</h1>
+
+                @*<p>Categories</p>
+                <div class="list-group active">
+                    <a href="#" class="list-group-item ">Category 1</a>
+                    <a href="#" class="list-group-item ">Category 2</a>
+                    <a href="#" class="list-group-item ">Category 3</a>
+                </div>*@
+
+               <p>Producers</p>
+                    @foreach (var producer in Model.Producers)
+                    {
+                        <div class="list-group-item">
+                            <a asp-controller="Producers" asp-action="GoToProducts" asp-route-id="@producer.Id">@Html.DisplayFor(modelItem => producer.Name)</a>
+                        </div>
+                    }
+            </div>
+
+
+            @foreach (var item in Model.Products)
+            {
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </h4>
+                            <h5>@Html.DisplayFor(modelItem => item.Price)Lei</h5>
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.QuantityOnStoc)</p>
+                        </div>
+                        <div class="card-footer">
+                            <a asp-action="UpdateClicked" asp-route-id="@item.Id">Edit</a>
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <script src="~/ShopPage/vendor/jquery/jquery.min.js"></script>
+    <script src="~/ShopPage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
