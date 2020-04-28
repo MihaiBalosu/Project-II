@@ -15,9 +15,10 @@ namespace TBPB_Shop.EFDataAccess.Repositories
 
         }
 
-        public IEnumerable<Product> getProductsForCategory(string id)
+        public IEnumerable<Product> getProductsForCategory(Guid id)
         {
-            return null;
+            return dbContext.Products.Where(entity => entity.CategoryId.Equals(id));
+
         }
     }
 }

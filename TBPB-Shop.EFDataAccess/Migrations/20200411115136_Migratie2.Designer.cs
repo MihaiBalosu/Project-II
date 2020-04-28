@@ -23,7 +23,7 @@ namespace TBPB_Shop.EFDataAccess.Migrations
 
             modelBuilder.Entity("TBPB_Shop.ApplicationLogic.Models.Cart", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -33,7 +33,7 @@ namespace TBPB_Shop.EFDataAccess.Migrations
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Carts");
                 });
@@ -61,7 +61,7 @@ namespace TBPB_Shop.EFDataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CartID")
+                    b.Property<Guid>("CartId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FirstName")
@@ -75,21 +75,21 @@ namespace TBPB_Shop.EFDataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CartID");
+                    b.HasIndex("CartId");
 
                     b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("TBPB_Shop.ApplicationLogic.Models.Producer", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Producers");
                 });
@@ -100,7 +100,11 @@ namespace TBPB_Shop.EFDataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+<<<<<<<< HEAD:TBPB-Shop.EFDataAccess/Migrations/20200411115136_Migratie2.Designer.cs
                     b.Property<Guid?>("CategoryId")
+========
+                    b.Property<Guid>("CategoryId")
+>>>>>>>> origin/Category:TBPB-Shop/TBPB-Shop.EFDataAccess/Migrations/ShopDbContextModelSnapshot.cs
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -109,7 +113,7 @@ namespace TBPB_Shop.EFDataAccess.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid?>("ProducerID")
+                    b.Property<Guid?>("ProducerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("QuantityOnStoc")
@@ -119,12 +123,12 @@ namespace TBPB_Shop.EFDataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("ProducerID");
+                    b.HasIndex("ProducerId");
 
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("TBPB_Shop.ApplicationLogic.Models.ProductsCart", b =>
+            modelBuilder.Entity("TBPB_Shop.ApplicationLogic.Models.ProductCart", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -145,28 +149,36 @@ namespace TBPB_Shop.EFDataAccess.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductsCart");
+                    b.ToTable("ProductCart");
                 });
 
             modelBuilder.Entity("TBPB_Shop.ApplicationLogic.Models.Customer", b =>
                 {
                     b.HasOne("TBPB_Shop.ApplicationLogic.Models.Cart", "Cart")
                         .WithMany()
-                        .HasForeignKey("CartID");
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TBPB_Shop.ApplicationLogic.Models.Product", b =>
                 {
                     b.HasOne("TBPB_Shop.ApplicationLogic.Models.Category", null)
                         .WithMany("Products")
+<<<<<<<< HEAD:TBPB-Shop.EFDataAccess/Migrations/20200411115136_Migratie2.Designer.cs
                         .HasForeignKey("CategoryId");
+========
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+>>>>>>>> origin/Category:TBPB-Shop/TBPB-Shop.EFDataAccess/Migrations/ShopDbContextModelSnapshot.cs
 
                     b.HasOne("TBPB_Shop.ApplicationLogic.Models.Producer", null)
                         .WithMany("Products")
-                        .HasForeignKey("ProducerID");
+                        .HasForeignKey("ProducerId");
                 });
 
-            modelBuilder.Entity("TBPB_Shop.ApplicationLogic.Models.ProductsCart", b =>
+            modelBuilder.Entity("TBPB_Shop.ApplicationLogic.Models.ProductCart", b =>
                 {
                     b.HasOne("TBPB_Shop.ApplicationLogic.Models.Cart", "Cart")
                         .WithMany()

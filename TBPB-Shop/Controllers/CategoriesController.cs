@@ -44,46 +44,58 @@ namespace TBPB_Shop.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Details(string name)
+        public IActionResult Details(Guid id)
         {
             var viewModel = new CategoryViewModel();
             try
             {
-                viewModel.Products = categoryService.getProductsForCategory(name);
+                viewModel.Products = categoryService.getProductsForCategory(id);
                 return View(viewModel);
             }
             catch(Exception e)
             {
-                return BadRequest();
+                return BadRequest("The deletion coult not be performed!");
             }
         }
 
         public IActionResult Delete(Guid id)
         {
-            categoryService.Remove(id);
-            return RedirectToAction("Index");
+            try
+            {
+                categoryService.Remove(id);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return BadRequest("The deletion coult not be performed!");
+            }
         }
 
         public IActionResult Edit(Guid id)
         {
-            var viewModel = new CategoryViewModel();
-
             try
             {
-                var category = categoryService.getById(id);
+                var category = categoryService.GetById(id);
                 return View(category);
             }
             catch(Exception e)
             {
-                return BadRequest();
+                return BadRequest("The action coult not be performed!");
             }
         }
 
         [HttpPost]
         public IActionResult Edit(Guid id, string name, string description)
         {
-            categoryService.Update(id, name, description);
-            return RedirectToAction("Index");
+            try
+            {
+                categoryService.Update(id, name, description);
+                return RedirectToAction("Index");
+            }
+            catch(Exception e)
+            {
+                return BadRequest("The action coult not be performed!");
+            }
         }
     }
 }

@@ -3,211 +3,23 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>
+<h2> 
     <strong>My Cart: </strong>
 </h2>
 
+<p>Products: @Model.NoOfProducts</p>
+<p>Total price: @Model.TotalPrice</p>
+
 @if (!Model.Products.Any())
 {
-    <h3>
-        No items added to cart.
-        <a asp-controller="Products" asp-action="Index"> Go to products </a>
-    </h3>
+
 }
 else
 {
-    <p>
-        <a asp-controller="Cart" asp-action="Clear" asp-route-id="@Model.CartId"> Clear cart </a>
-    </p>
-
-    <div class="d-flex">
-        <div class="main-container" id="products">
-
-            <p class="main-paragraph">
-                Products sold and delivered by TBPB
-            </p>
-
-            @foreach (var item in Model.Products)
-            {
-                <div class="container-product" id="element-to-remove">
-                    <div class="d-flex bd-highlight mb-3">
-                        <div class="mr-auto p-2 bd-highlight">
-                            <div class="individual-product">
-                                @item.Product.Name
-                            </div>
-
-                            <div class="d-flex">
-                                <div class="product-availability">
-                                    Availability:
-                                </div>
-
-                                <div class="product-availability-value">
-                                    @if (item.Product.QuantityOnStoc < 10)
-                                    {
-                                        <div class="on-stoc-lower">
-                                            @item.Product.QuantityOnStoc
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <p class="on-stoc-higher"> On stoc </p>
-                                    }
-                                </div>
-                            </div>
-
-                            <div class="d-flex">
-                                <div class="warranty-included">
-                                    Warranty included:
-                                </div>
-
-                                <div class="warranty-included-value">
-                                    24 months
-                                </div>
-                            </div>
-
-                            <div class="guarantee">
-                                <div class="guarantee-plus">
-                                    Protect your investment with the Guarantee Plus!
-                                </div>
-
-                                <div class="d-flex radio-warranties">
-                                    <input type="radio" name="warranty-@item.Id" />
-
-                                    <label class="warranty-1-year">
-                                        Warranty Plus 1 YEAR:
-                                    </label>
-
-                                    &nbsp;
-
-                                    <a href="" class="service-price">
-                                        <span class="money-int"> 49 </span>
-                                        <sup class="money-decimal"> 20 </sup>
-                                        <span class="money-currency-warranty-1-year"> Lei </span>
-                                    </a>
-
-                                    <input type="radio" name="warranty-@item.Id"/>
-
-                                    <label class="warranty-2-years">
-                                        Warranty Plus 2 YEARS:
-                                    </label>
-
-                                    &nbsp;
-
-                                    <a href=" " class="service-price">
-                                        <span class="money-int"> 89 </span>
-                                        <sup class="money-decimal"> 99 </sup>
-                                        <span class="money-currency"> Lei </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <span class="d-flex justify-content-center select-list-buc">
-                            <select class="custom-select" id="drop-down-list-@item.Id" data-product-id="@item.Product.Id">
-                                @for (int i = 1; i <= item.Product.QuantityOnStoc & i <= 50; i++)
-                                {
-                                    <option value="@i"> @i </option>
-
-                                }
-                            </select>
-                        </span>
-
-                        <div class="p-2 bd-highlight">
-                            <div id="priceContainer" class="cost-product-value">
-                                <span id="int-price-product-@item.Id" class="money-int"></span>
-                                <sup id="decimal-price-product-@item.Id" class="money-decimal"></sup>
-                                <span class="money-currency"> Lei </span>
-                            </div>
-
-                            <div class="move-to-favorites">
-                                <a href=""> Move to Favorites </a>
-                            </div>
-
-                            <div class="delete-product-from-cart">
-                                <a asp-action="Delete" asp-route-productId ="@item.Product.Id"> Delete </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-            <div id="subTotalPriceContainer">
-                <partial name="_SubGetTotalPrice" />
-            </div>
-        </div>
-
-        <div class="container-total">
-            <p class="add-order">
-                Add Order
-            </p>
-
-            <div id="totalPriceContainer">
-                <partial name="_GetTotalPrice" />
-            </div>
-
-            <a class="btn btn-primary continue-button" asp-controller="Order" asp-action="Create"> Continue </a>
-        </div>
-    </div>
+<ul>
+    @foreach (var item in Model.Products)
+    {
+    <li>@item.Product.Name</li>
+    }
+</ul>
 }
-
-
-@section scripts
-{
-    <script>
-        $(document).ready(function () {
-            loadServerPartialView("#totalPriceContainer", "/Cart/GetTotalPrice");
-            loadServerPartialView("#subTotalPriceContainer", "/Cart/SubGetTotalPrice");
-            @foreach (var product in Model.Products)        
-            {
-                @: setQuantity("@product.Id", @product.Quantity);
-                @: setPriceProduct("@product.Id", @Math.Truncate(product.Product.Price), @product.Quantity);
-                @: changeQuantityPrice("@product.Id", @product.Product.Price);
-            }
-        });
-
-
-        function setQuantity(productId, quantity) {
-            var dropDownListId = "drop-down-list-" + productId;
-            var dropDownList = document.getElementById(dropDownListId);
-            dropDownList.value = quantity;
-        }
-
-
-        function setPriceProduct(productId, priceValue, quantity) {
-            var intPriceProductId = "int-price-product-" + productId;
-            var intPriceProduct = document.getElementById(intPriceProductId);
-            intPriceProduct.innerHTML = getNaturalPart(quantity * priceValue);
-
-            var decimalPriceProductId = "decimal-price-product-" + productId;
-            var decimalPriceProduct = document.getElementById(decimalPriceProductId);
-            decimalPriceProduct.innerHTML = getCommaPart(priceValue * quantity);
-        }
-
-
-        function changeQuantityPrice(productId, priceValue) {
-            var dropDownListId = "drop-down-list-" + productId;
-            $("#" + dropDownListId).on("change", function () {
-                var dropDownList = document.getElementById(dropDownListId);
-                var quantity = dropDownList.value;
-                $.ajax({
-                    url: "/Cart/UpdateQuantity?productId=" + dropDownList.getAttribute("data-product-id") + "&quantity=" + quantity,
-                    success: function () {
-                        loadServerPartialView("#totalPriceContainer", "/Cart/GetTotalPrice");
-                        loadServerPartialView("#subTotalPriceContainer", "/Cart/SubGetTotalPrice");
-                        setPriceProduct(productId, priceValue, quantity);
-                    }
-                });
-
-            });
-        }
-
-
-        function getNaturalPart(price) {
-            return Math.trunc(price);
-        }
-
-
-        function getCommaPart(price) {
-            return (price - Math.trunc(price)) * 100;
-        }
-    </script>
-}       

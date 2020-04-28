@@ -12,148 +12,60 @@ namespace TBPB_Shop.ApplicationLogic.Services
         private readonly ICartRepository cartRepository;
         private readonly ICustomerRepository customerRepository;
         private readonly IProductRepository productRepository;
-        private readonly IProductCartRepository productCartRepository;
 
-        public CartService(ICartRepository cartRepository, ICustomerRepository customerRepository, IProductRepository productRepository, IProductCartRepository productCartRepository)
+        public CartService(ICartRepository cartRepository, ICustomerRepository customerRepository, IProductRepository productRepository)
         {
             this.cartRepository = cartRepository;
             this.customerRepository = customerRepository;
             this.productRepository = productRepository;
-            this.productCartRepository = productCartRepository;
         }
 
-        private Guid CheckId(string Id)
+        private Guid CheckId(string cartId)
         {
-            Guid guidCartId = Guid.Empty;
-            Guid.TryParse(Id, out guidCartId);
-
-            if (guidCartId == Guid.Empty)
+            if (cartId == null)
             {
-                throw new Exception("Could not parse");
+                throw new CartNotFoundException(cartId);
             }
+
+            Guid guidCartId = Guid.Empty;
+            Guid.TryParse(cartId, out guidCartId);
 
             return guidCartId;
         }
 
         public Guid GetCartIdByUserId(string userId)
         {
-            Guid idToSearch = CheckId(userId);
+            Guid idToSearch = Guid.Empty;
+            Guid.TryParse(userId, out idToSearch);
 
-            var customer = customerRepository?.GetCustomerByUserId(idToSearch);
-            if (customer == null)
-            {
-                throw new Exception();
-            }
+            var customer = customerRepository.GetCustomerByUserId(idToSearch);
             return customer.CartId;
         }
 
         public Cart GetById(string cartId)
         {
-            Guid idToSearch = CheckId(cartId);
-            return cartRepository?.GetById(idToSearch);
+            return cartRepository?.GetById(CheckId(cartId));
         }
 
-        public IEnumerable<ProductCart> GetAllProducts(string cartId)
+        public IEnumerable<ProductCart> GetAllProducts(Guid cartId)
         {
-            Guid idToSearch = CheckId(cartId);
-            return productCartRepository?.GetAllProductsFromCart(idToSearch);
+            return cartRepository?.GetAllProducts(cartId);
         }
 
-        public ProductCart AddProduct(string cartId, string productId, int quantity)
+        public ProductCart AddProduct(Guid cartId, string productId, int quantity)
         {
-            Guid guidCartId = CheckId(cartId);
-            Guid guidProductId = CheckId(productId);
-
-            var product = productRepository?.GetById(guidProductId);
-            if (product == null)
-            {
-                throw new Exception();
-            }
-
-            var cart = GetById(cartId);
-            if (cart == null)
-            {
-                throw new CartNotFoundException(cartId);
-            }
-
-            cart.UpdateTotalPrice(product.Price, quantity);
-            cart.UpdateNoOfItems();
-            cartRepository.Update(cart);
-
-            product.UpdateQuantityOnStoc();
-            productRepository.Update(product);
-
-            return productCartRepository?.AddProductToCart(cart, product, quantity);
+            var product = productRepository.GetById(CheckId(productId));
+            return cartRepository?.AddProduct(cartId, product, quantity);
         }
 
-        public void DeleteProduct(string cartId, string productId)
+        public ProductCart DeleteProduct(string cartId, Product product)
         {
-            Guid guidCartId = CheckId(cartId);
-            Guid guidProductId = CheckId(productId);
-
-            var myCart = cartRepository?.GetById(guidCartId);
-            if (myCart == null)
-            {
-                throw new CartNotFoundException(cartId);
-            }
-
-            var productCart = productCartRepository?.GetByProductIdCartId(guidCartId, guidProductId);
-            if (productCart == null)
-            {
-                throw new Exception("one");
-            }
-
-            var product = productRepository?.GetById(guidProductId);
-            if (product == null)
-            {
-                throw new Exception("two");
-            }
-
-            myCart.UpdateTotalPrice(product.Price, -productCart.Quantity);
-            productCartRepository?.DeleteProductFromCart(guidCartId, guidProductId);
+            return cartRepository?.DeleteProduct(CheckId(cartId), product.Id);
         }
 
-        public void Clear(string cartId)
+        public ProductCart UpdateProductQuantity(string cartId, int quantity, Product product)
         {
-            Guid idToSearch = Guid.Empty;
-            Guid.TryParse(cartId, out idToSearch);
-
-            cartRepository?.Clear(idToSearch);
-            productCartRepository?.ClearCart(idToSearch);
-        }
-
-        public ProductCart UpdateQuantityOnProduct(string cartId, string productId, string quantity)
-        {
-            Guid guidCartId = CheckId(cartId);
-            Guid guidProductId = CheckId(productId);
-
-            int selectedQuantity;
-            int.TryParse(quantity, out selectedQuantity);
-
-            var myCart = cartRepository?.GetById(guidCartId);
-            if (myCart == null)
-            {
-                throw new CartNotFoundException(cartId);
-            }
-
-            var productCart = productCartRepository?.GetByProductIdCartId(guidCartId, guidProductId);
-            if (productCart == null)
-            {
-                throw new Exception();
-            }
-
-            var product = productRepository?.GetById(guidProductId);
-            if (product == null)
-            {
-                throw new Exception();
-            }
-
-            // ciresele pretul 22 si cantitate 2
-            myCart.UpdateTotalPrice(product.Price, -productCart.Quantity);
-            productCart.UpdateQuantity(selectedQuantity);
-            myCart.UpdateTotalPrice(product.Price, productCart.Quantity);
-
-            return productCartRepository?.Update(productCart);
+            return cartRepository?.UpdateProductQuantity(CheckId(cartId), product.Id, quantity);
         }
     }
 }
