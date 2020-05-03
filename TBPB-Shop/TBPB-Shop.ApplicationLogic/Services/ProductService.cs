@@ -28,8 +28,9 @@ namespace TBPB_Shop.ApplicationLogic.Services
 
         public Product Update(Guid Id, string name, decimal price, int quantityOnStoc)
         {
-            Product productObj = Product.CreateUpdate(Id, name, price, quantityOnStoc);
-            return productRepository.Update(productObj);
+            var product = productRepository.GetById(Id);
+            product.CreateUpdate(name, price, quantityOnStoc);
+            return productRepository.Update(product);
         }
 
         public bool Remove(string id)

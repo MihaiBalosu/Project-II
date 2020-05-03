@@ -28,16 +28,11 @@ namespace TBPB_Shop.ApplicationLogic.Models{
             return product;
         }
 
-        public static Product CreateUpdate(Guid Id, string name, decimal price, int quantityOnStoc)
+        public void CreateUpdate(string name, decimal price, int quantityOnStoc)
         {
-            Product product = new Product
-            {
-                Id = Id,
-                Name = name,
-                Price = price,
-                QuantityOnStoc = quantityOnStoc
-            };
-            return product;
+            this.Name = name;
+            this.Price = price;
+            this.QuantityOnStoc = quantityOnStoc;
         }
 
         public int UpdateQuantityOnStoc()
