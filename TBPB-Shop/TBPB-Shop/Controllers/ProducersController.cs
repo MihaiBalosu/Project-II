@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TBPB_Shop.ApplicationLogic.Services;
+using TBPB_Shop.ViewModel;
 
 namespace TBPB_Shop.Controllers
 {
@@ -12,11 +13,13 @@ namespace TBPB_Shop.Controllers
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly ProducerService producerService;
+        private readonly ProductService productService;
 
-        public ProducersController(UserManager<IdentityUser> userManager, ProducerService producerService)
+        public ProducersController(UserManager<IdentityUser> userManager, ProducerService producerService, ProductService productService)
         {
             this.userManager = userManager;
             this.producerService = producerService;
+            this.productService = productService;
         }
 
         public IActionResult Index()
@@ -25,9 +28,21 @@ namespace TBPB_Shop.Controllers
             return View(producersList);
         }
 
+        public IActionResult GoToProducts(Guid id)
+        {
+            var producerList = producerService.GetAll();
+            var productList = productService.GetAll();
+            var viewModel = new ProductsViewModel()
+            {
+                Products = producerService.getAllProductsFromProducer(id),
+                Producers = producerList,
+                ProducerId = id
+            };
+            return View(viewModel);
+        }
+
         public IActionResult New()
         {
-            
             return View();
         }
 
@@ -58,10 +73,6 @@ namespace TBPB_Shop.Controllers
             return BadRequest("The deletion could not be performed!");
         }
 
-        public IActionResult GoToItems(string Id)
-        {
-            var list = producerService.GetAllProductsFromProducer(Id);
-            return View(list);
-        }
+        
     }
 }

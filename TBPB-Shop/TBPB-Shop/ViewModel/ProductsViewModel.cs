@@ -11,5 +11,6 @@ namespace TBPB_Shop.ViewModel
         public IEnumerable<Product> Products { get; set; }
         public IEnumerable<Category> Categories { get; set; }
         public IEnumerable<Producer> Producers { get; set; }
+        public Guid ProducerId { get; set; }
     }
 }

@@ -15,8 +15,12 @@ namespace TBPB_Shop.ApplicationLogic.Models{
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int QuantityOnStoc { get; private set; }
+        public Guid producerId { get; set; }
 
-        public static Product Create(string name, decimal price, int quantityOnStoc, Guid categoryId)
+        private Product()
+        { }
+
+        public static Product Create(string name, decimal price, int quantityOnStoc, Guid producerID)
         {
             Product product = new Product
             {
@@ -27,13 +31,13 @@ namespace TBPB_Shop.ApplicationLogic.Models{
                 WarrantyOneYear = price / 10,
                 WarrantyTwoYears = (price * 17) / 100,
                 CategoryId = categoryId
+                QuantityOnStoc = quantityOnStoc,
+                producerId = producerID
             };
-
-
             return product;
         }
 
-        public static Product CreateUpdate(Guid Id, string name, decimal price, int quantityOnStoc)
+        public void CreateUpdate(string name, decimal price, int quantityOnStoc)
         {
             Product product = new Product
             {
