@@ -14,12 +14,14 @@ namespace TBPB_Shop.Controllers
         private readonly UserManager<IdentityUser> userManager;
         private readonly ProductService productService;
         private readonly ProducerService producerService;
+        private readonly CategoryService categoryService;
 
-        public ProductsController(UserManager<IdentityUser> userManager, ProductService productService, ProducerService producerService)
+        public ProductsController(UserManager<IdentityUser> userManager, ProductService productService, ProducerService producerService, CategoryService categoryService)
         {
             this.userManager = userManager;
             this.productService = productService;
             this.producerService = producerService;
+            this.categoryService = categoryService;
             
         }
 
@@ -38,6 +40,7 @@ namespace TBPB_Shop.Controllers
             var viewModel = new ProductsCreateUpdateViewModel()
             {
                 Producers = producerService.GetAll(),
+                Categories = categoryService.GetAll()
             };
             return View(viewModel);
         }
@@ -46,7 +49,7 @@ namespace TBPB_Shop.Controllers
         {
             try
             {
-                productService.Add(pcuVM.Name, pcuVM.Price, pcuVM.QuantityOnStoc);
+                productService.Add(pcuVM.Name, pcuVM.Price, pcuVM.QuantityOnStoc, pcuVM.CategoryId);
                 return RedirectToAction("Index");
             }
             catch(Exception e)

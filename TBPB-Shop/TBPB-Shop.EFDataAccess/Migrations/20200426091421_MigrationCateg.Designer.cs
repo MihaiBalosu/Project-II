@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TBPB_Shop.EFDataAccess;
 
 namespace TBPB_Shop.EFDataAccess.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    partial class ShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200426091421_MigrationCateg")]
+    partial class MigrationCateg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,12 +114,6 @@ namespace TBPB_Shop.EFDataAccess.Migrations
 
                     b.Property<int>("QuantityOnStoc")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("WarrantyOneYear")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("WarrantyTwoYears")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

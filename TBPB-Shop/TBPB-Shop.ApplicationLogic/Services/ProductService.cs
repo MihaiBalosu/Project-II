@@ -21,9 +21,9 @@ namespace TBPB_Shop.ApplicationLogic.Services
             return productRepository.GetAll();
         }
 
-        public Product Add(string name, decimal price, int quantityOnStoc)
+        public Product Add(string name, decimal price, int quantityOnStoc, Guid categoryId)
         {
-            return productRepository.Create(name, price, quantityOnStoc);
+            return productRepository.Create(name, price, quantityOnStoc, categoryId);
         }
 
         public Product Update(Guid Id, string name, decimal price, int quantityOnStoc)
