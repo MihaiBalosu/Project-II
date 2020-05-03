@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 namespace TBPB_Shop.ApplicationLogic.Models{
     public class Product: DataEntity
     {
+        public decimal WarrantyOneYear { get; private set; }
+        public decimal WarrantyTwoYears { get; private set; }
+
         public Guid CategoryId { get; set; }
 
         public string Name { get; set; }
@@ -22,8 +25,7 @@ namespace TBPB_Shop.ApplicationLogic.Models{
                 Price = price,
                 QuantityOnStoc = quantityOnStoc,
                 WarrantyOneYear = price / 10,
-                WarrantyTwoYears = (price * 17) / 100
-                QuantityOnStoc = quantityOnStoc,
+                WarrantyTwoYears = (price * 17) / 100,
                 CategoryId = categoryId
             };
 
