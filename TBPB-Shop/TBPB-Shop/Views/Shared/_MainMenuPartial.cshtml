@@ -19,13 +19,8 @@
             <a class="nav-link text-dark" asp-area="" asp-controller="Producers" asp-action="Index">Producer</a>
         </li>
 
-        <li id="category" class="nav-item">
+        <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Category</a>
-            <div id="elementsHover" class="dropdownX">
-                <div class="dropdown-content">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Create">Create</a>
-                </div>
-            </div>
         </li>
 
         @if (SignInManager.IsSignedIn(User))
@@ -35,9 +30,3 @@
             </li>
         }
     </ul>
-
-    @*<ul id="elementsHover" class="dropdownX">
-        <li class="nav-item dropdown-content">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Create">Create</a>
-        </li>
-    </ul>*@
