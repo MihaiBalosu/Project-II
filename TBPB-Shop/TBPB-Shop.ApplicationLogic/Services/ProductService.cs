@@ -21,15 +21,15 @@ namespace TBPB_Shop.ApplicationLogic.Services
             return productRepository.GetAll();
         }
 
-        public Product Add(string name, decimal price, int quantityOnStoc, Guid producerId)
+        public Product Add(string name, decimal price, int quantityOnStoc, Guid categoryId, Guid producerId)
         {
-            return productRepository.Create(name, price, quantityOnStoc, producerId);
+            return productRepository.Create(name, price, quantityOnStoc, categoryId, producerId);
         }
 
         public Product Update(Guid Id, string name, decimal price, int quantityOnStoc)
         {
             var product = productRepository.GetById(Id);
-            product.CreateUpdate(name, price, quantityOnStoc);
+            product.CreateUpdate(Id, name, price, quantityOnStoc);
             return productRepository.Update(product);
         }
 

@@ -51,8 +51,7 @@ namespace TBPB_Shop.Controllers
         {
             try
             {
-                productService.Add(pcuVM.Name, pcuVM.Price, pcuVM.QuantityOnStoc, pcuVM.ProducerId);
-                productService.Add(pcuVM.Name, pcuVM.Price, pcuVM.QuantityOnStoc, pcuVM.CategoryId);
+                productService.Add(pcuVM.Name, pcuVM.Price, pcuVM.QuantityOnStoc, pcuVM.CategoryId, pcuVM.ProducerId);
                 return RedirectToAction("Index");
             }
             catch(Exception e)

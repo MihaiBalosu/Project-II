@@ -20,7 +20,7 @@ namespace TBPB_Shop.ApplicationLogic.Models{
         private Product()
         { }
 
-        public static Product Create(string name, decimal price, int quantityOnStoc, Guid producerID)
+        public static Product Create(string name, decimal price, int quantityOnStoc, Guid categoryId,  Guid producerID)
         {
             Product product = new Product
             {
@@ -30,26 +30,23 @@ namespace TBPB_Shop.ApplicationLogic.Models{
                 QuantityOnStoc = quantityOnStoc,
                 WarrantyOneYear = price / 10,
                 WarrantyTwoYears = (price * 17) / 100,
-                CategoryId = categoryId
-                QuantityOnStoc = quantityOnStoc,
+                CategoryId = categoryId,
                 producerId = producerID
             };
             return product;
         }
 
-        public void CreateUpdate(string name, decimal price, int quantityOnStoc)
+        public void CreateUpdate(Guid Id, string name, decimal price, int quantityOnStoc)
         {
-            Product product = new Product
-            {
-                Id = Id,
-                Name = name,
-                Price = price,
-                QuantityOnStoc = quantityOnStoc,
-                WarrantyOneYear = price / 10,
-                WarrantyTwoYears = (price * 17) / 100
-            };
 
-            return product;
+            this.Name = name;
+            this.Price = price;
+            this.QuantityOnStoc = quantityOnStoc;
+            this.WarrantyOneYear = price / 10;
+            this.WarrantyTwoYears = (price * 17) / 100;
+            
+
+            
         }
 
         public int UpdateQuantityOnStoc()

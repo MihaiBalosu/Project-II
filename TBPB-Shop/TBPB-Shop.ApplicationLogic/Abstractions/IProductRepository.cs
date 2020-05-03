@@ -7,8 +7,7 @@ namespace TBPB_Shop.ApplicationLogic.Abstractions
 {
     public interface IProductRepository : IRepository<Product>
     {
-        Product Create(string name, decimal price, int quantityOnStoc, Guid producerId);
+        Product Create(string name, decimal price, int quantityOnStoc, Guid categoryId, Guid producerId);
         IEnumerable<Product> getProductsForCategory(string name);
-        Product Create(string name, decimal price, int quantityOnStoc, Guid categoryId);
     }
 }
