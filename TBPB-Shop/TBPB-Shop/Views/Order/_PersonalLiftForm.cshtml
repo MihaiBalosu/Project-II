@@ -1,31 +1,36 @@
 ﻿@model TBPB_Shop.ViewModel.OrderViewModel
 
-<div class="billing-data">
-    <div class="billing-data-contact"> Contact </div>
+    <div class="billing-data">
+        <div class="billing-data-contact"> Contact </div>
 
-    <div class="d-flex">
-        <div class="form-group dimension-div-bill">
-            <label asp-for="Name" class="control-label color-label"></label>
-            <input asp-for="Name" class="form-control dimension-label" />
+        <div class="d-flex">
+            <div class="form-group dimension-div-bill">
+                <label asp-for="NameDelivery" class="control-label color-label"></label>
+                <input id="namePersonalLiftDelivery" asp-for="NameDelivery" class="form-control dimension-label" />
+            </div>
+
+            <div class="form-group dimension-div-bill form-group-separate">
+                <label asp-for="PhoneDelivery" class="control-label color-label"></label>
+                <input id="phonePersonalLiftDelivery" asp-for="PhoneDelivery" class="form-control dimension-label" />
+            </div>
         </div>
 
-        <div class="form-group dimension-div-bill form-group-separate">
-            <label asp-for="Phone" class="control-label color-label"></label>
-            <input asp-for="Phone" class="form-control dimension-label" />
+        <div class="billing-data-contact"> Head Office </div>
+
+        <div class="d-flex">
+            <div class="form-group dimension-div-bill">
+                <label asp-for="CityDelivery" class="control-label color-label"></label>
+                <input id="cityPersonalLiftDelivery" asp-for="CityDelivery" class="form-control dimension-label" />
+            </div>
+
+            <div class="form-group dimension-div-bill form-group-separate">
+                <label asp-for="DistrictDelivery" class="control-label color-label"></label>
+                <input id="districtPersonalLiftDelivery" asp-for="DistrictDelivery" class="form-control dimension-label" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="AddressDelivery" class="control-label color-label"></label>
+            <input id="addressPersonalLiftDelivery" asp-for="AddressDelivery" class="form-control dimension-label" />
         </div>
     </div>
-
-    <div class="billing-data-contact"> Head Office </div>
-
-    <div class="d-flex">
-        <div class="form-group dimension-div-bill">
-            <label asp-for="City" class="control-label color-label"></label>
-            <input asp-for="City" class="form-control dimension-label" />
-        </div>
-
-        <div class="form-group dimension-div-bill form-group-separate">
-            <label asp-for="District" class="control-label color-label"></label>
-            <input asp-for="District" class="form-control dimension-label" />
-        </div>
-    </div>
-</div>

@@ -1,0 +1,22 @@
+﻿@model TBPB_Shop.ViewModel.OrderViewModel
+
+<div class="billing-data">
+    <div class="billing-data-contact"> Head Office </div>
+
+    <div class="d-flex">
+        <div class="form-group dimension-div-bill">
+            <label asp-for="CityBilling" class="control-label color-label"></label>
+            <input id="cityNGOBilling" asp-for="CityBilling" class="form-control dimension-label" />
+        </div>
+
+        <div class="form-group dimension-div-bill form-group-separate">
+            <label asp-for="DistrictBilling" class="control-label color-label"></label>
+            <input id="districtNGOBilling" asp-for="DistrictBilling" class="form-control dimension-label" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AddressBilling" class="control-label color-label"></label>
+        <input id="addressNGOBilling" asp-for="AddressBilling" class="form-control dimension-label" />
+    </div>
+</div>

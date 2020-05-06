@@ -1,0 +1,23 @@
+﻿@model TBPB_Shop.ViewModel.OrdersDataViewModel
+@{
+    ViewData["Title"] = "History";
+}
+
+<h1>My orders</h1>
+
+<div class="main-container container-allign">
+    @foreach (var order in Model.Orders)
+    {
+            <div class="container-order d-flex flex-column flex-md-row">
+                <div class="d-flex flex-column flex-grow-1">
+                    <div class="order-number"> Order nr. @order.GetNumberOrder()</div>
+                    <div class="order-date-placed-on">Placed on : @order.DatePlacedOn.ToLongDateString()</div>
+                    <span class="order-total-price"> Total Price : @order.TotalPrice</span>
+                </div>
+                <div class="d-flex flex-column details-order-position">
+                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@order.Id">Order details</a>
+                </div>
+            </div>
+    }
+</div>
+

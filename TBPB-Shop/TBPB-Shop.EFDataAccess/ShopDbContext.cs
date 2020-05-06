@@ -12,6 +12,8 @@ namespace TBPB_Shop.EFDataAccess
             : base(options)
         {}
 
+        public DbSet<OrderData> Orders { get; private set; }
+        public DbSet<ProductOrder> OrderProduct { get; private set; }
         public DbSet<Cart> Carts { get; private set; }
         public DbSet<Customer> Customers { get; private set; }
         public DbSet<Category> Categories{ get; private set; }

@@ -32,10 +32,6 @@ namespace TBPB_Shop.Controllers
                 {
                     CartId = cartId,
                     Products = cartService.GetAllProducts(cartId.ToString()),
-                    NoOfProducts = myCart.NoOfItems,
-                    TotalPriceProducts = myCart.TotalPrice,
-                    PriceDelivery = 23,
-                    TotalPrice = myCart.TotalPrice + 23,
                 };
 
                 return View(viewModel);
@@ -109,11 +105,10 @@ namespace TBPB_Shop.Controllers
         [HttpGet]
         public IActionResult GetTotalPrice()
         {
-            var priceDelivery = new Decimal(22.11);
-
             var userId = userManager.GetUserId(User);
             var myCartId = cartService.GetCartIdByUserId(userId);
             var myCart = cartService.GetById(myCartId.ToString());
+            var priceDelivery = ((myCart.TotalPrice > 250) ? 0 : 30 - (myCart.TotalPrice * 3 / 25));
 
             var viewModel = new CartViewModel
             {
@@ -127,11 +122,10 @@ namespace TBPB_Shop.Controllers
         [HttpGet]
         public IActionResult SubGetTotalPrice()
         {
-            var priceDelivery = new Decimal(22.11);
-
             var userId = userManager.GetUserId(User);
             var myCartId = cartService.GetCartIdByUserId(userId);
             var myCart = cartService.GetById(myCartId.ToString());
+            var priceDelivery = ((myCart.TotalPrice > 250) ? 0 : 30 - (myCart.TotalPrice * 3 / 25));
 
             var viewModel = new CartViewModel
             {

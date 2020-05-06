@@ -1,6 +1,9 @@
 ﻿@model TBPB_Shop.ViewModel.OrderViewModel
+@using TBPB_Shop.ViewModel
 
 <h2 class="header-order-details">Order details</h2>
+
+
 
 <div class="d-flex flex-column">
     <div class="main-container container-allign ">
@@ -20,7 +23,7 @@
         </div>
         <div class="container-bill">
             <div id="courierData">
-                <partial name="_ContactForm" />
+                <partial name="_CourierForm" />
             </div>
 
             <div id="personalLiftData">
@@ -28,7 +31,6 @@
             </div>
         </div>
     </div>
-
 
 
     <div class="main-container container-allign">
@@ -39,21 +41,21 @@
 
         <div class="container-bill">
             <div class="d-flex container-bill-types">
-                <a id="physicsPerson" onclick="selectBillOption(this.id)" class="billing-data-types"> Physics person </a>
-                <a id="legalPerson" class="billing-data-types" onclick="selectBillOption(this.id)"> Legal person </a>
-                <a id="NGO"  class="billing-data-types" onclick="selectBillOption(this.id)"> NGO </a>
+                <a id="physicsPerson" isClicked="true" onclick="selectBillOption(this.id)" class="billing-data-types"> Physics person </a>
+                <a id="legalPerson" isClicked="false" class="billing-data-types" onclick="selectBillOption(this.id)"> Legal person </a>
+                <a id="NGO" isClicked="false" class="billing-data-types" onclick="selectBillOption(this.id)"> NGO </a>
             </div>
 
             <div id="physicsPersonData">
-                <partial name="_ContactForm" />
+                <partial name="_PhysicsPersonForm" />
             </div>
 
             <div id="legalPersonData">
-                <partial name="_LegalForm" />
+                <partial name="_LegalPersonForm" />
             </div>
 
             <div id="NGOData">
-                <partial name="_LegalForm" />
+                <partial name="_NGOForm" />
             </div>
         </div>
     </div>
@@ -65,16 +67,14 @@
             <span class="delivery-method"> Payment method </span>
         </div>
 
-
         <div class="container-bill">
             <div class="payment-method">
                 <input id="card" type="radio" name="radioPaymentMethod" onclick="selectPaymentOption(this.id)" />
-
                 <span> Card online </span>
             </div>
 
             <div id="cardData">
-                <partial name="_CardForm" />
+                <partial name="_CardForm" model="new CardViewModel()"/>
             </div>
 
             <div class="line-separator-payments"></div>
@@ -117,9 +117,9 @@
                     </div>
 
                     <div class="p-2 ml-auto final-cost-value">
-                        <span id="products-total-price-int" class="money-int"> 12 </span>
+                        <span id="products-total-price-int" class="money-int"> @Model.GetNaturalPart(Model.TotalProductsPrice) </span>
 
-                        <sup id="products-total-price-decimal" class="money-decimal"> 13 </sup>
+                        <sup id="products-total-price-decimal" class="money-decimal"> @Model.GetCommaPart(Model.TotalProductsPrice) </sup>
 
                         <span class="money-currency"> Lei </span>
                     </div>
@@ -132,9 +132,9 @@
                     </div>
 
                     <div class="p-2 delivery-process-value">
-                        <span class="money-int"> 20 </span>
+                        <span class="money-int"> @Model.GetNaturalPart(Model.DeliveryPrice) </span>
 
-                        <sup class="money-decimal"> 2 </sup>
+                        <sup class="money-decimal"> @Model.GetCommaPart(Model.DeliveryPrice) </sup>
 
                         <span class="money-currency"> Lei </span>
                     </div>
@@ -147,18 +147,39 @@
                 <div class="total-price-label"> Total: </div>
 
                 <div class="total-price-value">
-                    <span id="total-price-int" class="money-int"> 12 </span>
+                    <span id="total-price-int" class="money-int"> @Model.GetNaturalPart(Model.TotalPrice) </span>
 
-                    <sup id="total-price-decimal" class="money-decimal"> 11 </sup>
+                    <sup id="total-price-decimal" class="money-decimal"> @Model.GetCommaPart(Model.TotalPrice) </sup>
                     
                     <span class="money-currency"> Lei </span>
                 </div>
 
-                <button class="btn-primary complete-order"> Complete order</button>
+                <form asp-action="Add">
+                    <input id="addressDelivery" type="hidden" asp-for="AddressDelivery" />
+                    <input id="nameDelivery" type="hidden" asp-for="NameDelivery" />
+                    <input id="phoneDelivery" type="hidden" asp-for="PhoneDelivery" />
+                    <input id="cityDelivery" type="hidden" asp-for="CityDelivery" />
+                    <input id="districtDelivery" type="hidden" asp-for="DistrictDelivery" />
+                    <input id="typeDelivery" type="hidden" asp-for="TypeDelivery" />
+
+                    <input id="addressBilling" type="hidden" asp-for="AddressBilling" />
+                    <input id="nameBilling" type="hidden" asp-for="NameBilling" />
+                    <input id="phoneBilling" type="hidden" asp-for="PhoneBilling" />
+                    <input id="cityBilling" type="hidden" asp-for="CityBilling" />
+                    <input id="districtBilling" type="hidden" asp-for="DistrictBilling" />
+                    <input id="typeBilling" type="hidden" asp-for="TypeBilling" />
+
+                    <input id="expireDataCard" type="hidden" asp-for="ExpireDateCardPayment" />
+                    <input id="nameCard" type="hidden" asp-for="NameCardPayment" />
+                    <input id="cvvCard" type="hidden" asp-for="CVVCardPayment" />
+                    <input id="amountCard" type="hidden" asp-for="AmountCardPayment" />
+                    <input id="numberCard" type="hidden" asp-for="NumberCardPayment" />
+                    <input id="typePayment" type="hidden" asp-for="TypePayment" />
+
+                    <button onclick="getFormData()" asp-action="Add" class="btn-primary complete-order">Complete order</button>
+                </form>
             </div>
         </div>
-        
-
     </div>
 
 </div>
@@ -191,10 +212,12 @@
                 if (id == arrayBillTypesId[i]) {
                     option.style.border = "2px solid #1763AA";
                     form.style.display = "inline";
+                    option.setAttribute("isClicked", "true");
                 }
                 else {
                     option.style.border = "none";
                     form.style.display = "none";
+                    option.setAttribute("isClicked", "false");
                 }
             }
         }
@@ -226,5 +249,72 @@
                 }
             }
         }
+
+        function getFormData() {
+            deliveryData();
+            billingData();
+            paymentData();
+        }
+
+        function deliveryData() {
+            if (document.getElementById("courier").checked == true) {
+                document.getElementById("typeDelivery").value = "Courier";
+                document.getElementById("addressDelivery").value = document.getElementById("addressCourierDelivery").value;
+                document.getElementById("phoneDelivery").value = document.getElementById("phoneCourierDelivery").value;
+                document.getElementById("nameDelivery").value = document.getElementById("nameCourierDelivery").value;
+                document.getElementById("cityDelivery").value = document.getElementById("cityCourierDelivery").value;
+                document.getElementById("districtDelivery").value = document.getElementById("districtCourierDelivery").value;
+            }
+
+            if (document.getElementById("personalLift").checked == true) {
+                document.getElementById("typeDelivery").value = "Personal lift";
+                document.getElementById("addressDelivery").value = document.getElementById("addressPersonalLiftDelivery").value;
+                document.getElementById("phoneDelivery").value = document.getElementById("phonePersonalLiftDelivery").value;
+                document.getElementById("nameDelivery").value = document.getElementById("namePersonalLiftDelivery").value;
+                document.getElementById("cityDelivery").value = document.getElementById("cityPersonalLiftDelivery").value;
+                document.getElementById("districtDelivery").value = document.getElementById("districtPersonalLiftDelivery").value;
+            }
+        }
+
+        function billingData() {
+            if (document.getElementById("physicsPerson").getAttribute("isClicked") == "true") {
+                document.getElementById("typeBilling").value = "Physics Person";
+                document.getElementById("addressBilling").value = document.getElementById("addressPhysicsPersonBilling").value;
+                document.getElementById("phoneBilling").value = document.getElementById("phonePhysicsPersonBilling").value;
+                document.getElementById("nameBilling").value = document.getElementById("namePhysicsPersonBilling").value;
+                document.getElementById("cityBilling").value = document.getElementById("cityPhysicsPersonBilling").value;
+                document.getElementById("districtBilling").value = document.getElementById("districtPhysicsPersonBilling").value;
+            }
+
+            if (document.getElementById("legalPerson").getAttribute("isClicked") == "true") {
+                document.getElementById("typeBilling").value = "Legal Person";
+                document.getElementById("addressBilling").value = document.getElementById("addressLegalPersonBilling").value;
+                document.getElementById("cityBilling").value = document.getElementById("cityLegalPersonBilling").value;
+                document.getElementById("districtBilling").value = document.getElementById("districtLegalPersonBilling").value;
+            }
+
+            if (document.getElementById("NGO").getAttribute("isClicked") == "true") {
+                document.getElementById("typeBilling").value = "NGO";
+                document.getElementById("addressBilling").value = document.getElementById("addressNGOBilling").value;
+                document.getElementById("cityBilling").value = document.getElementById("cityNGOBilling").value;
+                document.getElementById("districtBilling").value = document.getElementById("districtNGOBilling").value;
+            }
+        }
+
+        function paymentData() {
+            if (document.getElementById("courierRefund").checked == true) {
+                document.getElementById("typePayment").value = "Courier Refund";
+            }
+
+            if (document.getElementById("card").checked == true) {
+                document.getElementById("typePayment").value = "Card";
+                document.getElementById("numberCard").value = document.getElementById("numberCardPayment").value;
+                document.getElementById("cvvCard").value = document.getElementById("cvvCardPayment").value;
+                document.getElementById("amountCard").value = document.getElementById("amountCardPayment").value;
+                document.getElementById("nameCard").value = document.getElementById("nameCardPayment").value;
+                document.getElementById("expireDateCard").value = document.getElementById("expireDateCardPayment").value;
+            }
+        }
+
     </script>
 }

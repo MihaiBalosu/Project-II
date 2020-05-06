@@ -433,6 +433,33 @@ body {
     border-radius: 5px;
 }
 
+
+.container-order {
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px #BBC6CC;
+    height: 130px;
+    margin: 10px 5px;
+    background-color: white;
+}
+
+.details-order-position{
+    margin : 20px;
+}
+
+.order-number {
+    color: #200c91;
+    padding: 15px 20px 0px 20px;
+    font-size: 18px;
+}
+
+.order-date-placed-on {
+    padding: 10px 20px 0px 20px;
+    font-size: 18px;
+}
+
+.order-total-price {
+    padding: 10px 20px 15px 20px;
+
 #create_category {
     padding-bottom: 25px;
     font-size: 25px;
@@ -472,4 +499,5 @@ body {
 
 .show {
     display: block;
+
 }
