@@ -44,12 +44,12 @@ namespace TBPB_Shop.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Details(string name)
+        public IActionResult Details(Guid id)
         {
             var viewModel = new CategoryViewModel();
             try
             {
-                viewModel.Products = categoryService.getProductsForCategory(name);
+                viewModel.Products = categoryService.getProductsForCategory(id);
                 return View(viewModel);
             }
             catch(Exception e)

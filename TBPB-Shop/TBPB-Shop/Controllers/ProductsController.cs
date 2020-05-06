@@ -14,21 +14,25 @@ namespace TBPB_Shop.Controllers
         private readonly UserManager<IdentityUser> userManager;
         private readonly ProductService productService;
         private readonly ProducerService producerService;
+        private readonly CategoryService categoryService;
 
-        public ProductsController(UserManager<IdentityUser> userManager, ProductService productService, ProducerService producerService)
+        public ProductsController(UserManager<IdentityUser> userManager, ProductService productService, ProducerService producerService, CategoryService categoryService)
         {
             this.userManager = userManager;
             this.productService = productService;
             this.producerService = producerService;
+            this.categoryService = categoryService;
             
         }
 
         public IActionResult Index()
         {
+            var producerList = producerService.GetAll();
             var productList = productService.GetAll();
             var viewModel = new ProductsViewModel()
             {
-                Products = productList
+                Products = productList,
+                Producers = producerList
             };
             return View(viewModel);
         }
@@ -38,6 +42,7 @@ namespace TBPB_Shop.Controllers
             var viewModel = new ProductsCreateUpdateViewModel()
             {
                 Producers = producerService.GetAll(),
+                Categories = categoryService.GetAll()
             };
             return View(viewModel);
         }
@@ -46,7 +51,7 @@ namespace TBPB_Shop.Controllers
         {
             try
             {
-                productService.Add(pcuVM.Name, pcuVM.Price, pcuVM.QuantityOnStoc);
+                productService.Add(pcuVM.Name, pcuVM.Price, pcuVM.QuantityOnStoc, pcuVM.CategoryId, pcuVM.ProducerId);
                 return RedirectToAction("Index");
             }
             catch(Exception e)
@@ -58,13 +63,15 @@ namespace TBPB_Shop.Controllers
         public IActionResult UpdateClicked(string Id)
         {
             var productItem = productService.GetById(Id);
-            var viewModel = new ProductsCreateUpdateViewModel()
-            {
-                Name = productItem.Name,
-                Price = productItem.Price,
-                QuantityOnStoc = productItem.QuantityOnStoc
-            };
-            return View(viewModel);
+            
+            return View(productItem);
+        }
+
+        public IActionResult Details(string Id)
+        {
+            var productItem = productService.GetById(Id);
+
+            return View(productItem);
         }
 
         public IActionResult Update(Guid Id, ProductsCreateUpdateViewModel pcuVM)

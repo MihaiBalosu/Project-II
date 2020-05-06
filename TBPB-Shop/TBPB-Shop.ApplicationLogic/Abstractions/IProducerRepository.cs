@@ -8,6 +8,6 @@ namespace TBPB_Shop.ApplicationLogic.Abstractions
     public interface IProducerRepository : IRepository<Producer>
     {
         Producer Create(string name);
-        void AddProductToProducer(Guid Id, Guid producerId);
+        IEnumerable<Product> getAllProductsFromProducer(Guid id);
     }
 }

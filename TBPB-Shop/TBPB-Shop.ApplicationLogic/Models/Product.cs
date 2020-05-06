@@ -7,18 +7,20 @@ using System.Threading.Tasks;
 namespace TBPB_Shop.ApplicationLogic.Models{
     public class Product: DataEntity
     {
+        public decimal WarrantyOneYear { get; private set; }
+        public decimal WarrantyTwoYears { get; private set; }
+
+        public Guid CategoryId { get; set; }
+
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int QuantityOnStoc { get; private set; }
-        public decimal WarrantyOneYear { get; private set; }
-        public decimal WarrantyTwoYears { get; private set; }
-        
-
+        public Guid producerId { get; set; }
 
         private Product()
         { }
 
-        public static Product Create(string name, decimal price, int quantityOnStoc)
+        public static Product Create(string name, decimal price, int quantityOnStoc, Guid categoryId,  Guid producerID)
         {
             Product product = new Product
             {
@@ -27,26 +29,24 @@ namespace TBPB_Shop.ApplicationLogic.Models{
                 Price = price,
                 QuantityOnStoc = quantityOnStoc,
                 WarrantyOneYear = price / 10,
-                WarrantyTwoYears = (price * 17) / 100
+                WarrantyTwoYears = (price * 17) / 100,
+                CategoryId = categoryId,
+                producerId = producerID
             };
-
-
             return product;
         }
 
-        public static Product CreateUpdate(Guid Id, string name, decimal price, int quantityOnStoc)
+        public void CreateUpdate(Guid Id, string name, decimal price, int quantityOnStoc)
         {
-            Product product = new Product
-            {
-                Id = Id,
-                Name = name,
-                Price = price,
-                QuantityOnStoc = quantityOnStoc,
-                WarrantyOneYear = price / 10,
-                WarrantyTwoYears = (price * 17) / 100
-            };
 
-            return product;
+            this.Name = name;
+            this.Price = price;
+            this.QuantityOnStoc = quantityOnStoc;
+            this.WarrantyOneYear = price / 10;
+            this.WarrantyTwoYears = (price * 17) / 100;
+            
+
+            
         }
 
         public int UpdateQuantityOnStoc()
