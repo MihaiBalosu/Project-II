@@ -27,5 +27,12 @@ namespace TBPB_Shop.EFDataAccess.Repositories
             Product prod = Product.Create(name, price, quantityOnStoc, categoryId, producerId);
             return Add(prod);
         }
+
+        public IEnumerable<Product> UpdateProducts(IEnumerable<Product> productsList)
+        {
+            dbContext.Products.UpdateRange(productsList);
+            dbContext.SaveChanges();
+            return productsList;
+        }
     }
 }

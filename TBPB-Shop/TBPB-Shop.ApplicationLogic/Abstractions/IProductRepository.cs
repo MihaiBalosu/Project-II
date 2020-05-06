@@ -9,5 +9,6 @@ namespace TBPB_Shop.ApplicationLogic.Abstractions
     {
         Product Create(string name, decimal price, int quantityOnStoc, Guid categoryId, Guid producerId);
         IEnumerable<Product> getProductsForCategory(string name);
+        IEnumerable<Product> UpdateProducts(IEnumerable<Product> productsList);
     }
 }

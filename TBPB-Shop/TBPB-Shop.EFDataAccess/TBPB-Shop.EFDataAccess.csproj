@@ -16,6 +16,16 @@
     <Compile Remove="Migrations\20200423122838_shopIdOs.Designer.cs" />
     <Compile Remove="Migrations\20200429112828_Vehicle.cs" />
     <Compile Remove="Migrations\20200429112828_Vehicle.Designer.cs" />
+    <Compile Remove="Migrations\20200506093641_PriceDeliveryMigration.cs" />
+    <Compile Remove="Migrations\20200506093641_PriceDeliveryMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200506093940_PriceDeliveryMigration.cs" />
+    <Compile Remove="Migrations\20200506093940_PriceDeliveryMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200506094547_PriceDeliveryMigration.cs" />
+    <Compile Remove="Migrations\20200506094547_PriceDeliveryMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200506094709_PriceDeliveryMigration.cs" />
+    <Compile Remove="Migrations\20200506094709_PriceDeliveryMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200506115723_ChangeProductCartToProductMigration.cs" />
+    <Compile Remove="Migrations\20200506115723_ChangeProductCartToProductMigration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

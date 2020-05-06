@@ -86,9 +86,6 @@ namespace TBPB_Shop.ApplicationLogic.Services
             cart.UpdateNoOfItems();
             cartRepository.Update(cart);
 
-            product.UpdateQuantityOnStoc();
-            productRepository.Update(product);
-
             return productCartRepository?.AddProductToCart(cart, product, quantity);
         }
 

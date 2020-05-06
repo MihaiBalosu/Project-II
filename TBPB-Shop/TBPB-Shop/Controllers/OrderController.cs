@@ -37,7 +37,7 @@ namespace TBPB_Shop.Controllers
                 var myCart = cartService.GetById(cartId.ToString());
                 var deliveryPrice = ((myCart.TotalPrice > 250) ? 0 : 30 - (myCart.TotalPrice * 3 / 25));
 
-                var viewModel = new OrderViewModel
+                var viewModel = new NewOrderViewModel
                 {
                     TotalProductsPrice = myCart.TotalPrice,
                     DeliveryPrice = deliveryPrice,
@@ -52,17 +52,19 @@ namespace TBPB_Shop.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(OrderViewModel viewModel)
+        public IActionResult Add(NewOrderViewModel viewModel)
         {
             try
             {
                 var userId = userManager.GetUserId(User);
                 var customer = customerService.GetCustomerByUserId(userId);
                 var cartId = cartService.GetCartIdByUserId(userId);
-                var productsList = cartService.GetAllProducts(cartId.ToString());
 
                 orderService.Add(customer.Id,
-                                 10,
+                                 cartId.ToString(),
+                                 viewModel.TotalProductsPrice,
+                                 viewModel.DeliveryPrice,
+                                 viewModel.TotalPrice,
                                  viewModel.TypeDelivery,
                                  viewModel.NameDelivery,
                                  viewModel.PhoneDelivery,
@@ -75,13 +77,7 @@ namespace TBPB_Shop.Controllers
                                  viewModel.CityBilling,
                                  viewModel.DistrictBilling,
                                  viewModel.AddressBilling,
-                                 viewModel.TypePayment,
-                                 viewModel.NameCardPayment,
-                                 viewModel.AmountCardPayment,
-                                 viewModel.CVVCardPayment,
-                                 viewModel.NumberCardPayment,
-                                 viewModel.ExpireDateCardPayment,
-                                 productsList);
+                                 viewModel.TypePayment);
                 return View();
             }
             catch(Exception e)
@@ -99,6 +95,23 @@ namespace TBPB_Shop.Controllers
                 var viewModel = new OrdersDataViewModel
                 {
                     Orders = orderService.GetOrdersDataFromCustomer(customer)
+                };
+                return View(viewModel);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        public IActionResult Details(string id)
+        {
+            try
+            {
+                var viewModel = new OrderDetailsViewModel
+                {
+                    OrderData = orderService.GetById(id),
+                    Products = orderService.GetProductsOrder(id)
                 };
                 return View(viewModel);
             }

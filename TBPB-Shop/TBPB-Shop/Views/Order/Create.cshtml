@@ -1,4 +1,4 @@
-﻿@model TBPB_Shop.ViewModel.OrderViewModel
+﻿@model TBPB_Shop.ViewModel.NewOrderViewModel
 @using TBPB_Shop.ViewModel
 
 <h2 class="header-order-details">Order details</h2>
@@ -147,7 +147,7 @@
                 <div class="total-price-label"> Total: </div>
 
                 <div class="total-price-value">
-                    <span id="total-price-int" class="money-int"> @Model.GetNaturalPart(Model.TotalPrice) </span>
+                    <span id="order-total-price" class="money-int"> @Model.GetNaturalPart(Model.TotalPrice) </span>
 
                     <sup id="total-price-decimal" class="money-decimal"> @Model.GetCommaPart(Model.TotalPrice) </sup>
                     
@@ -169,11 +169,9 @@
                     <input id="districtBilling" type="hidden" asp-for="DistrictBilling" />
                     <input id="typeBilling" type="hidden" asp-for="TypeBilling" />
 
-                    <input id="expireDataCard" type="hidden" asp-for="ExpireDateCardPayment" />
-                    <input id="nameCard" type="hidden" asp-for="NameCardPayment" />
-                    <input id="cvvCard" type="hidden" asp-for="CVVCardPayment" />
-                    <input id="amountCard" type="hidden" asp-for="AmountCardPayment" />
-                    <input id="numberCard" type="hidden" asp-for="NumberCardPayment" />
+                    <input id="totalPriceProductsOrder" type="hidden" asp-for="TotalProductsPrice" />
+                    <input id="priceDeliveryOrder" type="hidden" asp-for="DeliveryPrice" />
+                    <input id="totalPriceOrder" type="hidden" asp-for="TotalPrice" />
                     <input id="typePayment" type="hidden" asp-for="TypePayment" />
 
                     <button onclick="getFormData()" asp-action="Add" class="btn-primary complete-order">Complete order</button>
@@ -308,12 +306,13 @@
 
             if (document.getElementById("card").checked == true) {
                 document.getElementById("typePayment").value = "Card";
-                document.getElementById("numberCard").value = document.getElementById("numberCardPayment").value;
-                document.getElementById("cvvCard").value = document.getElementById("cvvCardPayment").value;
-                document.getElementById("amountCard").value = document.getElementById("amountCardPayment").value;
-                document.getElementById("nameCard").value = document.getElementById("nameCardPayment").value;
-                document.getElementById("expireDateCard").value = document.getElementById("expireDateCardPayment").value;
             }
+        }
+
+        function priceData() {
+            document.getElementById("totalPriceProductsOrder").value = @Model.TotalProductsPrice;
+            document.getElementById("priceDeliveryOrder").value = @Model.DeliveryPrice;
+            document.getElementById("totalPriceOrder").value = @Model.TotalPrice;
         }
 
     </script>

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TBPB_Shop.ViewModel
 {
-    public class OrderViewModel
+    public class NewOrderViewModel
     {
         public decimal TotalProductsPrice { get; set; }
         public decimal DeliveryPrice { get; set; }
@@ -23,11 +23,6 @@ namespace TBPB_Shop.ViewModel
         public string DistrictBilling { get; set; }
         public string PhoneBilling { get; set; }
         public string TypePayment { get; set; }
-        public string NameCardPayment { get; set; }
-        public string AmountCardPayment { get; set; }
-        public string CVVCardPayment { get; set; }
-        public string NumberCardPayment { get; set; }
-        public DateTime ExpireDateCardPayment { get; set; }
 
         public decimal GetNaturalPart(decimal number)
         {

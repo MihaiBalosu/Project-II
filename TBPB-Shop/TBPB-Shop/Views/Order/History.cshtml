@@ -2,22 +2,128 @@
 @{
     ViewData["Title"] = "History";
 }
+<div class="d-flex flex-column main-container container-allign">
+    <div class="order-number-details">My orders</div>
 
-<h1>My orders</h1>
+    <div class="select-order-period">
+        <select id="drop-down-list" class="custom-select ">
+            <option>Last 3 months</option>
+            <option>Last 6 months</option>
+            <option>Last year</option>
+            <option>All time</option>
+        </select>
+    </div>
 
-<div class="main-container container-allign">
-    @foreach (var order in Model.Orders)
+    @if (!Model.Orders.Any())
     {
-            <div class="container-order d-flex flex-column flex-md-row">
+        <div class="no-orders-found">You have no orders in selected period</div>
+    }
+    else
+    {
+        @foreach (var order in Model.Orders)
+        {
+            <div id="order-@order.Id" class="d-flex flex-column container-order flex-md-row">
                 <div class="d-flex flex-column flex-grow-1">
                     <div class="order-number"> Order nr. @order.GetNumberOrder()</div>
                     <div class="order-date-placed-on">Placed on : @order.DatePlacedOn.ToLongDateString()</div>
                     <span class="order-total-price"> Total Price : @order.TotalPrice</span>
                 </div>
                 <div class="d-flex flex-column details-order-position">
-                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@order.Id">Order details</a>
+                    <a  class="btn btn-primary" asp-action="Details" asp-route-id="@order.Id">Order details</a>
                 </div>
             </div>
+        }
     }
 </div>
 
+@section scripts{ 
+    <script>
+        $(document).ready(function () {
+            setInitialOrders();
+            $("#drop-down-list").on("change", function () {
+                var value = document.getElementById("drop-down-list").value;
+                showOrdersForPeriod(value);
+            });
+        });
+
+        function setInitialOrders() {
+            @foreach (var order in Model.Orders)
+            {
+                if (order.DatePlacedOn.AddMonths(3).CompareTo(DateTime.Today) == -1 )
+                {
+                    @: document.getElementById("order-" + "@order.Id").setAttribute("style", "display: none !important");
+                }
+            }
+        }
+
+        function showOrdersForPeriod(value) {
+            if (value == "Last 3 months") {
+                getOrdersLast3Months();
+            }
+
+            if (value == "Last 6 months") {
+                getOrdersLast6Months();
+            }
+
+            if (value == "Last year") {
+                getOrdersLast12Months();
+            }
+
+            if (value == "All time") {
+                getOrdersAllTime();
+            }
+        }
+
+        function getOrdersLast3Months() {
+            @foreach (var order in Model.Orders)
+            {
+                if (order.DatePlacedOn.AddMonths(3).CompareTo(DateTime.Today) == -1 )
+                {
+                    @: document.getElementById("order-" + "@order.Id").setAttribute("style", "display: none !important");
+                }
+                else
+                {
+                    @: document.getElementById("order-" + "@order.Id").setAttribute("style", "display: block ");
+                }
+
+            }
+        }
+
+        function getOrdersLast6Months() {
+            @foreach (var order in Model.Orders)
+            {
+                if (order.DatePlacedOn.AddMonths(6).CompareTo(DateTime.Today) == -1 )
+                {
+                    @: document.getElementById("order-" + "@order.Id").setAttribute("style", "display: none !important ");
+                }
+                else
+                {
+                    @: document.getElementById("order-" + "@order.Id").setAttribute("style", "display: block");
+                }
+
+            }
+        }
+
+        function getOrdersLast12Months() {
+            @foreach (var order in Model.Orders)
+            {
+                if (order.DatePlacedOn.AddMonths(12).CompareTo(DateTime.Today) == -1 )
+                {
+                    @: document.getElementById("order-" + "@order.Id").setAttribute("style", "display: none !important ");
+                }
+                else
+                {
+                    @: document.getElementById("order-" + "@order.Id").setAttribute("style", "display: block");
+                }
+
+            }
+        }
+
+        function getOrdersAllTime() {
+            @foreach (var order in Model.Orders)
+            {
+                @: document.getElementById("order-" + "@order.Id").setAttribute("style", "display: block ");
+            }
+        }
+    </script>
+}

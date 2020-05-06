@@ -1,0 +1,137 @@
+﻿@model TBPB_Shop.ViewModel.OrderDetailsViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="d-flex flex-column">
+    <div class="main-container container-allign">
+        <div class="order-number-details"> Order nr. @Model.OrderData.GetNumberOrder()</div>
+
+        <div class="container-order">
+            <div class="order-date-placed-on">
+                Placed on :
+                <span>@Model.OrderData.DatePlacedOn.ToLongDateString()</span>
+            </div>
+            <div class="order-total-price" style="margin-bottom : 15px !important;">
+                Total Price :
+                <span class="price-bold">
+                    <span>@Model.GetNaturalPart(Model.OrderData.TotalPrice)</span>
+                    @if (Model.GetCommaPart(Model.OrderData.TotalPrice) == 0)
+                    {
+                        <sup class="put-decimal-total-order">@Model.GetCommaPart(Model.OrderData.TotalPrice)</sup>
+                            <sup class="put-decimal-total-order">@Model.GetCommaPart(Model.OrderData.TotalPrice)</sup>
+                    }
+                    <span>Lei</span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container container-allign">
+        <div class="delivery-information-paragraph">Delivery Information</div>
+        <div class="container-order-all-information">
+            <div class="d-flex flex-column">
+                <div class="d-flex">
+                    <div class="container-delivery-information">
+                        <div class="order-type-delivery">Delivery type:</div>
+                        <div class="order-information-value">@Model.OrderData.TypeDelivery</div>
+                        <div class="order-information-for">For: </div>
+                        <div class="d-flex order-information-value">
+                            <span>@Model.OrderData.NameDelivery</span>
+                            <span>,</span>
+                            &nbsp;
+                            <span>@Model.OrderData.PhoneDelivery</span>
+                        </div>
+                        <div class="order-information-for">Address: </div>
+                        <div class="order-information-value">
+                            <span>@Model.OrderData.AddressDelivery</span>
+                            <span>, </span>
+                            <span>@Model.OrderData.CityDelivery</span>
+                            <span>, </span>
+                            <span>@Model.OrderData.DistrictDelivery</span>
+                        </div>
+                    </div>
+
+                    <div class="container-delivery-information">
+                        <div class="order-type-delivery">Billing type:</div>
+                        <div class="order-information-value">@Model.OrderData.TypeBilling</div>
+                        <div class="order-information-for">For: </div>
+                        <div class="d-flex order-information-value">
+                            <span>@Model.OrderData.NameBilling</span>
+                            <span>,</span>
+                            &nbsp;
+                            <span>@Model.OrderData.PhoneBilling</span>
+                        </div>
+                        <div class="order-information-for">Address: </div>
+                        <div class="order-information-value">
+                            <span>@Model.OrderData.AddressBilling</span>
+                            <span>, </span>
+                            <span>@Model.OrderData.CityBilling</span>
+                            <span>, </span>
+                            <span>@Model.OrderData.DistrictBilling</span>
+                        </div>
+                    </div>
+
+                    <div class="container-delivery-information">
+                        <div class="order-type-delivery">Payment type:</div>
+                        <div class="order-information-value">@Model.OrderData.TypePayment</div>
+                        <div class="order-information-for">Total price: </div>
+                        <div class="d-flex order-information-value price-bold">
+                            <span>@Model.GetNaturalPart(Model.OrderData.TotalPrice)</span>
+                            @if (Model.GetCommaPart(Model.OrderData.TotalPrice) == 0)
+                            {
+                                <sup class="put-decimal-payment">@Model.GetCommaPart(Model.OrderData.TotalPrice)</sup>
+                                <sup class="put-decimal-payment">@Model.GetCommaPart(Model.OrderData.TotalPrice)</sup>
+                            }
+                            &nbsp;
+                            <span>Lei</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-container container-allign">
+        <div class="delivery-information-paragraph">Products</div>
+        <div class="container-products">
+            @foreach (var productOrder in Model.Products)
+            {
+                <div class="d-flex flex-column flex-md-row">
+                    <div class="d-flex flex-column flex-grow-1 place-product-center">
+                        <span>@productOrder.Product.Name</span>
+                    </div>
+
+                    <div class="d-flex flex-column">
+                        <div class="d-flex price-bold">
+                            <span>@Model.GetNaturalPart(productOrder.Product.Price)</span>
+                            @if (Model.GetCommaPart(productOrder.Product.Price) == 0)
+                            {
+                            <sup class="put-decimal">@Model.GetCommaPart(productOrder.Product.Price)</sup>
+                            <sup class="put-decimal">@Model.GetCommaPart(productOrder.Product.Price)</sup>
+                            }
+                            &nbsp;
+                            <span>Lei</span>
+                        </div>
+                        <div class="d-flex">
+                            <div>@productOrder.Quantity</div>
+                            &nbsp;
+                            <span>buc</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="line-@productOrder.Id" style="width: 100%; height: 1px; border-top: 1px solid black; margin: 10px 0px;"></div>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            var id = "@Model.Products.ElementAt(Model.Products.Count() - 1).Id";
+            var lineToRemove = document.getElementById("line-" + id);
+            lineToRemove.style.display = "none";
+        });
+    </script>
+}

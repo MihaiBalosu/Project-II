@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TBPB_Shop.EFDataAccess;
 
 namespace TBPB_Shop.EFDataAccess.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    partial class ShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200506095527_PriceDeliveryMigration")]
+    partial class PriceDeliveryMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,9 +131,6 @@ namespace TBPB_Shop.EFDataAccess.Migrations
                     b.Property<string>("NumberCardPayment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NumberOrder")
-                        .HasColumnType("int");
-
                     b.Property<string>("PhoneBilling")
                         .HasColumnType("nvarchar(max)");
 
@@ -247,9 +246,6 @@ namespace TBPB_Shop.EFDataAccess.Migrations
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
@@ -306,7 +302,7 @@ namespace TBPB_Shop.EFDataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TBPB_Shop.ApplicationLogic.Models.Product", "Product")
+                    b.HasOne("TBPB_Shop.ApplicationLogic.Models.ProductCart", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)

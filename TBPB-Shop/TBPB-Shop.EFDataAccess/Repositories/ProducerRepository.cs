@@ -23,7 +23,7 @@ namespace TBPB_Shop.EFDataAccess.Repositories
 
         public IEnumerable<Product> getAllProductsFromProducer(Guid id)
         {
-            return dbContext.Products.Where(product => product.producerId == id).AsEnumerable();
+            return dbContext.Products.Where(product => product.ProducerId == id).AsEnumerable();
         }
     }
 }

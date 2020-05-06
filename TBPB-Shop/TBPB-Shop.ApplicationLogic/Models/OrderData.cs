@@ -6,7 +6,11 @@ namespace TBPB_Shop.ApplicationLogic.Models
 {
     public class OrderData : DataEntity
     {
+        private static int numberOrder = 1000;
+        public int NumberOrder { get; private set; }
         public Guid CustomerId { get; private set; }
+        public decimal TotalProductsPrice { get; private set; }
+        public decimal PriceDelivery { get; private set; }
         public decimal TotalPrice { get; private set; }
         public DateTime DatePlacedOn { get; private set; }
         public string TypeDelivery { get; private set; }
@@ -33,6 +37,8 @@ namespace TBPB_Shop.ApplicationLogic.Models
         }
 
         public static OrderData Create(Guid customerId,
+                                       decimal totalProductsPrice,
+                                       decimal priceDelivery,
                                        decimal totalPrice,
                                        string typeDelivery,
                                        string nameDelivery,
@@ -46,22 +52,21 @@ namespace TBPB_Shop.ApplicationLogic.Models
                                        string cityBilling,
                                        string districtBilling,
                                        string addressBilling,
-                                       string typePayment,
-                                       string nameCardPayment,
-                                       string amountCardPayemnt,
-                                       string cvvCardPayment,
-                                       string numberCardPayemnt,
-                                       DateTime expireDateCardPayment)
+                                       string typePayment)
         {
+            numberOrder++;
             return new OrderData
             {
                 Id = Guid.NewGuid(),
                 CustomerId = customerId,
+                TotalProductsPrice = totalProductsPrice,
+                PriceDelivery = priceDelivery,
                 TotalPrice = totalPrice,
                 DatePlacedOn = DateTime.Today,
                 TypeDelivery = typeDelivery,
                 NameDelivery = nameDelivery,
                 PhoneDelivery = phoneDelivery,
+                CityDelivery = cityDelivery,
                 DistrictDelivery = districtDelivery,
                 AddressDelivery = addressDelivery,
                 TypeBilling = typeBilling,
@@ -71,18 +76,13 @@ namespace TBPB_Shop.ApplicationLogic.Models
                 DistrictBilling = districtBilling,
                 AddressBilling = addressBilling,
                 TypePayment = typePayment,
-                NameCardPayment = nameCardPayment,
-                AmountCardPayment = amountCardPayemnt,
-                CVVCardPayment = cvvCardPayment,
-                NumberCardPayment = numberCardPayemnt,
-                ExpireDateCardPayment = expireDateCardPayment
+                NumberOrder = numberOrder
             };
         }
 
         public int GetNumberOrder()
         {
-            Random random = new Random();
-            return random.Next(100000000, 1000000000);
+            return this.NumberOrder;
         }
     }
 }

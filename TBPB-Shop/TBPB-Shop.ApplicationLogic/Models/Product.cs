@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 namespace TBPB_Shop.ApplicationLogic.Models{
     public class Product: DataEntity
     {
-        public decimal WarrantyOneYear { get; private set; }
-        public decimal WarrantyTwoYears { get; private set; }
-
-        public Guid CategoryId { get; set; }
-
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int QuantityOnStoc { get; private set; }
-        public Guid producerId { get; set; }
+        public Producer Producer { get; private set; }
+        public Guid ProducerId { get; set; }
+        public Category Category { get; private set; }
+        public Guid CategoryId { get; set; }
+        public decimal WarrantyOneYear { get; private set; }
+        public decimal WarrantyTwoYears { get; private set; }
 
         private Product()
         { }
@@ -31,7 +31,7 @@ namespace TBPB_Shop.ApplicationLogic.Models{
                 WarrantyOneYear = price / 10,
                 WarrantyTwoYears = (price * 17) / 100,
                 CategoryId = categoryId,
-                producerId = producerID
+                ProducerId = producerID
             };
             return product;
         }
@@ -44,14 +44,11 @@ namespace TBPB_Shop.ApplicationLogic.Models{
             this.QuantityOnStoc = quantityOnStoc;
             this.WarrantyOneYear = price / 10;
             this.WarrantyTwoYears = (price * 17) / 100;
-            
-
-            
         }
 
-        public int UpdateQuantityOnStoc()
+        public int UpdateQuantityOnStoc(int quantity)
         {
-            this.QuantityOnStoc--;
+            this.QuantityOnStoc -= quantity;
             return this.QuantityOnStoc;
         }
     }

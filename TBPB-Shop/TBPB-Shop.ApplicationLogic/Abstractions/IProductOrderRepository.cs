@@ -8,5 +8,6 @@ namespace TBPB_Shop.ApplicationLogic.Abstractions
     public interface IProductOrderRepository : IRepository<ProductOrder>
     {
         IEnumerable<ProductOrder> AddProductsList(IEnumerable<ProductOrder> productsList);
+        IEnumerable<ProductOrder> GetProductsFromOrder(Guid orderId);
     }
 }
