@@ -1,0 +1,36 @@
+﻿@model TBPB_Shop.ViewModel.OrderViewModel
+
+<div class="billing-data">
+    <div class="billing-data-contact"> Contact </div>
+
+    <div class="d-flex">
+        <div class="form-group dimension-div-bill">
+            <label asp-for="NameBilling" class="control-label color-label"></label>
+            <input id="namePhysicsPersonBilling" asp-for="NameBilling" class="form-control dimension-label" />
+        </div>
+
+        <div class="form-group dimension-div-bill form-group-separate">
+            <label asp-for="PhoneBilling" class="control-label color-label"></label>
+            <input id="phonePhysicsPersonBilling" asp-for="PhoneBilling" class="form-control dimension-label" />
+        </div>
+    </div>
+
+    <div class="billing-data-contact"> Address </div>
+
+    <div class="d-flex">
+        <div class="form-group dimension-div-bill">
+            <label asp-for="CityBilling" class="control-label color-label"></label>
+            <input id="cityPhysicsPersonBilling" asp-for="CityBilling" class="form-control dimension-label" />
+        </div>
+
+        <div class="form-group dimension-div-bill form-group-separate">
+            <label asp-for="DistrictBilling" class="control-label color-label"></label>
+            <input id="districtPhysicsPersonBilling" asp-for="DistrictBilling" class="form-control dimension-label" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AddressBilling" class="control-label color-label"></label>
+        <input id="addressPhysicsPersonBilling" asp-for="AddressBilling" class="form-control dimension-label" />
+    </div>
+</div>

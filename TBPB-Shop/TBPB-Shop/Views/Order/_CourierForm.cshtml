@@ -1,0 +1,36 @@
+﻿@model TBPB_Shop.ViewModel.OrderViewModel
+
+<div class="billing-data">
+    <div class="billing-data-contact"> Contact </div>
+
+    <div class="d-flex">
+        <div class="form-group dimension-div-bill">
+            <label asp-for="NameDelivery" class="control-label color-label"></label>
+            <input id="nameCourierDelivery" asp-for="NameDelivery" class="form-control dimension-label" />
+        </div>
+
+        <div class="form-group dimension-div-bill form-group-separate">
+            <label asp-for="PhoneDelivery" class="control-label color-label"></label>
+            <input id="phoneCourierDelivery" asp-for="PhoneDelivery" class="form-control dimension-label" />
+        </div>
+    </div>
+
+    <div class="billing-data-contact"> Address </div>
+
+    <div class="d-flex">
+        <div class="form-group dimension-div-bill">
+            <label asp-for="CityDelivery" class="control-label color-label"></label>
+            <input id="cityCourierDelivery" asp-for="CityDelivery" class="form-control dimension-label" />
+        </div>
+
+        <div class="form-group dimension-div-bill form-group-separate">
+            <label asp-for="DistrictDelivery" class="control-label color-label"></label>
+            <input id="districtCourierDelivery" asp-for="DistrictDelivery" class="form-control dimension-label" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AddressDelivery" class="control-label color-label"></label>
+        <input id="addressCourierDelivery" asp-for="AddressDelivery" class="form-control dimension-label" />
+    </div>
+</div>

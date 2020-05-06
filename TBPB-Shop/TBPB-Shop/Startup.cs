@@ -46,7 +46,10 @@ namespace TBPB_Shop
             services.AddScoped<ICartRepository, EFCartRepository>();
             services.AddScoped<IProductCartRepository, EFProductCartRepository>();
             services.AddScoped<ICategoryRepository, EFCategoryRepository>();
+            services.AddScoped<IOrderDataRepository, EFOrderDataRepository>();
+            services.AddScoped<IProductOrderRepository, EFProductOrderRepository>();
 
+            services.AddScoped<OrderService>();
             services.AddScoped<ProducerService>();
             services.AddScoped<CategoryService>();
             services.AddScoped<CustomerService>();
