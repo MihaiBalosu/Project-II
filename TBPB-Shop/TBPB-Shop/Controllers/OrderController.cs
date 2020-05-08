@@ -94,7 +94,7 @@ namespace TBPB_Shop.Controllers
                 var customer = customerService.GetCustomerByUserId(userId);
                 var viewModel = new OrdersDataViewModel
                 {
-                    Orders = orderService.GetOrdersDataFromCustomer(customer)
+                    Orders = orderService.GetOrdersDataFromCustomer(customer).OrderByDescending(order => order.DatePlacedOn)
                 };
                 return View(viewModel);
             }

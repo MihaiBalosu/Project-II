@@ -4,9 +4,13 @@ using System.Text;
 
 namespace TBPB_Shop.ApplicationLogic.Models
 {
+    internal class UniqueNumberOrder
+    {
+        internal static int numberOrder = 1000;
+    }
+
     public class OrderData : DataEntity
     {
-        private static int numberOrder = 1000;
         public int NumberOrder { get; private set; }
         public Guid CustomerId { get; private set; }
         public decimal TotalProductsPrice { get; private set; }
@@ -54,7 +58,7 @@ namespace TBPB_Shop.ApplicationLogic.Models
                                        string addressBilling,
                                        string typePayment)
         {
-            numberOrder++;
+            UniqueNumberOrder.numberOrder++;
             return new OrderData
             {
                 Id = Guid.NewGuid(),
@@ -62,7 +66,7 @@ namespace TBPB_Shop.ApplicationLogic.Models
                 TotalProductsPrice = totalProductsPrice,
                 PriceDelivery = priceDelivery,
                 TotalPrice = totalPrice,
-                DatePlacedOn = DateTime.Today,
+                DatePlacedOn = DateTime.UtcNow,
                 TypeDelivery = typeDelivery,
                 NameDelivery = nameDelivery,
                 PhoneDelivery = phoneDelivery,
@@ -76,7 +80,7 @@ namespace TBPB_Shop.ApplicationLogic.Models
                 DistrictBilling = districtBilling,
                 AddressBilling = addressBilling,
                 TypePayment = typePayment,
-                NumberOrder = numberOrder
+                NumberOrder = UniqueNumberOrder.numberOrder
             };
         }
 

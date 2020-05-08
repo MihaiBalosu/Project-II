@@ -1,0 +1,76 @@
+﻿@model TBPB_Shop.ViewModel.FilteredProductsViewModel
+
+    <div class="d-flex flex-lg-wrap">
+        @foreach (var item in Model.Products)
+        {
+            <div style="width: 200px; height: auto;" class="card m-2">
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-center font-weight-bold">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </h5>
+                    <div style="font-size: 13px;">
+                        @if (item.QuantityOnStoc < 10 && item.QuantityOnStoc != 0)
+                        {
+                            <div class="d-flex justify-content-center" style="color: #090;">in stock</div>
+                            <div class="d-flex justify-content-center">
+                                <span style="color: #005eb8;" class="card-text">@Html.DisplayFor(modelItem => item.QuantityOnStoc)</span>
+                                &nbsp;
+                                <span style="color: #005eb8;">offers available</span>
+                            </div>
+                        }
+
+                        @if (item.QuantityOnStoc >= 10)
+                        {
+                            <div class="d-flex justify-content-center" style="color: #090;">in stock</div>
+                            <div class="d-flex justify-content-center">
+                                <span style="color: #888;">Delivered by </span>
+                                &nbsp;
+                                <span>TBPB</span>
+                            </div>
+                        }
+
+                        @if (item.QuantityOnStoc == 0)
+                        {
+                            <div class="d-flex justify-content-center" style="color: #ef2809;">unavailable</div>
+                            <div class="d-flex justify-content-center">
+                                <span style="color: #888;">Delivered by </span>
+                                &nbsp;
+                                <span>TBPB</span>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="d-flex justify-content-center m-2" style="font-size: 18px;">
+                        <span>@Model.GetNaturalPart(item.Price)</span>
+                        @if (Model.GetCommaPart(item.Price) == 0)
+                        {
+                            <sup class="put-decimal">@Model.GetCommaPart(item.Price)</sup>
+                            <sup class="put-decimal">@Model.GetCommaPart(item.Price)</sup>
+                        }
+                        &nbsp;
+                        <span>Lei</span>
+                    </div>
+
+                    @if (item.QuantityOnStoc == 0)
+                    {
+                        <div class="d-flex justify-content-center">
+                            <a class="btn" style="background-color: #ef2809; color: white;">Unavailable</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="d-flex justify-content-center">
+                            <a class="btn btn-primary" asp-controller="Cart" asp-action="AddProduct" asp-route-id="@item.Id">Add To Cart</a>
+                        </div>
+                    }
+
+
+                    <div class="d-flex justify-content-center" style="margin-top: 10px;">
+                        <a class="m-1" asp-action="UpdateClicked" id="@item.Id" onclick="loadUpdatePage(this.id)" data-toggle="modal" data-target="#updateProductModal">Edit</a>
+                        <a class="m-1" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>

@@ -1,40 +1,46 @@
-﻿@model TBPB_Shop.ViewModel.CategoryViewModel
+﻿@model TBPB_Shop.ViewModel.CategoryDetailsViewModel
 
 @{
     ViewData["Title"] = "Products";
 }
 
-<h1>Products</h1>
+<h1>@Model.CategoryName Category</h1>
 
-<div>
-    <table class="table">
+@if (!Model.Products.Any())
+{
+    <h4 style="color: #ef2809">No products associated with this category</h4>
+    <div style="margin: 15px 0px;">
+        <a asp-controller="Products" asp-action="Index" class="btn btn-primary">Go to products</a>
+    </div>
+}
+else
+{
+<div style="margin: 20px 0px;">
+    <table class="table table-striped table-bordered w-75">
         <thead>
             <tr>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Price
-                </th>
-                <th></th>
+                <th>Product</th>
+                <th style="width: 15px !important;"></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.Products)
             {
                 <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
+                        <a asp-action="DeleteProduct" asp-route-id="@item.Id">Delete</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+</div>
+}
 
-</div>
 <div>
-    <a asp-action="Index">Back to Category List</a>
+    <a asp-action="Index">Back to Categories</a>
 </div>
+
+
+

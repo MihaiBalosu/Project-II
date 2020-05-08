@@ -48,7 +48,9 @@ namespace TBPB_Shop
             services.AddScoped<ICategoryRepository, EFCategoryRepository>();
             services.AddScoped<IOrderDataRepository, EFOrderDataRepository>();
             services.AddScoped<IProductOrderRepository, EFProductOrderRepository>();
+            services.AddScoped<IFavoritesRepository, EFFavoritesRepository>();
 
+            services.AddScoped<FavoritesService>();
             services.AddScoped<OrderService>();
             services.AddScoped<ProducerService>();
             services.AddScoped<CategoryService>();
@@ -89,7 +91,7 @@ namespace TBPB_Shop
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Products}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

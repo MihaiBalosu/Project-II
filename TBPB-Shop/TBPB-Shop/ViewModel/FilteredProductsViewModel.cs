@@ -6,14 +6,9 @@ using TBPB_Shop.ApplicationLogic.Models;
 
 namespace TBPB_Shop.ViewModel
 {
-    public class CartViewModel
+    public class FilteredProductsViewModel
     {
-        public Guid CartId { get; set; }
-        public IEnumerable<ProductCart> Products { get; set; }
-        public int NoOfProducts { get; set; }
-        public decimal TotalPriceProducts { get; set; }
-        public decimal PriceDelivery { get; set; }
-        public decimal TotalPrice { get; set; }
+        public IEnumerable<Product> Products { get; set; }
 
         public decimal GetNaturalPart(decimal number)
         {

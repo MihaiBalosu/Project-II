@@ -6,13 +6,26 @@
     </div>
 
     <div class="p-2 ml-auto final-cost-value">
-        <span id="products-total-price-int" class="money-int">
-            @Model.GetNaturalPart(Model.TotalPriceProducts)
-        </span>
-        <sup id="products-total-price-decimal" class="money-decimal">
-            @Model.GetCommaPart(Model.TotalPriceProducts)
-        </sup>
-        <span class="money-currency"> Lei </span>
+        <div class="d-flex">
+            <span id="products-total-price-int">
+                @Model.GetNaturalPart(Model.TotalPriceProducts)
+            </span>
+            <span id="products-total-price-decimal">
+                @if (Model.GetCommaPart(Model.TotalPriceProducts) < 10)
+                {
+                <sup class="d-flex put-decimal">
+                    <span>0</span>
+                    <span>@Model.GetCommaPart(Model.TotalPriceProducts)</span>
+                </sup>
+                }
+                else
+                {
+                    <sup class="put-decimal">@Model.GetCommaPart(Model.TotalPriceProducts)</sup>
+                }
+            </span>
+            &nbsp;
+            <span class="money-currency"> Lei </span>
+        </div>
     </div>
 </div>
 
@@ -25,9 +38,26 @@
     </div>
 
     <div class="p-2 delivery-process-value">
-        <span class="money-int">@Model.GetNaturalPart(Model.PriceDelivery) </span>
-        <sup class="money-decimal"> @Model.GetCommaPart(Model.PriceDelivery) </sup>
-        <span class="money-currency"> Lei </span>
+        <div class="d-flex">
+            <span id="products-total-price-int">
+                @Model.GetNaturalPart(Model.PriceDelivery)
+            </span>
+            <span id="products-total-price-decimal">
+                @if (Model.GetCommaPart(Model.PriceDelivery) < 10)
+                {
+                <sup class="d-flex put-decimal">
+                    <span>0</span>
+                    <span>@Model.GetCommaPart(Model.TotalPrice)</span>
+                </sup>
+                }
+                else
+                {
+                    <sup class="put-decimal">@Model.GetCommaPart(Model.PriceDelivery)</sup>
+                }
+            </span>
+            &nbsp;
+            <span class="money-currency"> Lei </span>
+        </div>
     </div>
 </div>
 
@@ -38,13 +68,26 @@
 </div>
 
 <div class="total-price-value">
-    <span id="total-price-int" class="money-int"> 
-        @Model.GetNaturalPart(Model.TotalPrice)    
-    </span>
-    <sup id="total-price-decimal" class="money-decimal">
-        @Model.GetCommaPart(Model.TotalPrice)
-    </sup>
-    <span class="money-currency"> Lei </span>
+    <div class="d-flex">
+        <span id="total-price-int">
+            @Model.GetNaturalPart(Model.TotalPrice)
+        </span>
+        <span id="total-price-decimal">
+            @if (Model.GetCommaPart(Model.TotalPrice) < 10)
+            {
+            <sup class="d-flex put-decimal">
+                <span>0</span> 
+                <span>@Model.GetCommaPart(Model.TotalPrice)</span>
+            </sup>
+            }
+            else
+            {
+                <sup class="put-decimal">@Model.GetCommaPart(Model.TotalPrice)</sup>
+            }
+        </span>
+        &nbsp;
+        <span class="money-currency"> Lei </span>
+    </div>
 </div>
 
 

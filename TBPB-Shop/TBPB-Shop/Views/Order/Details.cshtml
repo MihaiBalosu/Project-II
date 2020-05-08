@@ -8,19 +8,31 @@
         <div class="order-number-details"> Order nr. @Model.OrderData.GetNumberOrder()</div>
 
         <div class="container-order">
-            <div class="order-date-placed-on">
-                Placed on :
+            <div class="d-flex order-date-placed-on">
+                <div>Placed on:</div>
+                &nbsp;
                 <span>@Model.OrderData.DatePlacedOn.ToLongDateString()</span>
+                <span>,</span>
+                &nbsp;
+                <span>@Model.OrderData.DatePlacedOn.Hour</span>
+                <span>:</span>
+                <span>@Model.OrderData.DatePlacedOn.Minute</span>
             </div>
-            <div class="order-total-price" style="margin-bottom : 15px !important;">
-                Total Price :
-                <span class="price-bold">
+            <div class="d-flex order-total-price" style="margin-bottom : 15px !important;">
+                <div>Total Price:</div>
+                &nbsp;
+                <span class="d-flex  price-bold">
                     <span>@Model.GetNaturalPart(Model.OrderData.TotalPrice)</span>
                     @if (Model.GetCommaPart(Model.OrderData.TotalPrice) == 0)
                     {
-                        <sup class="put-decimal-total-order">@Model.GetCommaPart(Model.OrderData.TotalPrice)</sup>
-                            <sup class="put-decimal-total-order">@Model.GetCommaPart(Model.OrderData.TotalPrice)</sup>
+                        <sup class="put-decimal">00</sup>
                     }
+                    else
+                    {
+                        <sup class="put-decimal">@Model.GetCommaPart(Model.OrderData.TotalPrice)</sup>
+
+                    }
+                    &nbsp;
                     <span>Lei</span>
                 </span>
             </div>
@@ -75,16 +87,22 @@
                     <div class="container-delivery-information">
                         <div class="order-type-delivery">Payment type:</div>
                         <div class="order-information-value">@Model.OrderData.TypePayment</div>
-                        <div class="order-information-for">Total price: </div>
-                        <div class="d-flex order-information-value price-bold">
-                            <span>@Model.GetNaturalPart(Model.OrderData.TotalPrice)</span>
-                            @if (Model.GetCommaPart(Model.OrderData.TotalPrice) == 0)
-                            {
-                                <sup class="put-decimal-payment">@Model.GetCommaPart(Model.OrderData.TotalPrice)</sup>
-                                <sup class="put-decimal-payment">@Model.GetCommaPart(Model.OrderData.TotalPrice)</sup>
-                            }
-                            &nbsp;
-                            <span>Lei</span>
+                        <div style="margin-top: 25px;">
+                            <div class="order-information-for">Total price: </div>
+                            <div class="d-flex order-information-value price-bold">
+                                <span>@Model.GetNaturalPart(Model.OrderData.TotalPrice)</span>
+                                @if (Model.GetCommaPart(Model.OrderData.TotalPrice) == 0)
+                                {
+                                    <sup class="put-decimal-payment">00</sup>
+                                }
+                                else
+                                {
+                                    <sup class="put-decimal-payment">@Model.GetCommaPart(Model.OrderData.TotalPrice)</sup>
+
+                                }
+                                &nbsp;
+                                <span>Lei</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -106,8 +124,12 @@
                             <span>@Model.GetNaturalPart(productOrder.Product.Price)</span>
                             @if (Model.GetCommaPart(productOrder.Product.Price) == 0)
                             {
-                            <sup class="put-decimal">@Model.GetCommaPart(productOrder.Product.Price)</sup>
-                            <sup class="put-decimal">@Model.GetCommaPart(productOrder.Product.Price)</sup>
+                                <sup class="put-decimal">00</sup>
+                            }
+                            else
+                            {
+                                <sup class="put-decimal">@Model.GetCommaPart(productOrder.Product.Price)</sup>
+
                             }
                             &nbsp;
                             <span>Lei</span>

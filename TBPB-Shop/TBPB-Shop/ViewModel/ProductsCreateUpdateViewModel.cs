@@ -8,6 +8,7 @@ namespace TBPB_Shop.ViewModel
 {
     public class ProductsCreateUpdateViewModel
     {
+        public string ProductId { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int QuantityOnStoc { get; set; }

@@ -27,6 +27,7 @@ namespace TBPB_Shop.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
         private readonly CustomerService customerService;
         private readonly CartService cartService;
+        private readonly FavoritesService favoritesService;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -34,7 +35,8 @@ namespace TBPB_Shop.Areas.Identity.Pages.Account
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             CustomerService customerService,
-            CartService cartService)
+            CartService cartService,
+            FavoritesService favoritesService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -42,6 +44,7 @@ namespace TBPB_Shop.Areas.Identity.Pages.Account
             _emailSender = emailSender;
             this.customerService = customerService;
             this.cartService = cartService;
+            this.favoritesService = favoritesService;
         }
 
         [BindProperty]
@@ -97,7 +100,7 @@ namespace TBPB_Shop.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
                     var newCart = cartService.RegisterNewCart();
                     var newCustomer = customerService.RegisterNewCustomer(user.Id, Input.FirstName, Input.LastName, newCart.Id);
-
+                    var favoritesCustomer = favoritesService.CreateFavoritesForCustomer(newCustomer.Id);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(

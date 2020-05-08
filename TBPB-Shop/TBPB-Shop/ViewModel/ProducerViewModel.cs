@@ -6,8 +6,8 @@ using TBPB_Shop.ApplicationLogic.Models;
 
 namespace TBPB_Shop.ViewModel
 {
-    public class OrdersDataViewModel
+    public class ProducerViewModel
     {
-        public IEnumerable<OrderData> Orders { get; set; }
+        public IEnumerable<Producer> Producers { get; set; }
     }
 }

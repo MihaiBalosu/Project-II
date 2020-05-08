@@ -12,10 +12,12 @@ namespace TBPB_Shop.Controllers
     public class CategoriesController : Controller
     {
         private readonly CategoryService categoryService;
+        private readonly ProductService productService;
 
-        public CategoriesController(CategoryService categoryService)
+        public CategoriesController(CategoryService categoryService, ProductService productService)
         {
             this.categoryService = categoryService;
+            this.productService = productService;
         }
 
         public IActionResult Index()
@@ -33,23 +35,28 @@ namespace TBPB_Shop.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        public IActionResult Save(string name, string description)
+        [HttpPost]
+        public IActionResult Create(NewCategoryViewModel viewModel)
         {
-            categoryService.Add(name, description);
+            categoryService.Add(viewModel.Name, viewModel.Description);
             return RedirectToAction("Index");
         }
 
         public IActionResult Details(Guid id)
         {
-            var viewModel = new CategoryViewModel();
             try
             {
-                viewModel.Products = categoryService.getProductsForCategory(id);
+                var viewModel = new CategoryDetailsViewModel()
+                {
+                    CategoryName = categoryService.getById(id).Name,
+                    Products = categoryService.getProductsForCategory(id)
+                };
                 return View(viewModel);
             }
             catch(Exception e)
@@ -64,14 +71,19 @@ namespace TBPB_Shop.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Edit(Guid id)
+        [HttpGet]
+        public IActionResult Update(Guid id)
         {
-            var viewModel = new CategoryViewModel();
-
             try
             {
                 var category = categoryService.getById(id);
-                return View(category);
+                var viewModel = new UpdateCategoryViewModel()
+                {
+                    Name = category.Name,
+                    Description = category.Description,
+                    CategoryId = category.Id
+                };
+                return PartialView("_Update", viewModel);
             }
             catch(Exception e)
             {
@@ -80,10 +92,23 @@ namespace TBPB_Shop.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Guid id, string name, string description)
+        public IActionResult Update(UpdateCategoryViewModel viewModel)
         {
-            categoryService.Update(id, name, description);
+            categoryService.Update(viewModel.CategoryId, viewModel.Name, viewModel.Description);
             return RedirectToAction("Index");
+        }
+
+        public IActionResult GetProducts(Guid id)
+        {
+            var productsList = categoryService.getProductsForCategory(id);
+            return PartialView("_ProductsList", new ProductsForCategoryViewModel { Products = productsList });
+        }
+
+        public IActionResult DeleteProduct(string id)
+        {
+            var categoryId = productService.GetById(id).CategoryId;
+            productService.Remove(id);
+            return RedirectToAction("Details", new { id = categoryId });
         }
     }
 }

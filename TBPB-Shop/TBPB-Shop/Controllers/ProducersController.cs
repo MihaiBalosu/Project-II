@@ -24,55 +24,76 @@ namespace TBPB_Shop.Controllers
 
         public IActionResult Index()
         {
-            var producersList = producerService.GetAll();
-            return View(producersList);
-        }
-
-        public IActionResult GoToProducts(Guid id)
-        {
-            var producerList = producerService.GetAll();
-            var productList = productService.GetAll();
-            var viewModel = new ProductsViewModel()
+            var viewModel = new ProducerViewModel
             {
-                Products = producerService.getAllProductsFromProducer(id),
-                Producers = producerList,
-                ProducerId = id
+                Producers = producerService.GetAll()
             };
             return View(viewModel);
         }
 
-        public IActionResult New()
+        [HttpGet]
+        public IActionResult Create()
         {
             return View();
         }
 
-        public IActionResult Create(string name)
+        [HttpPost]
+        public IActionResult Create(CreateUpdateProducerViewModel viewModel)
         {
-            producerService.Add(name);
+            producerService.Add(viewModel.Name);
             return RedirectToAction("Index");
         }
 
-        public IActionResult Update(Guid Id, string name)
+        [HttpPost]
+        public IActionResult Update(CreateUpdateProducerViewModel viewModel)
         {
-            producerService.Update(Id, name);
+            producerService.Update(viewModel.ProducerId, viewModel.Name);
             return RedirectToAction("Index");
         }
 
-        public IActionResult UpdateClicked(string Id)
+        [HttpGet]
+        public IActionResult Update(string Id)
         {
-            var producerItem = producerService.GetById(Id);
-            return View(producerItem);
-        }
-
-        public IActionResult Delete(string Id)
-        {
-            if(producerService.Remove(Id) == true)
+            var producerDb = producerService.GetById(Id);
+            var viewModel = new CreateUpdateProducerViewModel
             {
+                Name = producerDb.Name,
+                ProducerId = producerDb.Id
+            };
+            
+            return PartialView("_Update", viewModel);
+        }
+
+        public IActionResult Delete(string id)
+        {
+            try
+            {
+                producerService.Remove(id);
                 return RedirectToAction("Index");
             }
-            return BadRequest("The deletion could not be performed!");
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
+        public IActionResult Details(string id)
+        {
+            var producerDb = producerService.GetById(id);
+            var viewModel = new ProducerDetailsViewModel
+            {
+                ProducerName = producerDb.Name,
+                Products = producerService.getAllProductsFromProducer(producerDb.Id)
+            };
+            return View(viewModel); 
+        }
+
+        public IActionResult DeleteProduct(string id)
+        {
+            var producerId = productService.GetById(id).ProducerId;
+            productService.Remove(id);
+            return RedirectToAction("Details", new { id = producerId});
+        }
         
     }
 }

@@ -2,46 +2,33 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<ul class="navbar-nav flex-grow-1">
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-    </li>
+    <ul class="navbar-nav flex-grow-1">
+        <li class="nav-item">
+            <a id="home-navbar-item" class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Home</a>
+        </li>
 
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Producers" asp-action="Index">Producer</a>
-    </li>
-
-
-        <li id="category" class="nav-item">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Producers" asp-action="Index">Producer</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Category</a>
-            <div id="elementsHover" class="dropdownX">
-                <div class="dropdown-content">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Create">Create</a>
-                </div>
-            </div>
         </li>
 
 
 
-    @if (SignInManager.IsSignedIn(User))
+
+        @if (SignInManager.IsSignedIn(User))
         {
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">My Cart</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="History">History</a>
-    </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">My Cart</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="History">History</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Favorites" asp-action="Index">Favorites</a>
+            </li>
         }
-
-
     </ul>
 
 

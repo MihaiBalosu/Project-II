@@ -1,35 +1,110 @@
-﻿@model IEnumerable<TBPB_Shop.ApplicationLogic.Models.Producer>
+﻿@model TBPB_Shop.ViewModel.ProducerViewModel
+@using TBPB_Shop.ViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<a href="" class="btn btn-primary m-3" data-toggle="modal" data-target="#createProducerModal">Create</a>
 
-<p>
-    <a asp-action="New">Create New</a>
-</p>
-<table class="table">
+<table class="table table-striped table-bordered w-75">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
+            <th>Producer name</th>
+            <th style="width: 220px !important;"></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="UpdateClicked" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                <a asp-action="GoToProducts" asp-route-id="@item.Id">See All Products</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Producers)
+        {
+            <tr id="producer-row-to-delete-@item.Id">
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>
+                    <a href="" id="@item.Id" onclick="loadUpdateProducerPage(this.id)" data-toggle="modal" data-target="#updateProducerModal">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">See products</a> |
+                    <a href="" id="@item.Id" onclick="removeProducer(this.id)">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<form method="post" asp-controller="Producers" asp-action="Create">
+    <div class="modal fade" id="createProducerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create producer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <partial name="_Create" model="new CreateUpdateProducerViewModel { }"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form method="post" asp-controller="Producers" asp-action="Update">
+    <div class="modal fade" id="updateProducerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update producer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="update-producer-form"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section scripts{ 
+    <script>
+        function loadUpdateProducerPage(id) {
+            loadServerPartialView("#update-producer-form", "/Producers/Update?id=" + id);
+        }
+
+        $(document).ready(function () {
+            @foreach (var producer in Model.Producers)
+            {
+            //    @: confirmDelete("@producer.Id");
+            }
+        });
+
+            function removeProducer(id) {
+                $.ajax({
+                    url: "Producers/Delete?id=" + id,
+                    success: function () {
+                        document.getElementById("producer-row-to-delete-" + id).style.display = "none";
+                    }
+                });
+            }
+
+        function confirmDelete(id) {
+            $("#producer-to-delete-" + id).on("click", function () {
+                if (confirm("Are you sure you want to delete this?\n\nAll associated products with this producer\nwill be removed\n\n*In order to delete a producer\ndouble confirm is necessary")) {
+                    $.ajax({
+                        url: "/Producers/Delete?id=" + id,
+                        success: function () {
+                            document.getElementById("producer-" + id).style.display = "none";
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}

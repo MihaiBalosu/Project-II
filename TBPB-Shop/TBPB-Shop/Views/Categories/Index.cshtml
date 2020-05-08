@@ -1,60 +1,104 @@
 ﻿@model TBPB_Shop.ViewModel.CategoryViewModel
+@using TBPB_Shop.ViewModel
+@{
+    ViewData["Title"] = "Index";
+}
 
-    <head>
+<a class="btn btn-primary m-3" style="color: white;" data-toggle="modal" data-target="#newCategoryModal">Create</a>
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
+<table class="table table-striped table-bordered w-75">
+    <thead>
+        <tr>
+            <th>Category name</th>
+            <th style="width: 220px !important;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Categories)
+        {
+            <tr id="category-@item.Id">
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>
+                    <a href="" id="@item.Id" onclick="loadUpdateCategoryPage(this.id)" data-toggle="modal" data-target="#updateCategoryModal">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">See products</a> |
+                    <a href="" id="category-to-delete-@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
-        <link href="~/ShopView/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="~/css/site.css" rel="stylesheet">
-        <link href="~/ShopView/" rel="stylesheet">
-
-    </head>
-
-    <body>
-
-        <div class="container">
-
-            <div id="create_category">
-                <a asp-action="Create">Create New</a>
-            </div>
-            <div class="row">
-
-                @foreach (var item in Model.Categories)
-                {
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            
-                            <div class="card-body" id="@item.Id">
-                                <h4 data-toggle="tooltip" title="Click to view description" class="category_name card-title title" onclick=showDescription("@item.Description") >
-                                    @Html.DisplayFor(modelItem => item.Name)
-                                </h4>
-                                <h5>@Html.HiddenFor(model => item.Description, new { id = "Description" })</h5>
-                            </div>
-                            <div class="card-footer">
-                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                                @Html.ActionLink("Products", "Details", new { id = item.Id })
-                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                            </div>
-                        </div>
+<form method="post" asp-controller="Categories" asp-action="Create">
+    <div class="modal fade" id="newCategoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create category</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="contId">
+                        <partial name="_Create" model="new NewCategoryViewModel()" />
                     </div>
-                }
-            </div>
-            <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-                        Description:
-                    </div>
-                    <div id="modal-content" class="modal-content">                        
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
                 </div>
             </div>
         </div>
+    </div>
+</form>
 
-        <script src="~/ShopView/vendor/jquery/jquery.min.js"></script>
-        <script src="~/ShopView/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="~/js/site.js"></script>
-    </body>
+<form method="post" asp-controller="Categories" asp-action="Update">
+    <div class="modal fade" id="updateCategoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update category</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="updateCategoryForm"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
 
+@section scripts{ 
+    <script>
+        function loadUpdateCategoryPage(id) {
+            loadServerPartialView("#updateCategoryForm", "/Categories/Update?id=" + id);
+        }
+
+        $(document).ready(function () {
+            @foreach (var category in Model.Categories)
+            {
+                @: confirmDelete("@category.Id");
+            }
+        });
+
+        function confirmDelete(id) {
+            $("#category-to-delete-" + id).on("click", function () {
+                console.log("x");
+                if (confirm("Are you sure you want to delete this?\n\nAll associated products with this category\nwill be removed\n\n*In order to delete a category\ndouble confirm is necessary")) {
+                    console.log("y");
+                    $.ajax({
+                        url: "/Categories/Delete?id=" + id,
+                        success: function () {
+                            document.getElementById("category-" + id).style.display = "none";
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}

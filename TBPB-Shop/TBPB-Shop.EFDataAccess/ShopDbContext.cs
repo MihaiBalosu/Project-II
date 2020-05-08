@@ -20,6 +20,7 @@ namespace TBPB_Shop.EFDataAccess
         public DbSet<Producer> Producers { get; private set; }
         public DbSet<Product> Products{ get; private set; }
         public DbSet<ProductCart> ProductCart { get; private set; }
-
+        public DbSet<Favorites> Favorites { get; private set; }
+        public DbSet<ProductFavorites> ProductFavorites { get; private set; }
     }
 }

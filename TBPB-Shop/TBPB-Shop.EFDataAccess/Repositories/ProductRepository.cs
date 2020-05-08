@@ -34,5 +34,11 @@ namespace TBPB_Shop.EFDataAccess.Repositories
             dbContext.SaveChanges();
             return productsList;
         }
+
+        public void RemoveList(IEnumerable<Product> productsList)
+        {
+            dbContext.Products.RemoveRange(productsList);
+            dbContext.SaveChanges();
+        }
     }
 }

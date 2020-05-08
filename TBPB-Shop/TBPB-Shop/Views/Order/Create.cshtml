@@ -132,7 +132,7 @@
                     </div>
 
                     <div class="p-2 delivery-process-value">
-                        <span class="money-int"> @Model.GetNaturalPart(Model.DeliveryPrice) </span>
+                        <span id="order-delivery-price" class="money-int"> @Model.GetNaturalPart(Model.DeliveryPrice) </span>
 
                         <sup class="money-decimal"> @Model.GetCommaPart(Model.DeliveryPrice) </sup>
 
@@ -246,6 +246,19 @@
                     form.style.display = "none";
                 }
             }
+            if (document.getElementById("courierRefund").checked == true) {
+                var valueTotalPrice = @Model.GetNaturalPart(Model.TotalPrice) + 5;
+                var valueDeliveryPrice = @Model.GetNaturalPart(Model.DeliveryPrice) + 5;
+                document.getElementById("order-total-price").innerHTML = valueTotalPrice;
+                document.getElementById("order-delivery-price").innerHTML = valueDeliveryPrice;
+            } else {
+                var valueTotalPrice = @Model.GetNaturalPart(Model.TotalPrice);
+                var valueDeliveryPrice = @Model.GetNaturalPart(Model.DeliveryPrice);
+                document.getElementById("order-total-price").innerHTML = valueTotalPrice;
+                document.getElementById("order-delivery-price").innerHTML = 5;
+                document.getElementById("order-delivery-price").innerHTML = valueDeliveryPrice;
+            }
+
         }
 
         function getFormData() {

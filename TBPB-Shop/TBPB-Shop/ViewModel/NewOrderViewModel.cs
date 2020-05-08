@@ -9,7 +9,7 @@ namespace TBPB_Shop.ViewModel
     {
         public decimal TotalProductsPrice { get; set; }
         public decimal DeliveryPrice { get; set; }
-        public decimal TotalPrice { get; set; } 
+        public decimal TotalPrice { get; set; }
         public string TypeDelivery { get; set; }
         public string NameDelivery { get; set; }
         public string AddressDelivery { get; set; }

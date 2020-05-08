@@ -36,7 +36,9 @@ namespace TBPB_Shop.ApplicationLogic.Services
 
         public void Remove(Guid id)
         {
-            categoryRepository.Remove(id);
+            var productsForCategory = getProductsForCategory(id);
+            productRepository.RemoveList(productsForCategory);
+            categoryRepository.Remove(id);  
         }
 
         public void Update(Guid id, string name, string description)

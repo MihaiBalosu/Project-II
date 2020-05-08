@@ -10,10 +10,12 @@ namespace TBPB_Shop.ApplicationLogic.Services
     public class ProducerService
     {
         private readonly IProducerRepository producerRepository;
+        private readonly IProductRepository productRepository;
 
-        public ProducerService(IProducerRepository producerRepository)
+        public ProducerService(IProducerRepository producerRepository, IProductRepository productRepository)
         {
             this.producerRepository = producerRepository;
+            this.productRepository = productRepository;
         }
 
         public IEnumerable<Producer> GetAll()
@@ -41,6 +43,9 @@ namespace TBPB_Shop.ApplicationLogic.Services
             {
                 throw new ProducerException(producerId);
             }
+
+            var productsForProducer = getAllProductsFromProducer(producerId);
+            productRepository?.RemoveList(productsForProducer);
 
             if(producerRepository.Remove(producerId) == true)
             {

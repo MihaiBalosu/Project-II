@@ -26,9 +26,12 @@
     <Compile Remove="Migrations\20200506094709_PriceDeliveryMigration.Designer.cs" />
     <Compile Remove="Migrations\20200506115723_ChangeProductCartToProductMigration.cs" />
     <Compile Remove="Migrations\20200506115723_ChangeProductCartToProductMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200508170050_FavoritesMigration.cs" />
+    <Compile Remove="Migrations\20200508170050_FavoritesMigration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="jQuery" Version="3.5.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />

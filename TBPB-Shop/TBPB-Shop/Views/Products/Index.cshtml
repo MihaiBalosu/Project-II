@@ -1,73 +1,302 @@
 ﻿@model TBPB_Shop.ViewModel.ProductsViewModel
-
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-
-    <link href="~/ShopPage/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="~/ShopPage/css/shop-homepage.css" rel="stylesheet">
-
-</head>
-
-<body>
-    <div>
-        <a asp-action="New">Create New</a>
-    </div>
-    <div class="container">
-        <div class="row">
-
-            <div class="col-lg-3">
-
-                <h1 class="my-4">TBPB Shop</h1>
-
-                @*<p>Categories</p>
-                <div class="list-group active">
-                    <a href="#" class="list-group-item ">Category 1</a>
-                    <a href="#" class="list-group-item ">Category 2</a>
-                    <a href="#" class="list-group-item ">Category 3</a>
-                </div>*@
-
-               <p>Producers</p>
-                    @foreach (var producer in Model.Producers)
-                    {
-                        <div class="list-group-item">
-                            <a asp-controller="Producers" asp-action="GoToProducts" asp-route-id="@producer.Id">@Html.DisplayFor(modelItem => producer.Name)</a>
-                        </div>
-                    }
-            </div>
+@using TBPB_Shop.ViewModel
 
 
-            @foreach (var item in Model.Products)
-            {
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-auto w-auto">
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                    @Html.DisplayFor(modelItem => item.Name)
-                            </h4>
-                            <h5>@Html.DisplayFor(modelItem => item.Price)Lei</h5>
-                            <p>
-                                Quantity:
-                                <span class="card-text">@Html.DisplayFor(modelItem => item.QuantityOnStoc)</span>
-                            </p>
-                            <div class="card-my-footer" style="background-color: #d3dbdb !important;">
-                                <a class="btn btn-primary" asp-controller="Cart" asp-action="AddProduct" asp-route-id="@item.Id">Add To Cart</a>
-                                <a asp-action="UpdateClicked" asp-route-id="@item.Id">Edit</a>
-                                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                            </div>
-                        </div>
+
+<div>
+    <a onclick="loadCreatePage()" style="color: white;" class="btn btn-primary m-3" data-toggle="modal" data-target="#createProductModal">Add product</a>
+</div>
+
+<div class="d-flex">
+    <div class="d-flex flex-column">
+        <div class="container-options m-1">
+            <div class="font-weight-bold p-2">Categories</div>
+            <div class="d-flex flex-column">
+                @foreach (var category in Model.Categories)
+                {
+                    <div class="d-flex">
+                        <input type="checkbox" name="checkBoxCategory" id="checkBoxCategory-@category.Id" />
+                        <span style="margin-left: 10px;">@category.Name</span>
+                        <span class="p-1" id="number-products-category-@category.Id" style="font-size: 12px; color: #656966;"></span>
                     </div>
+                }
+            </div>
+        </div>
+
+        <div class="container-options m-1">
+            <div class="font-weight-bold p-2">Producers</div>
+            <div class="d-flex flex-column">
+                @foreach (var producer in Model.Producers)
+                {
+                    <div class="d-flex">
+                        <input type="checkbox" name="checkBoxProducer" id="checkBoxProducer-@producer.Id" />
+                        <span style="margin-left: 10px;">@producer.Name</span>
+                        <span class="p-1" id="number-products-producer-@producer.Id" style="font-size: 12px; color: #656966;"></span>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="container-options m-1">
+            <div class="font-weight-bold p-2">Prices</div>
+            <div class="d-flex flex-column">
+                <div class="d-flex">
+                    <input type="checkbox" name="checkBoxPrice" id="checkBoxPrice-1" />
+                    <span style="margin-left: 10px;">0 - 50</span>
+                    <span class="p-1" id="number-products-price-1" style="font-size: 12px; color: #656966;"></span>
                 </div>
-            }
+                <div class="d-flex">
+                    <input type="checkbox" name="checkBoxPrice" id="checkBoxPrice-2" />
+                    <span style="margin-left: 10px;">50 - 100</span>
+                    <span class="p-1" id="number-products-price-2" style="font-size: 12px; color: #656966;"></span>
+                </div>
+                <div class="d-flex">
+                    <input type="checkbox" name="checkBoxPrice" id="checkBoxPrice-3" />
+                    <span style="margin-left: 10px;">100 - 200</span>
+                    <span class="p-1" id="number-products-price-3" style="font-size: 12px; color: #656966;"></span>
+                </div>
+                <div class="d-flex">
+                    <input type="checkbox" name="checkBoxPrice" id="checkBoxPrice-4" />
+                    <span style="margin-left: 10px;">200 - 500</span>
+                    <span class="p-1" id="number-products-price-4" style="font-size: 12px; color: #656966;"></span>
+                </div>
+                <div class="d-flex">
+                    <input type="checkbox" name="checkBoxPrice" id="checkBoxPrice-5" />
+                    <span style="margin-left: 10px;">500 - 1000</span>
+                    <span class="p-1" id="number-products-price-5" style="font-size: 12px; color: #656966;"></span>
+                </div>
+                <div class="d-flex">
+                    <input type="checkbox" name="checkBoxPrice" id="checkBoxPrice-6" />
+                    <span style="margin-left: 10px;">1000 - 1500</span>
+                    <span class="p-1" id="number-products-price-6" style="font-size: 12px; color: #656966;"></span>
+                </div>
+                <div class="d-flex">
+                    <input type="checkbox" name="checkBoxPrice" id="checkBoxPrice-7" />
+                    <span style="margin-left: 10px;">1500 - 2000</span>
+                    <span class="p-1" id="number-products-price-7" style="font-size: 12px; color: #656966;"></span>
+                </div>
+                <div class="d-flex">
+                    <input type="checkbox" name="checkBoxPrice" id="checkBoxPrice-8" />
+                    <span style="margin-left: 10px;">2000 - 3000</span>
+                    <span class="p-1" id="number-products-price-8" style="font-size: 12px; color: #656966;"></span>
+                </div>
+                <div class="d-flex">
+                    <input type="checkbox" name="checkBoxPrice" id="checkBoxPrice-9" />
+                    <span style="margin-left: 10px;">3000 - 4000</span>
+                    <span class="p-1" id="number-products-price-9" style="font-size: 12px; color: #656966;"></span>
+                </div>
+                <div class="d-flex">
+                    <input type="checkbox" name="checkBoxPrice" id="checkBoxPrice-10" />
+                    <span style="margin-left: 10px;">4000 - 5000</span>
+                    <span class="p-1" id="number-products-price-10" style="font-size: 12px; color: #656966;"></span>
+                </div>
+                <div class="d-flex">
+                    <input type="checkbox" name="checkBoxPrice" id="checkBoxPrice-11" />
+                    <span style="margin-left: 10px;">Peste 5000</span>
+                    <span class="p-1" id="number-products-price-11" style="font-size: 12px; color: #656966;"></span>
+                </div>
+            </div>
         </div>
     </div>
+    <div id="products-container">
+        <partial name="_ProductsList" model="new FilteredProductsViewModel { Products = Model.Products}" />
+    </div>
+</div>
 
-    <script src="~/ShopPage/vendor/jquery/jquery.min.js"></script>
-    <script src="~/ShopPage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<form method="post" asp-controller="Products" asp-action="Create">
+    <div class="modal fade" id="createProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="createFormId"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" asp-action="Create" class="btn btn-primary">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
-</body>
+<form method="post" asp-controller="Products" asp-action="Update">
+    <div class="modal fade" id="updateProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="updateFormId"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" asp-action="Update" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            @foreach (var producer in Model.Producers)
+            {
+                @: setNoProductsForProducer("@producer.Id");
+                @: filter("checkBoxProducer-@producer.Id");
+            }
+                @foreach (var category in Model.Categories)
+            {
+                @: setNoProductsForCategory("@category.Id");
+                @: filter("checkBoxCategory-@category.Id");
+            }
+
+            for (var i = 1; i <= 11; i++){
+                setNoProductsForPrice(i);
+                filter("checkBoxPrice-" + i);
+            }
+        });
+
+    function setNoProductsForProducer(id){
+        var count = 0;
+        @foreach (var product in Model.Products)
+        {
+            @: if("@product.ProducerId" == id)
+            {
+                @: count++;
+            }
+        }
+        $("#number-products-producer-" + id).html("(" + count + ")");
+    }
+
+    function setNoProductsForCategory(id){
+        var count = 0;
+        @foreach (var product in Model.Products)
+        {
+            @: if("@product.CategoryId" == id)
+            {
+                @: count++;
+            }
+        }
+        $("#number-products-category-" + id).html("(" + count + ")");
+    }
+        var pricesArray = [0, 50, 100, 200, 500, 1000, 1500, 2000, 3000, 4000, 5000]
+        function setNoProductsForPrice(id) {
+            if (id == pricesArray.length) {
+                var count = 0;
+                @foreach (var product in Model.Products)
+                {
+                    @:if (Math.trunc(@product.Price) > pricesArray[id - 1]) {
+                        @:count++;
+                    @:}
+                }
+                $("#number-products-price-" + id).html("(" + count + ")");
+            }
+            else {
+                var count = 0;
+                @foreach (var product in Model.Products)
+                {
+                    @:if (Math.trunc(@product.Price) > pricesArray[id - 1] && Math.trunc(@product.Price) < pricesArray[id]) {
+                        @:count++;
+                    @:}
+                }
+                $("#number-products-price-" + id).html("(" + count + ")");
+            }
+        }
+
+    function loadCreatePage() {
+            loadServerPartialView("#createFormId", "Products/Create");
+        }
+
+    function loadUpdatePage(id) {
+            loadServerPartialView("#updateFormId", "Products/Update?id=" + id);
+        }
+
+        function setOneCheckboxProducer(id) {
+            @foreach (var producer in Model.Producers)
+                {
+                    @: if ("@producer.Id" != id)
+                    {
+                        @: document.getElementById("checkBoxProducer-" + "@producer.Id").checked = false;
+                    }
+                }
+        }
+
+        function setOneCheckboxPrice(id) {
+            for (var i = 1; i <= pricesArray.length; i++){
+                if (i != id){
+                    document.getElementById("checkBoxPrice-" + i).checked = false;
+                }
+            }
+        }
+
+        function setOneCheckboxCategory(id) {
+            @foreach (var category in Model.Categories)
+                {
+                    @: if ("@category.Id" != id)
+                    {
+                        @: document.getElementById("checkBoxCategory-" + "@category.Id").checked = false;
+                    }
+                }
+        }
+
+        function getProducerId() {
+            @foreach (var producer in Model.Producers)
+            {
+                @:if (document.getElementById("checkBoxProducer-" + "@producer.Id").checked == true) {
+                    @: return "@producer.Id"
+                @:}
+            }
+            return "0";
+        }
+
+        function getCategoryId() {
+            @foreach (var category in Model.Categories)
+            {
+                @:if (document.getElementById("checkBoxCategory-" + "@category.Id").checked == true) {
+                    @: return "@category.Id"
+                   @:}
+            }
+            return "0";
+        }
+
+        function getPriceId(){
+            for (var i = 1; i <= pricesArray.length; i++) {
+                if (document.getElementById("checkBoxPrice-" + i).checked == true) {
+                    return i;
+                }
+            }
+            return "0";
+        }
+
+        function filter(idCheckbox) {
+            $("#" + idCheckbox).on("click", function () {
+                var producerId = getProducerId();
+                var categoryId = getCategoryId();
+                var priceId = getPriceId();
+                setOneCheckboxProducer(producerId);
+                setOneCheckboxCategory(categoryId);
+                setOneCheckboxPrice(priceId);
+
+                var leftPriceInterval = 0;
+                var rightPriceInterval = 0;
+
+                if (priceId == pricesArray.length) {
+                    leftPriceInterval = pricesArray[priceId - 1];
+                }
+                if (priceId != "0" && priceId != pricesArray.length) {
+                    var leftPriceInterval = pricesArray[priceId - 1];
+                    var rightPriceInterval = pricesArray[priceId];
+                }
+                loadServerPartialView("#products-container", "/Products/Filter?producerId=" + producerId + "&categoryId=" + categoryId + "&leftPriceInterval=" + leftPriceInterval + "&rightPriceInterval=" + rightPriceInterval);
+            });
+
+        }
+    </script>
+}

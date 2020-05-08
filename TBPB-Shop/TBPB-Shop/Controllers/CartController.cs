@@ -30,7 +30,7 @@ namespace TBPB_Shop.Controllers
 
                 var viewModel = new CartViewModel
                 {
-                    CartId = cartId,
+                    CartId = cartId,    
                     Products = cartService.GetAllProducts(cartId.ToString()),
                 };
 

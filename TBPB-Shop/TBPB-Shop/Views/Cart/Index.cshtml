@@ -3,16 +3,15 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>
-    <strong>My Cart: </strong>
-</h2>
+<h2>My Cart:</h2>
 
 @if (!Model.Products.Any())
 {
-    <h3>
-        No items added to cart.
-        <a asp-controller="Products" asp-action="Index"> Go to products </a>
-    </h3>
+<h4 style="color: #ef2809;">No items added to cart.</h4>
+<div style="margin: 15px 0px;">
+    <a class="btn btn-primary" asp-controller="Products" asp-action="Index"> Go to products </a>
+</div>
+    
 }
 else
 {
@@ -117,10 +116,11 @@ else
                                 <span id="int-price-product-@item.Id" class="money-int"></span>
                                 <sup id="decimal-price-product-@item.Id" class="money-decimal"></sup>
                                 <span class="money-currency"> Lei </span>
+                                
                             </div>
 
                             <div class="move-to-favorites">
-                                <a href=""> Move to Favorites </a>
+                                <a asp-controller="Favorites" asp-action="AddProduct" asp-route-productId="@item.Product.Id"> Move to Favorites </a>
                             </div>
 
                             <div class="delete-product-from-cart">
@@ -179,7 +179,12 @@ else
 
             var decimalPriceProductId = "decimal-price-product-" + productId;
             var decimalPriceProduct = document.getElementById(decimalPriceProductId);
-            decimalPriceProduct.innerHTML = getCommaPart(priceValue * quantity);
+            if (getCommaPart(priceValue * quantity) < 10) {
+                var value = "0" + getCommaPart(priceValue * quantity);
+                decimalPriceProduct.innerHTML = value;
+            }else {
+                decimalPriceProduct.innerHTML = getCommaPart(priceValue * quantity);
+            }
         }
 
 
