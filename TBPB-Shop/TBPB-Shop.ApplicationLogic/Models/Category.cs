@@ -9,7 +9,6 @@ namespace TBPB_Shop.ApplicationLogic.Models
     {
         public string Name { get; private set; }
         public string Description { get; private set; }
-        //public List<Product> Products { get; private set; }
 
         private Category()
         { }
@@ -26,16 +25,13 @@ namespace TBPB_Shop.ApplicationLogic.Models
             return category;
         }
 
-        public static Category CreateForUpdate(Guid id, string name, string description)
+        public void CreateForUpdate(string name, string description)
         {
-            Category category = new Category
-            {
-                Id = id,
-                Name = name,
-                Description = description
-            };
 
-            return category;
+            this.Name = name;
+            this.Description = description;
+            
+
         }
     }
 }

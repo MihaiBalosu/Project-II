@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 using TBPB_Shop.ApplicationLogic.Abstractions;
 using TBPB_Shop.ApplicationLogic.Models;
@@ -43,7 +44,8 @@ namespace TBPB_Shop.ApplicationLogic.Services
 
         public void Update(Guid id, string name, string description)
         {
-            Category category = Category.CreateForUpdate(id, name, description);
+            var category = categoryRepository.GetById(id);
+            category.CreateForUpdate(name, description);
             categoryRepository.Update(category);
         }
 
