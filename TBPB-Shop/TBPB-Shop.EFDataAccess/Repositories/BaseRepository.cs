@@ -52,7 +52,8 @@ namespace TBPB_Shop.EFDataAccess.Repositories
         {
             var entity = dbContext.Update<T>(itemToUpdate);
             dbContext.SaveChanges();
-            return null;
+            return itemToUpdate;
         }
+
     }
 }

@@ -10,14 +10,14 @@ namespace TBPB_Shop.UnitTests
         [TestMethod]
         public void CreateProduct_Return_NewProduct()
         {
-            //Arrange - Define testing context - initializezi ob de care ai nevoie pt a folosi metoda
+            //Arrange
             string name = "Product";
             decimal price = 1;
             int quantityOnStock = 10;
             Guid categoryId = Guid.NewGuid();
             Guid producerId = Guid.NewGuid();
 
-            //Act - 
+            //Act
             var product = Product.Create(name, price, quantityOnStock, categoryId, producerId);
 
             //Assert
@@ -36,19 +36,21 @@ namespace TBPB_Shop.UnitTests
             var OldPrice = prodObj.Price;
             var oldQuantity = prodObj.QuantityOnStoc;
             var oldCategoryId = prodObj.CategoryId;
-            //Arrange - Define testing context - initializezi ob de care ai nevoie pt a folosi metoda
+
+            //Arrange
             string name = "Product";
             decimal price = 1;
             int quantityOnStock = 10;
             Guid categoryId = Guid.NewGuid();
-            //Act - 
+
+            //Act
             prodObj.CreateUpdate(name, price, quantityOnStock, categoryId);
+
             //Assert
             Assert.AreNotEqual(prodObj.Name, OldName);
             Assert.AreNotEqual(prodObj.Price, OldPrice);
             Assert.AreNotEqual(prodObj.QuantityOnStoc, oldQuantity);
             Assert.AreNotEqual(prodObj.CategoryId, oldCategoryId);
-
         }
     }
 }
