@@ -12,7 +12,12 @@ namespace TBPB_Shop.EFDataAccess.Repositories
 
         public EFCategoryRepository(ShopDbContext dbContext) : base(dbContext)
         {
+        }
 
+        public Category Create(string name, string description)
+        {
+            var category = Category.Create(name, description);
+            return Add(category);
         }
 
         public IEnumerable<Product> getProductsForCategory(Guid id)

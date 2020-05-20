@@ -25,13 +25,12 @@ namespace TBPB_Shop.ApplicationLogic.Models
             return category;
         }
 
-        public void CreateForUpdate(string name, string description)
+        public Category CreateForUpdate(string name, string description)
         {
 
             this.Name = name;
             this.Description = description;
-            
-
+            return this;
         }
     }
 }

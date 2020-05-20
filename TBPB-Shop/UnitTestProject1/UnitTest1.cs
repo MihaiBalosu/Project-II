@@ -30,8 +30,8 @@ namespace UnitTests1
 
             categoryObject.CreateForUpdate(newCategoryName, newCategoryDescriptio);
 
-            Assert.AreNotEqual(categoryObject.Name, initialCategoryName);
-            Assert.AreNotEqual(categoryObject.Description, initialCategoryDescription);
+            Assert.AreEqual(categoryObject.Name, newCategoryName);
+            Assert.AreEqual(categoryObject.Description, newCategoryDescriptio);
         }
 
     }

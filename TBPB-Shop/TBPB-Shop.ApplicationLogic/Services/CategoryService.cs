@@ -21,8 +21,7 @@ namespace TBPB_Shop.ApplicationLogic.Services
 
         public Category Add(string name, string description)
         {
-            var product = Category.Create(name, description);
-            return categoryRepository.Add(product);
+            return categoryRepository.Create(name, description);
         }
 
         public IEnumerable<Category> GetAll()
@@ -42,11 +41,11 @@ namespace TBPB_Shop.ApplicationLogic.Services
             categoryRepository.Remove(id);  
         }
 
-        public void Update(Guid id, string name, string description)
+        public Category Update(Guid id, string name, string description)
         {
             var category = categoryRepository.GetById(id);
             category.CreateForUpdate(name, description);
-            categoryRepository.Update(category);
+            return categoryRepository.Update(category);
         }
 
         public Category getById(Guid id)

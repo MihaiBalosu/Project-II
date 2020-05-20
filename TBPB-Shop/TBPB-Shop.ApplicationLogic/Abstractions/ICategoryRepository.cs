@@ -8,5 +8,6 @@ namespace TBPB_Shop.ApplicationLogic.Abstractions
     public interface ICategoryRepository : IRepository<Category>
     {
         IEnumerable<Product> getProductsForCategory(Guid id);
+        Category Create(string name, string description);
     }
 }

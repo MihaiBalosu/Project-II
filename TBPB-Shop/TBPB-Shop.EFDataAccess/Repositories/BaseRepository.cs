@@ -20,7 +20,7 @@ namespace TBPB_Shop.EFDataAccess.Repositories
         {
             var entity = dbContext.Add<T>(itemToAdd);
             dbContext.SaveChanges();
-            return entity.Entity;
+            return itemToAdd;
         }
 
         public IEnumerable<T> GetAll()
@@ -52,7 +52,7 @@ namespace TBPB_Shop.EFDataAccess.Repositories
         {
             var entity = dbContext.Update<T>(itemToUpdate);
             dbContext.SaveChanges();
-            return null;
+            return itemToUpdate;
         }
     }
 }
