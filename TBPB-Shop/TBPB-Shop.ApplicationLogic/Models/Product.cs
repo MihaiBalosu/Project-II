@@ -36,15 +36,15 @@ namespace TBPB_Shop.ApplicationLogic.Models{
             return product;
         }
 
-        public void CreateUpdate(Guid Id, string name, decimal price, int quantityOnStoc, Guid categoryId)
+        public Product CreateUpdate(string name, decimal price, int quantityOnStoc, Guid categoryId)
         {
-
             this.Name = name;
             this.Price = price;
             this.QuantityOnStoc = quantityOnStoc;
             this.WarrantyOneYear = price / 10;
             this.WarrantyTwoYears = (price * 17) / 100;
             this.CategoryId = categoryId;
+            return this;
         }
 
         public int UpdateQuantityOnStoc(int quantity)

@@ -33,7 +33,7 @@ namespace TBPB_Shop.ApplicationLogic.Services
             Guid.TryParse(id, out productId);
 
             var product = productRepository.GetById(productId);
-            product.CreateUpdate(productId, name, price, quantityOnStoc, categoryId);
+            product.CreateUpdate(name, price, quantityOnStoc, categoryId);
             return productRepository.Update(product);
         }
 

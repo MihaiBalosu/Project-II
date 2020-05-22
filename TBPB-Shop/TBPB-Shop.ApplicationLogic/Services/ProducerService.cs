@@ -28,9 +28,10 @@ namespace TBPB_Shop.ApplicationLogic.Services
             return producerRepository.Create(name);
         }
 
-        public Producer Update(Guid Id, string name)
+        public Producer Update(Guid id, string name)
         {
-            Producer producerObj = Producer.CreateUpdate(Id, name);
+            var producerObj = producerRepository.GetById(id);
+            producerObj.CreateUpdate(name);
             return producerRepository.Update(producerObj);
         }
 

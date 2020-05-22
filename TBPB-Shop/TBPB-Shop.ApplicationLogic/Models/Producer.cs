@@ -10,7 +10,7 @@ namespace TBPB_Shop.ApplicationLogic.Models
         public string Name { get; private set; }
         //public virtual ICollection<Product> Products { get; private set; }
 
-        private Producer()
+        public Producer()
         { }
 
         public static Producer Create(string name)
@@ -22,16 +22,10 @@ namespace TBPB_Shop.ApplicationLogic.Models
             };
             return producer;
         }
-        public static Producer CreateUpdate(Guid id, string name)
+        public Producer CreateUpdate(string name)
         {
-            Producer producer = new Producer
-            {
-                Id = id,
-                Name = name
-            };
-            return producer;
+            this.Name = name;
+            return this;
         }
-
-        
     }
 }
